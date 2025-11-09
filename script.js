@@ -51,194 +51,45 @@ function drawStars() {
 resizeCanvas();
 createStars();
 drawStars();
+window.addEventListener('resize', () => { resizeCanvas(); createStars(); });
 
-window.addEventListener('resize', () => {
-    resizeCanvas();
-    createStars();
-});
-
-// Cursor مخصص مع توهج
+// Cursor Glow
 const cursorGlow = document.querySelector('.cursor-glow');
-let mouseX = 0;
-let mouseY = 0;
-let cursorX = 0;
-let cursorY = 0;
-
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
-
+let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
 function animateCursor() {
     cursorX += (mouseX - cursorX) * 0.1;
     cursorY += (mouseY - cursorY) * 0.1;
-    
     cursorGlow.style.left = cursorX + 'px';
     cursorGlow.style.top = cursorY + 'px';
-    
     requestAnimationFrame(animateCursor);
 }
-
 animateCursor();
 
-// زر الموسيقى
+// Music Button
 const musicBtn = document.getElementById('musicBtn');
 const bgMusic = document.getElementById('bgMusic');
 let isPlaying = false;
-
 musicBtn.addEventListener('click', () => {
-    if (isPlaying) {
-        bgMusic.pause();
-        musicBtn.classList.remove('playing');
-        isPlaying = false;
-    } else {
-        bgMusic.play();
-        musicBtn.classList.add('playing');
-        isPlaying = true;
-    }
+    if (isPlaying) { bgMusic.pause(); musicBtn.classList.remove('playing'); isPlaying=false; }
+    else { bgMusic.play(); musicBtn.classList.add('playing'); isPlaying=true; }
 });
 
-// Animation للأرقام (Counter)
+// Animated Counters
 function animateNumbers() {
     const counters = document.querySelectorAll('.stat-number');
-    
     counters.forEach(counter => {
         const target = parseInt(counter.getAttribute('data-target'));
         const duration = 2000;
         const increment = target / (duration / 16);
         let current = 0;
-        
         const updateCounter = () => {
             current += increment;
-            if (current < target) {
-                counter.textContent = Math.floor(current).toLocaleString('ar-EG');
-                requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = target.toLocaleString('ar-EG');
-            }
+            if (current < target) { counter.textContent = Math.floor(current).toLocaleString('ar-EG'); requestAnimationFrame(updateCounter); }
+            else { counter.textContent = target.toLocaleString('ar-EG'); }
         };
-        
         updateCounter();
     });
 }
-
-// Intersection Observer للأرقام
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            animateNumbers();
-            statsObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-const statsContainer = document.querySelector('.stats-container');
-if (statsContainer) {
-    statsObserver.observe(statsContainer);
-}
-
-// Animation للبطاقات عند الدخول
-const cardObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-            }, index * 100);
-            cardObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1 });
-
-const cards = document.querySelectorAll('.card-3d');
-cards.forEach(card => {
-    card.style.opacity = '0';
-    cardObserver.observe(card);
-});
-
-// CSS Animation للبطاقات
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// إخفاء scroll indicator عند السكرول
-const scrollIndicator = document.querySelector('.scroll-indicator');
-let lastScroll = 0;
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        scrollIndicator.style.opacity = '0';
-        scrollIndicator.style.pointerEvents = 'none';
-    } else {
-        scrollIndicator.style.opacity = '1';
-        scrollIndicator.style.pointerEvents = 'auto';
-    }
-    
-    lastScroll = currentScroll;
-});
-
-// تأثير parallax خفيف للـ hero section
-const heroSection = document.querySelector('.hero-section');
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    if (heroSection) {
-        heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
-        heroSection.style.opacity = 1 - (scrolled / 800);
-    }
-});
-
-// تأثير 3D للبطاقات مع الماوس
-cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-    });
-});
-
-// إضافة تأثيرات صوتية عند hover على البطاقات (optional)
-cards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-    });
-});
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-console.log('🐱 ٱل مياو - القبيلة الأسطورية! ✨');
+const statsObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if(entry.isIntersecting){ animateNumbers(); statsObserver.unobserve(entry.target); } }); }, { threshold: 0.5 });
+const statsContainer = document.querySelector('.stats-container'); if(statsContainer) statsObserver.observe(statsContainer);
