@@ -94,8 +94,6 @@ function initStars() {
         resizeCanvas();
         createStars();
     });
-    
-    console.log('✅ النجوم المتحركة جاهزة');
 }
 
 // 2. تأثير المؤشر
@@ -118,27 +116,20 @@ function initCursor() {
         requestAnimationFrame(animateCursor);
     }
     animateCursor();
-    
-    console.log('✅ تأثير المؤشر جاهز');
 }
 
-// 3. زر الموسيقى - إصلاح كامل
+// 3. زر الموسيقى - محدث
 function initMusic() {
     const musicBtn = document.getElementById('musicBtn');
-    if (!musicBtn) {
-        console.log('❌ زر الموسيقى غير موجود');
-        return;
-    }
+    if (!musicBtn) return;
 
     let isPlaying = false;
     const bgMusic = new Audio();
 
-    // إعدادات الموسيقى
     bgMusic.loop = true;
     bgMusic.volume = 0.5;
-    
-    // استخدام ملف صوتي افتراضي (يمكنك تغييره)
-    bgMusic.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+    // تم التغيير هنا: استخدام ملف محلي بدلاً من الرابط الخارجي
+    bgMusic.src = 'music.mp3';
 
     musicBtn.addEventListener('click', function(e) {
         e.preventDefault();
@@ -160,7 +151,7 @@ function initMusic() {
                 console.log('▶️ تم تشغيل الموسيقى');
             }).catch(error => {
                 console.error('❌ خطأ في تشغيل الموسيقى:', error);
-                alert('⚠️ يرجى السماح بتشغيل الصوت في الموقع');
+                alert('⚠️ يرجى السماح بتشغيل الصوت في الموقع أو التأكد من وجود ملف music.mp3');
             });
         }
     });
@@ -169,7 +160,8 @@ function initMusic() {
     bgMusic.addEventListener('error', function(e) {
         console.error('❌ خطأ في تحميل الملف الصوتي');
         musicBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
-        musicBtn.title = 'خطأ في تحميل الموسيقى';
+        musicBtn.title = 'خطأ في تحميل الموسيقى - تأكد من وجود ملف music.mp3';
+        musicBtn.style.cursor = 'not-allowed';
     });
 
     console.log('✅ زر الموسيقى جاهز');
@@ -210,10 +202,9 @@ function initCounters() {
     }, { threshold: 0.5 });
 
     statsObserver.observe(statsContainer);
-    console.log('✅ العدادات الرقمية جاهزة');
 }
 
-// 5. تأثيرات البطاقات
+// 5. تأثيرات البطاقات - الإصلاح الرئيسي
 function initCards() {
     const cards = document.querySelectorAll('.card-3d');
     if (cards.length === 0) return;
@@ -251,23 +242,53 @@ function initCards() {
         cardObserver.observe(card);
     });
 
-    // تأثير قلب البطاقات
+    // تأثير قلب البطاقات - الإصلاح هنا
     cards.forEach(card => {
         let isCardFlipped = false;
         
+        // النقر على البطاقة لقلبها (فقط على الأجزاء غير النشطة)
         card.addEventListener('click', function(e) {
-            // منع النقر على الروابط والأزرار من قلب البطاقة
+            // إذا كان النقر على رابط أو زر، لا تقلب البطاقة
             if (e.target.closest('a') || e.target.closest('button')) {
+                console.log('🖱️ النقر على رابط/زر - لا قلب البطاقة');
                 return;
             }
             
+            console.log('🔄 قلب البطاقة');
             const cardInner = this.querySelector('.card-inner');
             isCardFlipped = !isCardFlipped;
             cardInner.style.transform = isCardFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
         });
     });
 
-    console.log('✅ تأثيرات البطاقات جاهزة');
+    // إصلاح روابط تيك توك - الإصلاح الرئيسي هنا
+    fixTikTokLinks();
+}
+
+// إصلاح روابط تيك توك
+function fixTikTokLinks() {
+    const tiktokLinks = document.querySelectorAll('.card-link[href*="tiktok.com"]');
+    
+    console.log(`🔗 عدد روابط تيك توك: ${tiktokLinks.length}`);
+    
+    tiktokLinks.forEach(link => {
+        // إزالة أي event listeners سابقة
+        const newLink = link.cloneNode(true);
+        link.parentNode.replaceChild(newLink, link);
+        
+        // إضافة event listener جديدة
+        newLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const url = this.getAttribute('href');
+            console.log(`🔗 فتح رابط تيك توك: ${url}`);
+            
+            if (url && url.startsWith('http')) {
+                window.open(url, '_blank', 'noopener,noreferrer');
+            }
+        });
+    });
 }
 
 // 6. شريط التقدم
@@ -282,8 +303,6 @@ function initProgressBar() {
         const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
         progressBar.style.width = scrollPercent + '%';
     });
-
-    console.log('✅ شريط التقدم جاهز');
 }
 
 // 7. زر العودة للأعلى
@@ -306,8 +325,6 @@ function initBackToTop() {
             behavior: 'smooth'
         });
     });
-
-    console.log('✅ زر العودة للأعلى جاهز');
 }
 
 // 8. نسخ الآيدي
@@ -323,13 +340,11 @@ function initCopyButtons() {
             e.stopPropagation();
             
             const id = this.getAttribute('data-id');
-            console.log(`📋 محاولة نسخ: ${id}`);
+            console.log(`📋 نسخ الآيدي: ${id}`);
 
-            // استخدام Clipboard API
             navigator.clipboard.writeText(id).then(() => {
                 showNotification('تم نسخ الآيدي بنجاح!');
             }).catch(err => {
-                console.error('❌ فشل في النسخ:', err);
                 // طريقة بديلة للنسخ
                 const textArea = document.createElement('textarea');
                 textArea.value = id;
@@ -351,13 +366,10 @@ function initCopyButtons() {
             }, 3000);
         }
     }
-
-    console.log('✅ أزرار نسخ الآيدي جاهزة');
 }
 
 // 9. تأثيرات التمرير
 function initScrollEffects() {
-    // مؤشر التمرير
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
         window.addEventListener('scroll', () => {
@@ -367,7 +379,6 @@ function initScrollEffects() {
         });
     }
 
-    // تأثير البارالاكس
     const heroSection = document.querySelector('.hero-section');
     if (heroSection) {
         window.addEventListener('scroll', () => {
@@ -377,7 +388,6 @@ function initScrollEffects() {
         });
     }
 
-    // التمرير السلس للروابط الداخلية
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -391,40 +401,7 @@ function initScrollEffects() {
             }
         });
     });
-
-    console.log('✅ تأثيرات التمرير جاهزة');
 }
-
-// 10. إصلاح جميع روابط تيك توك
-function fixTikTokLinks() {
-    const tiktokLinks = document.querySelectorAll('.card-link');
-    
-    tiktokLinks.forEach(link => {
-        // إزالة أي event listeners سابقة
-        link.replaceWith(link.cloneNode(true));
-    });
-
-    // إضافة event listeners جديدة
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.card-link')) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const link = e.target.closest('.card-link');
-            const url = link.getAttribute('href');
-            
-            if (url && url.startsWith('http')) {
-                console.log(`🔗 فتح رابط تيك توك: ${url}`);
-                window.open(url, '_blank', 'noopener,noreferrer');
-            }
-        }
-    });
-
-    console.log('✅ روابط تيك توك جاهزة');
-}
-
-// إصلاح الروابط بعد تحميل الصفحة
-setTimeout(fixTikTokLinks, 1000);
 
 // إعادة تهيئة عند تغيير الحجم
 window.addEventListener('resize', function() {
