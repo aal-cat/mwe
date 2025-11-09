@@ -141,20 +141,31 @@ window.addEventListener('scroll', ()=>{
     if(heroSection){ heroSection.style.transform = `translateY(${scrolled*0.5}px)`; heroSection.style.opacity=1-(scrolled/800);}
 });
 
-// تأثير 3D للبطاقات
+// تأثير 3D للبطاقات - محدث لحل مشكلة العودة السريعة
+let isCardFlipped = false;
 cards.forEach(card=>{
-    card.addEventListener('mousemove', e=>{
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX-rect.left;
-        const y = e.clientY-rect.top;
-        const centerX=rect.width/2;
-        const centerY=rect.height/2;
-        const rotateX = (y-centerY)/10;
-        const rotateY = (centerX-x)/10;
-        card.style.transform=`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    card.addEventListener('click', function(e) {
+        // منع النقر على الروابط من قلب البطاقة
+        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+            return;
+        }
+        
+        const cardInner = this.querySelector('.card-inner');
+        isCardFlipped = !isCardFlipped;
+        cardInner.style.transform = isCardFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
     });
-    card.addEventListener('mouseleave', ()=>{card.style.transform='perspective(1000px) rotateX(0) rotateY(0) scale(1)';});
-    card.addEventListener('mouseenter', ()=>{ card.style.transition='all 0.3s cubic-bezier(0.4,0,0.2,1)'; });
+    
+    card.addEventListener('mouseenter', function() {
+        if (!isCardFlipped) {
+            this.style.transition = 'all 0.3s cubic-bezier(0.4,0,0.2,1)';
+        }
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        if (!isCardFlipped) {
+            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        }
+    });
 });
 
 // Smooth scroll
@@ -192,7 +203,8 @@ backToTopBtn.addEventListener('click', () => {
 // نسخ الآيدي
 const notification = document.getElementById('notification');
 document.querySelectorAll('.copy-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation(); // منع انتشار الحدث للبطاقة
         const id = this.getAttribute('data-id');
         navigator.clipboard.writeText(id).then(() => {
             // إظهار الإشعار
