@@ -63,96 +63,25 @@ animateCursor();
 
 // زر الموسيقى
 const musicBtn = document.getElementById('musicBtn');
-const bgMusic = document.getElementById('bgMusic');
+const bgMusic = document.createElement('audio');
+bgMusic.loop = true;
+// يمكن إضافة مصدر للموسيقى هنا
+// bgMusic.src = 'music.mp3';
 let isPlaying = false;
 musicBtn.addEventListener('click', () => {
-    if(isPlaying){ bgMusic.pause(); musicBtn.classList.remove('playing'); isPlaying=false;}
-    else{ bgMusic.play(); musicBtn.classList.add('playing'); isPlaying=true;}
+    if(isPlaying){ 
+        bgMusic.pause(); 
+        musicBtn.classList.remove('playing'); 
+        isPlaying=false;
+    }
+    else{ 
+        bgMusic.play().catch(e => console.log('لم يتم تحميل الموسيقى: ', e)); 
+        musicBtn.classList.add('playing'); 
+        isPlaying=true;
+    }
 });
 
 // Counter للأرقام
 function animateNumbers() {
     document.querySelectorAll('.stat-number').forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
-        const duration = 2000;
-        const increment = target / (duration / 16);
-        let current = 0;
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                counter.textContent = Math.floor(current).toLocaleString('ar-EG');
-                requestAnimationFrame(updateCounter);
-            } else { counter.textContent = target.toLocaleString('ar-EG'); }
-        };
-        updateCounter();
-    });
-}
-const statsObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting){ animateNumbers(); statsObserver.unobserve(entry.target);}
-    });
-}, {threshold:0.5});
-const statsContainer = document.querySelector('.stats-container');
-if(statsContainer) statsObserver.observe(statsContainer);
-
-// Animation البطاقات
-const cardObserver = new IntersectionObserver(entries => {
-    entries.forEach((entry,index) => {
-        if(entry.isIntersecting){
-            setTimeout(()=>{entry.target.style.animation='fadeInUp 0.6s ease forwards';}, index*100);
-            cardObserver.unobserve(entry.target);
-        }
-    });
-},{threshold:0.1});
-const cards = document.querySelectorAll('.card-3d');
-cards.forEach(card => { card.style.opacity='0'; cardObserver.observe(card); });
-
-// CSS Animation للبطاقات
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(50px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-`;
-document.head.appendChild(style);
-
-// scroll indicator
-const scrollIndicator = document.querySelector('.scroll-indicator');
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    scrollIndicator.style.opacity = currentScroll>100 ? '0':'1';
-    scrollIndicator.style.pointerEvents = currentScroll>100 ? 'none':'auto';
-});
-
-// parallax hero
-const heroSection = document.querySelector('.hero-section');
-window.addEventListener('scroll', ()=>{
-    const scrolled = window.pageYOffset;
-    if(heroSection){ heroSection.style.transform = `translateY(${scrolled*0.5}px)`; heroSection.style.opacity=1-(scrolled/800);}
-});
-
-// تأثير 3D للبطاقات
-cards.forEach(card=>{
-    card.addEventListener('mousemove', e=>{
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX-rect.left;
-        const y = e.clientY-rect.top;
-        const centerX=rect.width/2;
-        const centerY=rect.height/2;
-        const rotateX = (y-centerY)/10;
-        const rotateY = (centerX-x)/10;
-        card.style.transform=`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-    });
-    card.addEventListener('mouseleave', ()=>{card.style.transform='perspective(1000px) rotateX(0) rotateY(0) scale(1)';});
-    card.addEventListener('mouseenter', ()=>{ card.style.transition='all 0.3s cubic-bezier(0.4,0,0.2,1)'; });
-});
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
-    anchor.addEventListener('click', function(e){
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
-    });
-});
+        const target = parseInt(counter.getAttribute('
