@@ -1,52 +1,49 @@
-// تهيئة الصفحة عند التحميل
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== بدء تحميل الموقع ===');
-    initWebsite();
+// الانتظار حتى تحميل الصفحة بالكامل
+window.addEventListener('load', function() {
+    console.log('🚀 بدء تحميل الموقع...');
+    initializeAllFunctions();
 });
 
-function initWebsite() {
-    // 1. النجوم المتحركة
-    initStars();
+function initializeAllFunctions() {
+    // 1. تهيئة النجوم
+    initializeStars();
     
-    // 2. تأثير المؤشر
-    initCursor();
+    // 2. تهيئة المؤشر
+    initializeCursor();
     
-    // 3. زر الموسيقى
-    initMusic();
+    // 3. تهيئة زر الموسيقى
+    initializeMusicPlayer();
     
-    // 4. العدادات الرقمية
-    initCounters();
+    // 4. تهيئة العدادات
+    initializeCounters();
     
-    // 5. تأثيرات البطاقات
-    initCards();
+    // 5. تهيئة البطاقات
+    initializeCards();
     
-    // 6. شريط التقدم
-    initProgressBar();
+    // 6. تهيئة شريط التقدم
+    initializeProgressBar();
     
-    // 7. زر العودة للأعلى
-    initBackToTop();
+    // 7. تهيئة زر العودة للأعلى
+    initializeBackToTop();
     
-    // 8. نسخ الآيدي
-    initCopyButtons();
+    // 8. تهيئة أزرار النسخ
+    initializeCopyButtons();
     
-    // 9. تأثيرات التمرير
-    initScrollEffects();
-    
-    console.log('✅ تم تهيئة جميع المكونات بنجاح');
+    console.log('✅ تم تحميل جميع المكونات بنجاح!');
 }
 
 // 1. النجوم المتحركة
-function initStars() {
+function initializeStars() {
     const canvas = document.getElementById('starsCanvas');
     if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
     let stars = [];
-    const starCount = 200;
+    const starCount = 150;
 
-    function resizeCanvas() {
+    function setupCanvas() {
         canvas.width = window.innerWidth;
-        canvas.height = document.documentElement.scrollHeight;
+        canvas.height = window.documentElement.scrollHeight;
     }
 
     function createStars() {
@@ -55,270 +52,220 @@ function initStars() {
             stars.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 2,
-                speedX: (Math.random() - 0.5) * 0.5,
-                speedY: (Math.random() - 0.5) * 0.5,
-                opacity: Math.random()
+                radius: Math.random() * 1.5,
+                speed: Math.random() * 0.5,
+                opacity: Math.random() * 0.8 + 0.2
             });
         }
     }
 
     function drawStars() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(10, 5, 30, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
         stars.forEach(star => {
             ctx.beginPath();
             ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
             ctx.fill();
             
-            star.x += star.speedX;
-            star.y += star.speedY;
-            
-            if (star.x < 0) star.x = canvas.width;
-            if (star.x > canvas.width) star.x = 0;
-            if (star.y < 0) star.y = canvas.height;
-            if (star.y > canvas.height) star.y = 0;
+            star.y += star.speed;
+            if (star.y > canvas.height) {
+                star.y = 0;
+                star.x = Math.random() * canvas.width;
+            }
             
             star.opacity += (Math.random() - 0.5) * 0.02;
-            if (star.opacity < 0.3) star.opacity = 0.3;
-            if (star.opacity > 1) star.opacity = 1;
+            star.opacity = Math.max(0.2, Math.min(1, star.opacity));
         });
+        
         requestAnimationFrame(drawStars);
     }
 
-    resizeCanvas();
+    setupCanvas();
     createStars();
     drawStars();
     
-    window.addEventListener('resize', () => {
-        resizeCanvas();
+    window.addEventListener('resize', function() {
+        setupCanvas();
         createStars();
     });
 }
 
 // 2. تأثير المؤشر
-function initCursor() {
-    const cursorGlow = document.querySelector('.cursor-glow');
-    if (!cursorGlow) return;
+function initializeCursor() {
+    const cursor = document.querySelector('.cursor-glow');
+    if (!cursor) return;
     
-    let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
-
-    document.addEventListener('mousemove', e => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+    document.addEventListener('mousemove', function(e) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
     });
-
-    function animateCursor() {
-        cursorX += (mouseX - cursorX) * 0.1;
-        cursorY += (mouseY - cursorY) * 0.1;
-        cursorGlow.style.left = cursorX + 'px';
-        cursorGlow.style.top = cursorY + 'px';
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
 }
 
-// 3. زر الموسيقى - محدث
-function initMusic() {
-    const musicBtn = document.getElementById('musicBtn');
-    if (!musicBtn) return;
+// 3. زر الموسيقى - الإصلاح الكامل
+function initializeMusicPlayer() {
+    const musicButton = document.getElementById('musicBtn');
+    if (!musicButton) {
+        console.log('❌ زر الموسيقى غير موجود');
+        return;
+    }
 
+    // إنشاء عنصر الصوت
+    const audio = new Audio();
+    audio.loop = true;
+    audio.volume = 0.7;
+    
+    // استخدام ملف محلي
+    audio.src = 'music.mp3';
+    
     let isPlaying = false;
-    const bgMusic = new Audio();
 
-    bgMusic.loop = true;
-    bgMusic.volume = 0.5;
-    // تم التغيير هنا: استخدام ملف محلي بدلاً من الرابط الخارجي
-    bgMusic.src = 'music.mp3';
-
-    musicBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    musicButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
         
-        console.log('🎵 النقر على زر الموسيقى');
-
+        console.log('🎵 تم النقر على زر الموسيقى');
+        
         if (isPlaying) {
             // إيقاف الموسيقى
-            bgMusic.pause();
-            musicBtn.classList.remove('playing');
+            audio.pause();
+            musicButton.classList.remove('playing');
             isPlaying = false;
             console.log('⏸️ تم إيقاف الموسيقى');
         } else {
             // تشغيل الموسيقى
-            bgMusic.play().then(() => {
-                musicBtn.classList.add('playing');
-                isPlaying = true;
-                console.log('▶️ تم تشغيل الموسيقى');
-            }).catch(error => {
-                console.error('❌ خطأ في تشغيل الموسيقى:', error);
-                alert('⚠️ يرجى السماح بتشغيل الصوت في الموقع أو التأكد من وجود ملف music.mp3');
-            });
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicButton.classList.add('playing');
+                    isPlaying = true;
+                    console.log('▶️ تم تشغيل الموسيقى');
+                }).catch(error => {
+                    console.error('❌ خطأ في التشغيل:', error);
+                    alert('🔊 يرجى السماح بتشغيل الصوت في الموقع');
+                });
+            }
         }
     });
 
-    // التعامل مع أخطاء الصوت
-    bgMusic.addEventListener('error', function(e) {
-        console.error('❌ خطأ في تحميل الملف الصوتي');
-        musicBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
-        musicBtn.title = 'خطأ في تحميل الموسيقى - تأكد من وجود ملف music.mp3';
-        musicBtn.style.cursor = 'not-allowed';
+    // التعامل مع الأخطاء
+    audio.addEventListener('error', function(e) {
+        console.error('❌ خطأ في ملف الصوت:', e);
+        musicButton.innerHTML = '❌';
+        musicButton.title = 'ملف الموسيقى غير موجود';
     });
-
-    console.log('✅ زر الموسيقى جاهز');
 }
 
 // 4. العدادات الرقمية
-function initCounters() {
-    const statsContainer = document.querySelector('.stats-container');
-    if (!statsContainer) return;
+function initializeCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    if (counters.length === 0) return;
 
-    function animateNumbers() {
-        document.querySelectorAll('.stat-number').forEach(counter => {
-            const target = parseInt(counter.getAttribute('data-target'));
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
+    function animateCounter(counter) {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
 
-            const updateCounter = () => {
-                current += increment;
-                if (current < target) {
-                    counter.textContent = Math.floor(current).toLocaleString('ar-EG');
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    counter.textContent = target.toLocaleString('ar-EG');
-                }
-            };
-            updateCounter();
-        });
+        function update() {
+            current += step;
+            if (current < target) {
+                counter.textContent = Math.floor(current).toLocaleString();
+                requestAnimationFrame(update);
+            } else {
+                counter.textContent = target.toLocaleString();
+            }
+        }
+        update();
     }
 
-    const statsObserver = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                animateNumbers();
-                statsObserver.unobserve(entry.target);
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.5 });
 
-    statsObserver.observe(statsContainer);
+    counters.forEach(counter => observer.observe(counter));
 }
 
-// 5. تأثيرات البطاقات - الإصلاح الرئيسي
-function initCards() {
+// 5. البطاقات - الإصلاح الكامل
+function initializeCards() {
     const cards = document.querySelectorAll('.card-3d');
-    if (cards.length === 0) return;
-
-    // إضافة أنيميشن fadeInUp
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(50px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
-        }
-    `;
-    document.head.appendChild(style);
-
-    // تأثير الظهور
-    const cardObserver = new IntersectionObserver(entries => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-                }, index * 100);
-                cardObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
+    
     cards.forEach(card => {
+        // تأثير الظهور
         card.style.opacity = '0';
-        cardObserver.observe(card);
-    });
-
-    // تأثير قلب البطاقات - الإصلاح هنا
-    cards.forEach(card => {
-        let isCardFlipped = false;
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, 100);
         
-        // النقر على البطاقة لقلبها (فقط على الأجزاء غير النشطة)
+        // تأثير القلب عند النقر
         card.addEventListener('click', function(e) {
-            // إذا كان النقر على رابط أو زر، لا تقلب البطاقة
-            if (e.target.closest('a') || e.target.closest('button')) {
-                console.log('🖱️ النقر على رابط/زر - لا قلب البطاقة');
+            // إذا كان النقر على رابط أو زر، توقف هنا
+            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
                 return;
             }
             
-            console.log('🔄 قلب البطاقة');
             const cardInner = this.querySelector('.card-inner');
-            isCardFlipped = !isCardFlipped;
-            cardInner.style.transform = isCardFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+            const isFlipped = cardInner.style.transform === 'rotateY(180deg)';
+            
+            cardInner.style.transform = isFlipped ? 'rotateY(0deg)' : 'rotateY(180deg)';
         });
     });
-
-    // إصلاح روابط تيك توك - الإصلاح الرئيسي هنا
-    fixTikTokLinks();
-}
-
-// إصلاح روابط تيك توك
-function fixTikTokLinks() {
-    const tiktokLinks = document.querySelectorAll('.card-link[href*="tiktok.com"]');
     
-    console.log(`🔗 عدد روابط تيك توك: ${tiktokLinks.length}`);
-    
-    tiktokLinks.forEach(link => {
-        // إزالة أي event listeners سابقة
-        const newLink = link.cloneNode(true);
-        link.parentNode.replaceChild(newLink, link);
-        
-        // إضافة event listener جديدة
-        newLink.addEventListener('click', function(e) {
+    // إصلاح روابط تيك توك - طريقة مباشرة
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.card-link')) {
             e.preventDefault();
             e.stopPropagation();
             
-            const url = this.getAttribute('href');
-            console.log(`🔗 فتح رابط تيك توك: ${url}`);
+            const link = e.target.closest('.card-link');
+            const url = link.getAttribute('href');
             
             if (url && url.startsWith('http')) {
-                window.open(url, '_blank', 'noopener,noreferrer');
+                console.log('🔗 فتح رابط تيك توك:', url);
+                window.open(url, '_blank');
             }
-        });
+        }
     });
 }
 
 // 6. شريط التقدم
-function initProgressBar() {
+function initializeProgressBar() {
     const progressBar = document.querySelector('.progress-bar');
     if (!progressBar) return;
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', function() {
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
-        progressBar.style.width = scrollPercent + '%';
+        const scrollTop = window.pageYOffset;
+        const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
+        
+        progressBar.style.width = progress + '%';
     });
 }
 
 // 7. زر العودة للأعلى
-function initBackToTop() {
-    const backToTopBtn = document.getElementById('backToTop');
-    if (!backToTopBtn) return;
+function initializeBackToTop() {
+    const backButton = document.getElementById('backToTop');
+    if (!backButton) return;
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', function() {
         if (window.pageYOffset > 300) {
-            backToTopBtn.classList.add('show');
+            backButton.classList.add('show');
         } else {
-            backToTopBtn.classList.remove('show');
+            backButton.classList.remove('show');
         }
     });
 
-    backToTopBtn.addEventListener('click', (e) => {
+    backButton.addEventListener('click', function(e) {
         e.preventDefault();
         window.scrollTo({
             top: 0,
@@ -327,27 +274,26 @@ function initBackToTop() {
     });
 }
 
-// 8. نسخ الآيدي
-function initCopyButtons() {
-    const notification = document.getElementById('notification');
+// 8. أزرار نسخ الآيدي
+function initializeCopyButtons() {
     const copyButtons = document.querySelectorAll('.copy-btn');
+    const notification = document.getElementById('notification');
     
-    if (copyButtons.length === 0) return;
-
-    copyButtons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
+    copyButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            const id = this.getAttribute('data-id');
-            console.log(`📋 نسخ الآيدي: ${id}`);
-
-            navigator.clipboard.writeText(id).then(() => {
+            const textToCopy = this.getAttribute('data-id');
+            console.log('📋 نسخ:', textToCopy);
+            
+            // نسخ إلى الحافظة
+            navigator.clipboard.writeText(textToCopy).then(() => {
                 showNotification('تم نسخ الآيدي بنجاح!');
             }).catch(err => {
                 // طريقة بديلة للنسخ
                 const textArea = document.createElement('textarea');
-                textArea.value = id;
+                textArea.value = textToCopy;
                 document.body.appendChild(textArea);
                 textArea.select();
                 document.execCommand('copy');
@@ -356,54 +302,52 @@ function initCopyButtons() {
             });
         });
     });
-
+    
     function showNotification(message) {
         if (notification) {
-            notification.querySelector('.notification-text').textContent = message;
+            notification.textContent = message;
             notification.classList.add('show');
             setTimeout(() => {
                 notification.classList.remove('show');
-            }, 3000);
+            }, 2000);
         }
     }
 }
 
-// 9. تأثيرات التمرير
-function initScrollEffects() {
+// تأثيرات إضافية
+function initializeScrollEffects() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            scrollIndicator.style.opacity = currentScroll > 100 ? '0' : '1';
-            scrollIndicator.style.pointerEvents = currentScroll > 100 ? 'none' : 'auto';
+        window.addEventListener('scroll', function() {
+            const scrollY = window.pageYOffset;
+            scrollIndicator.style.opacity = scrollY > 100 ? '0' : '1';
         });
     }
-
-    const heroSection = document.querySelector('.hero-section');
-    if (heroSection) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
-            heroSection.style.opacity = 1 - (scrolled / 800);
-        });
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const target = document.querySelector(targetId);
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
 }
 
-// إعادة تهيئة عند تغيير الحجم
-window.addEventListener('resize', function() {
-    console.log('🔄 إعادة تهيئة الموقع...');
-});
+// إضافة CSS ديناميكي للأنيميشن
+const dynamicStyles = `
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .card-3d {
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+`;
+
+const styleSheet = document.createElement('style');
+styleSheet.textContent = dynamicStyles;
+document.head.appendChild(styleSheet);
+
+// تهيئة تأثيرات التمرير
+initializeScrollEffects();
+
+console.log('🎉 تم تحميل script.js بنجاح!');
