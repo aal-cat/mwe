@@ -1,30 +1,189 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
 
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{
-    --neon-cyan:#00f0ff;
-    --neon-pink:#ff0080;
-    --neon-yellow:#ffea00;
-    --dark-bg:#0d0221;
-    --darker-bg:#0a0118;
-    --card-bg: rgba(20,5,40,0.8);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-body{
-    font-family:'Cairo',sans-serif;
-    background:var(--dark-bg);
-    color:white;
-    overflow-x:hidden;
-    cursor:none;
-    direction:rtl;
+
+:root {
+    --neon-cyan: #00f0ff;
+    --neon-pink: #ff0080;
+    --neon-yellow: #ffea00;
+    --dark-bg: #0d0221;
+    --darker-bg: #0a0118;
+    --card-bg: rgba(20, 5, 40, 0.8);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-#starsCanvas{
-    position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;
-    background: radial-gradient(ellipse at bottom,#1B2735 0%,#090A0F 100%);
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--dark-bg);
+    color: white;
+    overflow-x: hidden;
+    cursor: none;
+    direction: rtl;
 }
-.cursor-glow{
-    width:30px;height:30px;border:2px solid var(--neon-cyan);
-    border-radius:50%;position:fixed;pointer-events:none;z-index:9999;
-    box-shadow:0 0 20px var(--neon-cyan),0 0 40px var(--neon-cyan),inset 0 0 10px var(--neon-cyan);
+
+/* خلفية النجوم */
+#starsCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+}
+
+/* تأثير المؤشر */
+.cursor-glow {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--neon-cyan);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan), inset 0 0 10px var(--neon-cyan);
     transition: transform 0.15s ease;
 }
-/* ... باقي التنسيقات القديمة للـ hero, cards, footer, scroll indicator ... */
+
+/* زر الموسيقى */
+.music-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: var(--transition);
+    box-shadow: 0 0 15px var(--neon-cyan);
+}
+
+.music-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px var(--neon-cyan);
+}
+
+.music-toggle.playing {
+    background: var(--neon-cyan);
+    color: var(--dark-bg);
+}
+
+/* مؤشر التمرير */
+.scroll-indicator {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--neon-cyan);
+    z-index: 100;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.scroll-arrow {
+    font-size: 24px;
+    margin-bottom: 5px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* القسم الرئيسي */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.glitch-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-size: 5rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-pink);
+    position: relative;
+    letter-spacing: 3px;
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+}
+
+.hero-title.glitch::before,
+.hero-title.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-title.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--neon-pink);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.hero-title.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--neon-cyan);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(42px, 9999px, 44px, 0); }
+    5% { clip: rect(12px, 9999px, 59px, 0); }
+    10% { clip: rect(48px, 9999px, 29px, 0); }
+    15% { clip: rect(42px, 9999px, 73px, 0); }
+    20% { clip: rect(63px, 9999px, 27px, 0); }
+    25% { clip: rect(34px, 9999px, 55px, 0); }
+    30% { clip: rect(86px, 9999px, 73px, 0); }
+    35% { clip: rect(20px, 9999px, 20px, 0); }
+    40% { clip: rect(26px, 9999px, 60px, 0); }
+    45% { clip: rect(25px, 9999px, 66px, 0); }
+    50% { clip: rect(57px, 9999px, 98px, 0); }
+    55% { clip: rect(5px, 9999px, 46px, 0); }
+    60% { clip: rect(82px, 9999px, 31px, 0); }
+    65% { clip: rect(54px, 9999px, 27px, 0); }
+    70% { clip: rect(28px, 9999px, 99px, 0); }
+    75% { clip: rect(45px, 9999px, 69px, 0); }
+    80% { clip: rect(23px,
