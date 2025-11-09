@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ ٱل مياو - القبيلة الأسطورية ⚡</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="starsCanvas"></canvas>
+    
+    <div class="cursor-glow"></div>
+    
+    <button class="music-toggle" id="musicBtn">
+        <span class="music-icon">♪</span>
+    </button>
+    
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="scroll-indicator">
+        <div class="scroll-arrow">↓</div>
+        <span>اسحب للأسفل</span>
+    </div>
+
+    <section class="hero-section">
+        <div class="glitch-container">
+            <h1 class="hero-title glitch" data-text="ٱل مياو">ٱل مياو</h1>
+        </div>
+        <p class="hero-subtitle">القبيلة الأسطورية من التاريخ المنسي</p>
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number" data-target="8">0</span>
+                <span class="stat-label">أساطير</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="99999">0</span>
+                <span class="stat-label">سنة من التاريخ</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="1000000000">0</span>
+                <span class="stat-label">ثروة</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="intro-section">
+        <div class="intro-box">
+            <div class="neon-border"></div>
+            <p class="intro-text">
+    مجموعة من شيوخ قبيلة ال مياو الذين حموها لآلاف السنين، حكاياتهم وأعمالهم ما زالت تُلهم كل من يسمع عنها.
+        </p>
+        </div>
+    </section>
+
+    <section class="members-section">
+        <h2 class="section-title">
+            <span class="title-word">أبطال</span>
+            <span class="title-word">القبيلة</span>
+        </h2>
+        
+        <div class="members-grid">
+            <div class="card-3d" data-member="1">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="1.jpg" alt="كاريزما في الحد الأقصى" class="card-img">
+                        <div class="card-overlay">
+                            <h3 class="card-name">كاريزما في الحد الأقصى</h3>
+                            <div class="card-shine"></div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3>كاريزما في الحد الأقصى</h3>
+                        <p>@level.201</p>
+                        <a href="https://www.tiktok.com/@level.201" target="_blank" class="card-link">
+                            <span>زيارة الصفحة</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-3d" data-member="2">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="2.jpg" alt="Void Abyss" class="card-img">
+                        <div class="card-overlay">
+                            <h3 class="card-name">🐱Void Abyss😺</h3>
+                            <div class="card-shine"></div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3>🐱Void Abyss😺</h3>
+                        <p>@bachira_402</p>
+                        <a href="https://www.tiktok.com/@bachira_402" target="_blank" class="card-link">
+                            <span>زيارة الصفحة</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-3d" data-member="3">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="3.jpg" alt="𝑵𝒊𝒗𝒓𝒐" class="card-img">
+                        <div class="card-overlay">
+                            <h3 class="card-name">𝑵𝒊𝒗𝒓𝒐</h3>
+                            <div class="card-shine"></div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3>𝑵𝒊𝒗𝒓𝒐</h3>
+                        <p>@zorogaming369</p>
+                        <a href="https://www.tiktok.com/@zorogaming369" target="_blank" class="card-link">
+                            <span>زيارة الصفحة</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-3d" data-member="4">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="4.jpg" alt="Red" class="card-img">
+                        <div class="card-overlay">
+                            <h3 class="card-name">Red🔮</h3>
+                            <div class="card-shine"></div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3>Red🔮</h3>
+                        <p>@red908287</p>
+                        <a href="https://www.tiktok.com/@red908287" target="_blank" class="card-link">
+                            <span>زيارة الصفحة</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-3d" data-member="5">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="5.jpg" alt="زهراء" class="card-img">
+                        <div class="card-overlay">
+                            <h3 class="card-name">زهراء</h3>
+                            <div class="card-shine"></div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3>زهراء</h3>
+                        <p>@zxaspo</p>
+                        <a href="https://www.tiktok.com/@zxaspo" target="_blank" class="card-link">
+                            <span>زيارة الصفحة</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-3d" data-member="6">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="6.jpg" alt="E=mc²" class="card-img">
+                        <div class="card-overlay">
+                            <h3 class="card-name">😺E=mc²😺</h3>
+                            <div class="card-shine"></div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3>😺E=mc²😺</h3>
+                        <p>@124hht</p>
+                        <a href="https://www.tiktok.com/@124hht" target="_blank" class="card-link">
+                            <span>زيارة الصفحة</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-3d" data-member="7">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="7.jpg" alt="MARIOM" class="card-img">
+                        <div class="card-overlay">
+                            <h3 class="card-name">😼MARIOM🌺</h3>
+                            <div class="card-shine"></div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3>😼MARIOM🌺</h3>
+                        <p>@memeoyah</p>
+                        <a href="https://www.tiktok.com/@memeoyah" target="_blank" class="card-link">
+                            <span>زيارة الصفحة</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-3d" data-member="8">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="8.jpg" alt="Aileen" class="card-img">
+                        <div class="card-overlay">
+                            <h3 class="card-name">🔮 Aileen</h3>
+                            <div class="card-shine"></div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3>🔮 Aileen</h3>
+                        <p>@nabaa7065</p>
+                        <a href="https://www.tiktok.com/@nabaa7065" target="_blank" class="card-link">
+                            <span>زيارة الصفحة</span>
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">© 2025 قبيلة ٱل مياو • صُنع بواسطة عبيدة 💫</p>
+            <div class="footer-sparkles">✨ 🌟 ✨</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
