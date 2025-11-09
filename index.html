@@ -5,40 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⚡ ٱلمياوز - الجيش الأسطوري ⚡</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* ✨ تأثير اسم عبدالله و عبيدة ✨ */
-        .glow-name {
-            color: #0ff;
-            text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #00f6ff;
-            font-weight: bold;
-            animation: glowPulse 2.5s ease-in-out infinite;
-            background: linear-gradient(90deg, #00f6ff, #ff00ff, #00ffea);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        @keyframes glowPulse {
-            0% { text-shadow: 0 0 5px #0ff, 0 0 15px #0ff, 0 0 25px #00f6ff; }
-            50% { text-shadow: 0 0 10px #ff00ff, 0 0 30px #ff00ff, 0 0 50px #ff00ff; }
-            100% { text-shadow: 0 0 5px #0ff, 0 0 15px #0ff, 0 0 25px #00f6ff; }
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <canvas id="starsCanvas"></canvas>
     <div class="cursor-glow"></div>
-
+    <div class="progress-bar"></div>
+    
     <button class="music-toggle" id="musicBtn">
-        <span class="music-icon">♪</span>
+        <i class="fas fa-music"></i>
     </button>
-    <audio id="bgMusic" loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
-
+    
     <div class="scroll-indicator">
         <div class="scroll-arrow">↓</div>
         <span>اسحب للأسفل</span>
     </div>
+    
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <section class="hero-section">
         <div class="glitch-container">
@@ -65,7 +50,7 @@
         <div class="intro-box">
             <div class="neon-border"></div>
             <p class="intro-text">
-                مجموعة من جنرالات المياوز الذين احتلوا العالم لآلاف السنين، حكاياتهم وأعمالهم ما زالت تُلهم كل من يسمع عنها.
+                مجموعة من جنرالات المياوز الذين احتلوا العالم لآلاف السنين، حكاياتهم وأعمالهم ما زالت تُلهم كل من يسمع عنها. هؤلاء الأبطال الأسطوريون امتلكوا قوى خارقة ومعرفة سرية مكنتهم من تشكيل مصير البشرية من وراء الستار.
             </p>
         </div>
     </section>
@@ -77,18 +62,19 @@
         </h2>
         
         <div class="members-grid">
-            <!-- مثال بطاقة عضو -->
+            <!-- بطاقة عبيدة -->
             <div class="card-3d">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="hero1.jpg" alt="عبيدة" class="card-img">
+                        <div class="card-img" style="background: linear-gradient(45deg, #1a1a2e, #16213e);"></div>
                         <div class="card-overlay">
                             <span class="card-name glow-name">عبيدة</span>
                         </div>
                     </div>
                     <div class="card-back">
                         <h3>عبيدة</h3>
-                        <p>قائد الجيش الأسطوري</p>
+                        <p>قائد الجيش الأسطوري (المزيف)</p>
+                        <p class="card-desc">أسطورة القيادة والتخطيط الاستراتيجي، قاد جيوش المياوز إلى النصر في معارك لا تُحصى.</p>
                         <a href="mailto:gszgxgxvx@gmail.com?subject=رسالة%20دعم%20فني%20من%20الموقع&body=اكتب%20رسالتك%20هنا" class="card-link">
                             تواصل معي
                             <span class="link-arrow">→</span>
@@ -97,11 +83,11 @@
                 </div>
             </div>
 
-            <!-- بطاقة أخرى مثال -->
+            <!--بطاقة عبدالله (القائد الحقيقي) ->
             <div class="card-3d">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="hero2.jpg" alt="عبدالله" class="card-img">
+                        <div class="card-img" style="background: linear-gradient(45deg, #0f3460, #533483);"></div>
                         <div class="card-overlay">
                             <span class="card-name glow-name">عبدالله</span>
                         </div>
@@ -109,10 +95,88 @@
                     <div class="card-back">
                         <h3>عبدالله</h3>
                         <p>القائد المساعد</p>
+                        <p class="card-desc">خبير في التكتيكات والتخطيط اللوجستي، كان العقل المدبر وراء العديد من العمليات السرية.</p>
                         <a href="mailto:gszgxgxvx@gmail.com?subject=رسالة%20دعم%20فني%20من%20الموقع&body=اكتب%20رسالتك%20هنا" class="card-link">
                             تواصل معي
                             <span class="link-arrow">→</span>
                         </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بطاقة إضافية 1 -->
+            <div class="card-3d">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-img" style="background: linear-gradient(45deg, #1a1a2e, #16213e);"></div>
+                        <div class="card-overlay">
+                            <span class="card-name glow-name">سيف</span>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3>سيف</h3>
+                        <p>محارب الصفوف الأمامية</p>
+                        <p class="card-desc">أقوى محاربي المياوز، اشتهر بشجاعته الأسطورية في ساحات القتال.</p>
+                        <a href="mailto:gszgxgxvx@gmail.com?subject=رسالة%20دعم%20فني%20من%20الموقع&body=اكتب%20رسالتك%20هنا" class="card-link">
+                            تواصل معي
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بطاقة إضافية 2 -->
+            <div class="card-3d">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-img" style="background: linear-gradient(45deg, #0f3460, #533483);"></div>
+                        <div class="card-overlay">
+                            <span class="card-name glow-name">نور</span>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3>نور</h3>
+                        <p>خبيرة الاستخبارات</p>
+                        <p class="card-desc">ملكة التخفي وجمع المعلومات، كانت عيون وآذان المياوز في كل مكان.</p>
+                        <a href="mailto:gszgxgxvx@gmail.com?subject=رسالة%20دعم%20فني%20من%20الموقع&body=اكتب%20رسالتك%20هنا" class="card-link">
+                            تواصل معي
+                            <span class="link-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="history-section">
+        <div class="history-container">
+            <h2 class="section-title">
+                <span class="title-word">تاريخ</span>
+                <span class="title-word">أسطوري</span>
+            </h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">10,000 ق.م</div>
+                    <div class="timeline-content">
+                        <h3>نشأة المياوز</h3>
+                        <p>تشكلت قبيلة المياوز الأولى في وادي مياو الأسطوري، حيث اكتسبوا قواهم الخارقة.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">5,000 ق.م</div>
+                    <div class="timeline-content">
+                        <h3>العصر الذهبي</h3>
+                        <p>سيطر المياوز على طرق التجارة العالمية وأسسوا إمبراطورية سرية امتدت عبر القارات.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">1,000 ق.م</div>
+                    <div class="timeline-content">
+                        <h3>الاختفاء الكبير</h3>
+                        <p>قرر المياوز الانسحاب من الساحة العالمية والعمل من وراء الستار، تاركين وراءهم أساطير وحكايات.</p>
                     </div>
                 </div>
             </div>
