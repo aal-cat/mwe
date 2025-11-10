@@ -1,7 +1,4 @@
 /* script.js - ديناميكي ومُحسَّن */
-/* يعتمد على صور: 1.jpg ... 11.jpg في مجلد الجذر أو images/ حسب تنظيمك */
-/* البريد المستهدف للدعم: gszgxgxvx@gmail.com */
-
 document.addEventListener('DOMContentLoaded', () => {
   // عناصر رئيسية
   const starsCanvas = document.getElementById('starsCanvas');
@@ -27,9 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     bgSmoke.classList.add('active');
   }
 
-  // =========================
   // بيانات الأبطال
-  // =========================
   const heroes = [
     { img:'1.jpg', name:'عبيدة', rank:'كاريزما إلى الحد الأقصى', desc:'يتمتع بكاريزما طاغية تجعله محط الأنظار. اليد اليمنى للقائد عبدالله.', link:'https://www.tiktok.com/@level.201' , idText:'level.201' },
     { img:'2.jpg', name:'عبدالله', rank:'😺E=mc²😺', desc:'القائد الأعظم والدماغ المدبر وراء إستراتيجيات المياوز.', link:'https://www.tiktok.com/@124hht', idText:'124hht' },
@@ -44,9 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { img:'11.jpg', name:'Memeoyah', rank:'@memeoyah', desc:'سيد الدعاية النفسية.', link:'https://www.tiktok.com/@memeoyah', idText:'memeoyah' }
   ];
 
-  // =========================
   // توليد البطاقات ديناميكياً
-  // =========================
   function buildCards() {
     membersGrid.innerHTML = '';
     heroes.forEach((h, i) => {
@@ -64,10 +57,15 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="card-back">
             <h3>${h.name}</h3>
+            <div class="card-rank">${h.rank}</div>
             <div class="card-desc">${h.desc}</div>
             <div class="card-actions">
-              <a class="card-link" href="${h.link}" target="_blank" rel="noopener">تابعني على تيك توك</a>
-              <button class="copy-btn" data-id="${h.idText}"><i class="fas fa-copy"></i> نسخ الآيدي</button>
+              <a class="card-link" href="${h.link}" target="_blank" rel="noopener">
+                <i class="fab fa-tiktok"></i> تابعني على تيك توك
+              </a>
+              <button class="copy-btn" data-id="${h.idText}">
+                <i class="fas fa-copy"></i> نسخ الآيدي
+              </button>
             </div>
           </div>
         </div>
@@ -83,9 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   buildCards();
 
-  // =========================
-  // تأثيرات النجوم (canvas)
-  // =========================
+  // تأثيرات النجوم
   (function initStars(){
     const canvas = starsCanvas;
     if (!canvas) return;
@@ -132,9 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     draw();
   })();
 
-  // =========================
-  // تبديل الخلفية (فيديو الدخان أو النجوم)
-  // =========================
+  // تبديل الخلفية
   function setBackground(useSmoke){
     if (useSmoke && bgSmoke && bgSmoke.querySelector('source') && bgSmoke.querySelector('source').src) {
       bgSmoke.classList.add('active');
@@ -153,9 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setBackground(usingSmoke);
 
-  // =========================
   // Flip cards عند النقر
-  // =========================
   membersGrid.addEventListener('click', (e) => {
     const card = e.target.closest('.card-3d');
     if (!card) return;
@@ -176,9 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     img && (img.style.transform = 'scale(1)');
   });
 
-  // =========================
   // نسخ الآيدي
-  // =========================
   membersGrid.addEventListener('click', async (e) => {
     const btn = e.target.closest('.copy-btn');
     if (!btn) return;
@@ -199,9 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // =========================
-  // دعم فني — نافذة منبثقة + mailto
-  // =========================
+  // دعم فني
   function openSupport(){
     overlay.classList.add('show');
     popup.classList.add('show');
@@ -235,9 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     supportForm.reset();
   });
 
-  // =========================
   // زر الموسيقى
-  // =========================
   let musicPlaying = false;
   musicBtn.addEventListener('click', () => {
     if (!bgMusic) return;
@@ -248,9 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // =========================
   // Counters عند التمرير
-  // =========================
   const statEls = document.querySelectorAll('.stat-number');
   const statsObserver = new IntersectionObserver(entries=>{
     entries.forEach(ent=>{
@@ -278,26 +262,16 @@ document.addEventListener('DOMContentLoaded', () => {
     tick();
   }
 
-  // =========================
-  // Scroll indicator hide on scroll
-  // =========================
+  // Scroll indicator
   let scrolledOnce = false;
   window.addEventListener('scroll', () => {
     if (!scrolledOnce && window.pageYOffset > 80) {
       scrolledOnce = true;
       scrollIndicator && (scrollIndicator.style.opacity = '0');
     }
-    const progress = document.querySelector('.progress-bar');
-    if (progress) {
-      const docH = document.documentElement.scrollHeight - window.innerHeight;
-      const percent = (window.scrollY / docH) * 100;
-      progress.style.width = Math.min(100,Math.max(0,percent)) + '%';
-    }
   });
 
-  // =========================
-  // Utility: notification
-  // =========================
+  // notification
   let noticeTimer = null;
   function showNotice(text, time = 2500){
     if (!notification) return;
@@ -309,9 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setTimeout(()=> showNotice('مرحباً — الموقع جاهز! اضغط خلفية لتبديلها أو اضغط على بطاقة لعرض الحساب.'), 800);
 
-  // =========================
-  // Accessibility: keyboard close popup
-  // =========================
+  // Accessibility
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (popup.classList.contains('show')) closeSupport();
