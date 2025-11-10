@@ -3,18 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>⚡ قبيلة آل مياو ⚡</title>
+  <title>🎧 الدعم الفني - قبيلة آل مياو</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <audio id="bgMusic" src="music.mp3" loop></audio>
+  <section class="support-section">
+    <h1 class="main-title">📩 الدعم الفني</h1>
+    <form id="supportForm" action="https://formspree.io/f/gszgxgxvx" method="POST">
+      <label for="name">الاسم:</label>
+      <input type="text" id="name" name="name" required placeholder="أدخل اسمك" />
 
-  <button id="bgToggle" class="toggle-btn">تبديل الخلفية</button>
-  <button id="musicToggle" class="music-btn">🎵</button>
+      <label for="email">البريد الإلكتروني:</label>
+      <input type="email" id="email" name="_replyto" required placeholder="example@mail.com" />
 
-  <section class="heroes-section">
-    <h1 class="main-title">أبطال قبيلة آل مياو</h1>
-    <div class="heroes-grid" id="heroesGrid"></div>
+      <label for="message">الرسالة:</label>
+      <textarea id="message" name="message" rows="6" required placeholder="اكتب رسالتك هنا..."></textarea>
+
+      <button type="submit">إرسال الرسالة</button>
+    </form>
+    <p class="note">💡 سيتم إرسال رسالتك إلى بريد الدعم الفني مباشرةً.</p>
   </section>
 
   <footer class="footer">
@@ -24,6 +31,6 @@
     </p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="support.js"></script>
 </body>
 </html>
