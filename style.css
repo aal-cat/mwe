@@ -236,6 +236,202 @@ h1 {
   letter-spacing: 1px;
 }
 
+.history-section {
+  margin: 4rem 0;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, rgba(0, 20, 40, 0.8) 0%, rgba(10, 25, 45, 0.9) 100%);
+  border-radius: 20px;
+  border: 2px solid var(--primary);
+  box-shadow: 0 8px 40px rgba(0, 212, 255, 0.2);
+}
+
+.history-title {
+  font-size: 2.8rem;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+  font-weight: 900;
+}
+
+.history-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.history-intro {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: rgba(0, 212, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.epic-text {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: var(--foreground);
+  font-weight: 500;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.timeline {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 30px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--primary) 0%, rgba(0, 212, 255, 0.3) 100%);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-right: 80px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: 13px;
+  width: 40px;
+  height: 40px;
+  background: var(--card);
+  border: 3px solid var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+  z-index: 1;
+}
+
+.timeline-content {
+  background: rgba(0, 30, 60, 0.6);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+  transform: translateX(-5px);
+  border-color: var(--primary);
+  box-shadow: 0 4px 25px rgba(0, 212, 255, 0.3);
+}
+
+.timeline-content h3 {
+  color: var(--primary);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.timeline-content p {
+  color: var(--foreground);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.timeline-content strong {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.highlight {
+  color: var(--primary);
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.battle-result {
+  background: rgba(0, 212, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  border-right: 4px solid var(--primary);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.achievements-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
+}
+
+.achievements-list li {
+  background: rgba(0, 212, 255, 0.08);
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 0.8rem;
+  border-radius: 8px;
+  border-right: 3px solid var(--primary);
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.achievements-list li:hover {
+  background: rgba(0, 212, 255, 0.15);
+  transform: translateX(-5px);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+.quote {
+  display: block;
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--primary);
+  font-style: italic;
+  padding: 1.5rem;
+  background: rgba(0, 212, 255, 0.1);
+  border-radius: 8px;
+  margin-top: 1rem;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 100, 150, 0.1) 100%);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid var(--primary);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(0, 212, 255, 0.4);
+  border-color: var(--ring);
+}
+
+.stat-number {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--primary);
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+
 .support-section {
   margin-top: 4rem;
   padding: 3rem 2rem;
