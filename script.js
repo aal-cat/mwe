@@ -5,47 +5,45 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeWebsite() {
-    // 1. تهيئة النجوم
-    initializeStars();
-    
-    // 2. تهيئة المؤشر
-    initializeCursor();
-    
-    // 3. تهيئة زر الموسيقى
-    initializeMusicPlayer();
-    
-    // 4. تهيئة العدادات
-    initializeCounters();
-    
-    // 5. تهيئة البطاقات
-    initializeCards();
-    
-    // 6. تهيئة شريط التقدم
-    initializeProgressBar();
-    
-    // 7. تهيئة زر العودة للأعلى
-    initializeBackToTop();
-    
-    // 8. تهيئة أزرار النسخ
-    initializeCopyButtons();
-    
-    // 9. تهيئة تأثيرات التمرير
-    initializeScrollEffects();
-    
-    console.log('✅ تم تحميل جميع المكونات بنجاح!');
+    try {
+        // 1. تهيئة النجوم
+        initializeStars();
+        
+        // 2. تهيئة المؤشر
+        initializeCursor();
+        
+        // 3. تهيئة زر الموسيقى
+        initializeMusicPlayer();
+        
+        // 4. تهيئة العدادات
+        initializeCounters();
+        
+        // 5. تهيئة البطاقات
+        initializeCards();
+        
+        // 6. تهيئة شريط التقدم
+        initializeProgressBar();
+        
+        // 7. تهيئة زر العودة للأعلى
+        initializeBackToTop();
+        
+        // 8. تهيئة أزرار النسخ
+        initializeCopyButtons();
+        
+        console.log('✅ تم تحميل جميع المكونات بنجاح!');
+    } catch (error) {
+        console.error('❌ خطأ في تحميل الموقع:', error);
+    }
 }
 
 // 1. النجوم المتحركة
 function initializeStars() {
     const canvas = document.getElementById('starsCanvas');
-    if (!canvas) {
-        console.log('❌ عنصر النجوم غير موجود');
-        return;
-    }
+    if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
     let stars = [];
-    const starCount = 150;
+    const starCount = 100;
 
     function setupCanvas() {
         canvas.width = window.innerWidth;
@@ -59,7 +57,7 @@ function initializeStars() {
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
                 radius: Math.random() * 1.5,
-                speed: Math.random() * 0.5,
+                speed: Math.random() * 0.3,
                 opacity: Math.random() * 0.8 + 0.2
             });
         }
@@ -67,7 +65,7 @@ function initializeStars() {
 
     function drawStars() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'rgba(10, 5, 30, 0.1)';
+        ctx.fillStyle = 'rgba(13, 2, 33, 0.1)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         stars.forEach(star => {
@@ -81,9 +79,6 @@ function initializeStars() {
                 star.y = 0;
                 star.x = Math.random() * canvas.width;
             }
-            
-            star.opacity += (Math.random() - 0.5) * 0.02;
-            star.opacity = Math.max(0.2, Math.min(1, star.opacity));
         });
         
         requestAnimationFrame(drawStars);
@@ -93,10 +88,7 @@ function initializeStars() {
     createStars();
     drawStars();
     
-    window.addEventListener('resize', function() {
-        setupCanvas();
-        createStars();
-    });
+    window.addEventListener('resize', setupCanvas);
 }
 
 // 2. تأثير المؤشر
@@ -110,97 +102,61 @@ function initializeCursor() {
     });
 }
 
-// 3. زر الموسيقى - الإصلاح الكامل
+// 3. زر الموسيقى
 function initializeMusicPlayer() {
     const musicButton = document.getElementById('musicBtn');
-    if (!musicButton) {
-        console.log('❌ زر الموسيقى غير موجود');
-        return;
-    }
+    if (!musicButton) return;
 
-    let isPlaying = false;
-
-    musicButton.addEventListener('click', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        
+    musicButton.addEventListener('click', function() {
+        this.classList.toggle('playing');
         console.log('🎵 تم النقر على زر الموسيقى');
-        
-        if (isPlaying) {
-            // إيقاف الموسيقى
-            musicButton.classList.remove('playing');
-            isPlaying = false;
-            console.log('⏸️ تم إيقاف الموسيقى');
-        } else {
-            // تشغيل الموسيقى
-            musicButton.classList.add('playing');
-            isPlaying = true;
-            console.log('▶️ تم تشغيل الموسيقى');
-            // ملاحظة: تحتاج لإضافة ملف music.mp3 في نفس المجلد
-        }
     });
 }
 
 // 4. العدادات الرقمية
 function initializeCounters() {
     const counters = document.querySelectorAll('.stat-number');
-    if (counters.length === 0) return;
-
-    function animateCounter(counter) {
+    
+    counters.forEach(counter => {
         const target = parseInt(counter.getAttribute('data-target'));
+        let current = 0;
         const duration = 2000;
         const step = target / (duration / 16);
-        let current = 0;
-
-        function update() {
+        
+        const updateCounter = () => {
             current += step;
             if (current < target) {
                 counter.textContent = Math.floor(current).toLocaleString();
-                requestAnimationFrame(update);
+                requestAnimationFrame(updateCounter);
             } else {
                 counter.textContent = target.toLocaleString();
             }
-        }
-        update();
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounter(entry.target);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    counters.forEach(counter => observer.observe(counter));
+        };
+        
+        // بدء العد بعد تأخير بسيط
+        setTimeout(updateCounter, 500);
+    });
 }
 
-// 5. البطاقات - الإصلاح الكامل
+// 5. البطاقات
 function initializeCards() {
     const cards = document.querySelectorAll('.card-3d');
     
-    // تأثير الظهور
     cards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(50px)';
-        
+        // تأثير الظهور
         setTimeout(() => {
-            card.style.transition = 'all 0.6s ease';
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
-        }, index * 100);
+        }, index * 200);
         
-        // تأثير القلب عند النقر على الوجه الأمامي فقط
-        const cardFront = card.querySelector('.card-front');
-        if (cardFront) {
-            cardFront.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const isFlipped = card.getAttribute('data-flipped') === 'true';
-                card.setAttribute('data-flipped', !isFlipped);
-                card.classList.toggle('flipped');
-            });
-        }
+        // تأثير القلب
+        card.addEventListener('click', function(e) {
+            if (!e.target.closest('.card-link') && !e.target.closest('.copy-btn')) {
+                const isFlipped = this.getAttribute('data-flipped') === 'true';
+                this.setAttribute('data-flipped', !isFlipped);
+                this.classList.toggle('flipped');
+            }
+        });
     });
 }
 
@@ -210,11 +166,9 @@ function initializeProgressBar() {
     if (!progressBar) return;
 
     window.addEventListener('scroll', function() {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
-        
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / scrollHeight) * 100;
         progressBar.style.width = progress + '%';
     });
 }
@@ -232,8 +186,7 @@ function initializeBackToTop() {
         }
     });
 
-    backButton.addEventListener('click', function(e) {
-        e.preventDefault();
+    backButton.addEventListener('click', function() {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -246,59 +199,47 @@ function initializeCopyButtons() {
     const copyButtons = document.querySelectorAll('.copy-btn');
     const notification = document.getElementById('notification');
     
+    function showNotification(message) {
+        if (!notification) return;
+        
+        notification.querySelector('.notification-text').textContent = message;
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 2000);
+    }
+    
     copyButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            e.preventDefault();
             e.stopPropagation();
-            
             const textToCopy = this.getAttribute('data-id');
-            console.log('📋 نسخ:', textToCopy);
             
-            // نسخ إلى الحافظة
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    showNotification('تم نسخ الآيدي بنجاح!');
-                }).catch(err => {
-                    fallbackCopy(textToCopy);
-                });
-            } else {
-                fallbackCopy(textToCopy);
+            // طريقة النسخ البديلة
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showNotification('تم نسخ الآيدي بنجاح!');
+            } catch (err) {
+                console.error('فشل النسخ:', err);
             }
+            
+            document.body.removeChild(textArea);
         });
     });
-    
-    function fallbackCopy(text) {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.select();
-        try {
-            document.execCommand('copy');
-            showNotification('تم نسخ الآيدي بنجاح!');
-        } catch (err) {
-            console.error('فشل النسخ:', err);
-        }
-        document.body.removeChild(textArea);
-    }
-    
-    function showNotification(message) {
-        if (notification) {
-            notification.querySelector('.notification-text').textContent = message;
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 2000);
-        }
-    }
 }
 
-// تأثيرات إضافية
+// تأثيرات التمرير
 function initializeScrollEffects() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
-    if (scrollIndicator) {
-        window.addEventListener('scroll', function() {
-            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-            scrollIndicator.style.opacity = scrollY > 100 ? '0' : '1';
-        });
-    }
+    if (!scrollIndicator) return;
+    
+    window.addEventListener('scroll', function() {
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        scrollIndicator.style.opacity = scrollY > 100 ? '0' : '1';
+    });
 }
