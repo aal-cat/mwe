@@ -1,117 +1,17 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>⚡ ٱلمياوز - الجيش الأسطوري ⚡</title>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <!-- VIDEO SMOKE (اختياري) -->
-  <video id="bgSmoke" class="bg-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
-    <source src="smoke.mp4" type="video/mp4">
-  </video>
-
-  <!-- CANVAS STARS -->
-  <canvas id="starsCanvas" aria-hidden="true"></canvas>
-
-  <!-- TOP BAR -->
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-left">
-        <div class="brand-main">ٱل مياو</div>
-        <div class="brand-sub">الجيش الأسطوري</div>
-      </div>
-      <div class="creators">
-        <span class="glow-name">عبيدة بنور</span>
-        <span class="sep">•</span>
-        <span class="glow-name">عبدالله</span>
-      </div>
-    </div>
-
-    <div class="controls">
-      <button id="bgToggle" class="btn small" title="تبديل الخلفية"><i class="fas fa-image"></i> خلفية</button>
-      <button id="supportBtn" class="btn small accent" title="الدعم الفني"><i class="fas fa-headset"></i></button>
-      <button id="musicBtn" class="icon-btn" title="تشغيل/إيقاف الموسيقى"><i class="fas fa-music"></i></button>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <main>
-    <section class="hero-section" id="hero">
-      <h1 class="hero-title glitch" data-text="ٱل مياو">ٱل مياو</h1>
-      <p class="hero-subtitle">الجيش الذي احتل العالم بالسر واختفى — أساطير تنبض بالقوة</p>
-
-      <div class="stats-container">
-        <div class="stat-item">
-          <div class="stat-number" data-target="11">0</div>
-          <div class="stat-label">أساطير</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-target="99999">0</div>
-          <div class="stat-label">سنة من التاريخ</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-target="1000000000">0</div>
-          <div class="stat-label">ثروة</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- INTRO -->
-    <section class="intro-section">
-      <div class="intro-box">
-        <p class="intro-text">مجموعة من جنرالات المياوز الذين احتلوا العالم لآلاف السنين. اضغط على أي بطاقة لتقلبها وتعرض حساباتهم أو نسخ الآيدي.</p>
-      </div>
-    </section>
-
-    <!-- HEROES GRID (ديناميكي) -->
-    <section class="members-section" id="members">
-      <h2 class="section-title">أبطال القبيلة</h2>
-      <div class="members-grid" id="membersGrid"><!-- يتم تعبئته ديناميكياً --></div>
-    </section>
-  </main>
-
-  <!-- footer -->
-  <footer class="footer">
-    <div class="footer-content">
-      <p class="footer-text">© 2025 قبيلة ٱل مياو • صُنع بواسطة <span class="glow-name">عبيدة بنور</span> و <span class="glow-name">عبدالله</span> 💫</p>
-    </div>
-  </footer>
-
-  <!-- SUPPORT POPUP -->
-  <div class="overlay" id="overlay" aria-hidden="true"></div>
-  <div class="popup" id="supportPopup" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="popup-close" id="popupClose" aria-label="إغلاق"><i class="fas fa-times"></i></button>
-    <h3>الدعم الفني</h3>
-    <p class="popup-desc">اكتب مشكلتك أو استفسارك وسيتم تجهيز رسالة جاهزة للإرسال إلى بريد الدعم.</p>
-
-    <!-- form: سيحاول الإرسال عبر FORM_ENDPOINT إن حُدّد في script.js، وإلا يستخدم mailto -->
-    <form id="supportForm" class="support-form">
-      <input name="name" type="text" placeholder="الاسم" required />
-      <input name="email" type="email" placeholder="البريد الإلكتروني" required />
-      <textarea name="message" rows="6" placeholder="اكتب سؤالك أو مشكلتك..." required></textarea>
-      <div class="form-actions">
-        <button type="submit" class="btn accent">أرسل إلى الدعم</button>
-        <button type="button" id="popupCancel" class="btn">إلغاء</button>
-      </div>
-      <p class="note small">إذا لم يتم تفعيل خدمة الإرسال التلقائي، سيُفتح تطبيق البريد لإرسال الرسالة يدوياً إلى <strong>gszgxgxvx@gmail.com</strong>.</p>
-    </form>
-  </div>
-
-  <!-- optional audio -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- notification -->
-  <div class="notification" id="notification" aria-live="polite"></div>
-
-  <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="قبيلة آل مياو - موقع الأبطال الرسمي بتصميم Cyber/Futuristic فخم" />
+    <title>قبيلة آل مياو | Al Miao Tribe</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Tajawal:wght@200;300;400;500;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
