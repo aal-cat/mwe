@@ -1,189 +1,211 @@
-/* style.css - فخم و أزرق غامق */
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-:root{
-  --bg-dark:#041028;
-  --accent:#0fb7ff;
-  --accent-2:#0066cc;
-  --muted:#9bb6c9;
-  --card-bg: rgba(6,18,36,0.65);
-  --glass: rgba(255,255,255,0.04);
-  --glass-2: rgba(255,255,255,0.02);
-  --transition: 300ms cubic-bezier(.2,.9,.3,1);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CYBER/FUTURISTIC DARK MODE (DEFAULT) */
+:root {
+  --button-outline: rgba(0,217,255, .15);
+  --badge-outline: rgba(0,217,255, .08);
+  --opaque-button-border-intensity: 8;
+  --elevate-1: rgba(0,217,255, .05);
+  --elevate-2: rgba(0,217,255, .12);
+  --background: 228 45% 8%;
+  --foreground: 190 100% 85%;
+  --border: 228 30% 18%;
+  --card: 228 40% 10%;
+  --card-foreground: 190 100% 85%;
+  --card-border: 228 35% 15%;
+  --sidebar: 228 42% 9%;
+  --sidebar-foreground: 190 100% 85%;
+  --sidebar-border: 228 30% 16%;
+  --sidebar-primary: 190 100% 50%;
+  --sidebar-primary-foreground: 228 45% 8%;
+  --sidebar-accent: 228 30% 18%;
+  --sidebar-accent-foreground: 190 100% 85%;
+  --sidebar-ring: 190 100% 50%;
+  --popover: 228 38% 12%;
+  --popover-foreground: 190 100% 85%;
+  --popover-border: 228 30% 20%;
+  --primary: 190 100% 50%;
+  --primary-foreground: 228 45% 8%;
+  --secondary: 228 30% 20%;
+  --secondary-foreground: 190 100% 85%;
+  --muted: 228 25% 22%;
+  --muted-foreground: 190 50% 65%;
+  --accent: 280 60% 25%;
+  --accent-foreground: 190 100% 85%;
+  --destructive: 0 84% 42%;
+  --destructive-foreground: 0 0% 98%;
+  --input: 228 30% 25%;
+  --ring: 190 100% 50%;
+  --chart-1: 190 100% 50%;
+  --chart-2: 200 85% 55%;
+  --chart-3: 240 75% 60%;
+  --chart-4: 280 70% 55%;
+  --chart-5: 320 65% 50%;
+  --font-sans: Cairo, Tajawal, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Orbitron, monospace;
+  --radius: .375rem;
+  --shadow-2xs: 0px 2px 0px 0px hsl(220 8% 50% / 0.00);
+  --shadow-xs: 0px 2px 0px 0px hsl(220 8% 50% / 0.00);
+  --shadow-sm: 0px 2px 0px 0px hsl(220 8% 50% / 0.00), 0px 1px 2px -1px hsl(220 8% 50% / 0.00);
+  --shadow: 0px 2px 0px 0px hsl(220 8% 50% / 0.00), 0px 1px 2px -1px hsl(220 8% 50% / 0.00);
+  --shadow-md: 0px 2px 0px 0px hsl(220 8% 50% / 0.00), 0px 2px 4px -1px hsl(220 8% 50% / 0.00);
+  --shadow-lg: 0px 2px 0px 0px hsl(220 8% 50% / 0.00), 0px 4px 6px -1px hsl(220 8% 50% / 0.00);
+  --shadow-xl: 0px 2px 0px 0px hsl(220 8% 50% / 0.00), 0px 8px 10px -1px hsl(220 8% 50% / 0.00);
+  --shadow-2xl: 0px 2px 0px 0px hsl(220 8% 50% / 0.00);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+
+/* Fallback for older browsers */
+  --sidebar-primary-border: hsl(var(--sidebar-primary));
+  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --sidebar-accent-border: hsl(var(--sidebar-accent));
+  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --primary-border: hsl(var(--primary));
+  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --secondary-border: hsl(var(--secondary));
+  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --muted-border: hsl(var(--muted));
+  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --accent-border: hsl(var(--accent));
+  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* Fallback for older browsers */
+  --destructive-border: hsl(var(--destructive));
+  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  font-family:'Cairo',sans-serif;
-  margin:0;padding:0;
-  background:var(--bg-dark);
-  color:#eaf6ff;
-  direction:rtl;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  overflow-x:hidden;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
 }
 
-/* background elements */
-.bg-video{
-  position:fixed; inset:0; width:100%; height:100%; object-fit:cover;
-  z-index:-2; opacity:0; transition:opacity var(--transition);
-}
-.bg-video.active{opacity:1}
+/**
+ * Using the elevate system.
+ * Automatic contrast adjustment.
+ *
+ * <element className="hover-elevate" />
+ * <element className="active-elevate-2" />
+ *
+ * // Using the tailwind utility when a data attribute is "on"
+ * <element className="toggle-elevate data-[state=on]:toggle-elevated" />
+ * // Or manually controlling the toggle state
+ * <element className="toggle-elevate toggle-elevated" />
+ *
+ * Elevation systems have to handle many states.
+ * - not-hovered, vs. hovered vs. active  (three mutually exclusive states)
+ * - toggled or not
+ * - focused or not (this is not handled with these utilities)
+ *
+ * Even without handling focused or not, this is six possible combinations that
+ * need to be distinguished from eachother visually.
+ */
+@layer utilities {
 
-#starsCanvas{
-  position:fixed; inset:0; z-index:-3; width:100%; height:100%;
-  display:block;
-}
+  /* Hide ugly search cancel button in Chrome until we can style it properly */
+  input[type="search"]::-webkit-search-cancel-button {
+    @apply hidden;
+  }
 
-/* top bar */
-.topbar{
-  position:fixed; top:12px; left:12px; right:12px;
-  display:flex; justify-content:space-between; align-items:center;
-  gap:12px; z-index:1000;
-  pointer-events:auto;
-}
-.brand{
-  display:flex; gap:18px; align-items:center;
-}
-.brand-main{
-  font-size:1.6rem; font-weight:900; color:var(--accent);
-  text-shadow:0 6px 20px rgba(11,129,176,0.12);
-}
-.brand-sub{ font-size:0.85rem; color:var(--muted) }
+  /* Placeholder styling for contentEditable div */
+  [contenteditable][data-placeholder]:empty::before {
+    content: attr(data-placeholder);
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+  }
 
-.creators{ display:flex; gap:8px; align-items:center; font-weight:700; }
-.creators .glow-name{ font-size:0.95rem }
+  /* .no-default-hover-elevate/no-default-active-elevate is an escape hatch so consumers of
+   * buttons/badges can remove the automatic brightness adjustment on interactions
+   * and program their own. */
+  .no-default-hover-elevate {}
 
-/* controls buttons */
-.controls{ display:flex; gap:8px; align-items:center; }
-.btn{
-  padding:8px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.05);
-  background:var(--glass); color:var(--accent); cursor:pointer; transition:var(--transition);
-  font-weight:700;
-}
-.btn:hover{ transform:translateY(-3px); box-shadow:0 8px 30px rgba(11,129,176,0.08) }
-.btn.small{ padding:6px 10px; font-size:0.9rem }
-.btn.accent{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#012430; border:0 }
+  .no-default-active-elevate {}
 
-.icon-btn{
-  background:transparent; border:1px solid rgba(255,255,255,0.03); width:44px; height:44px; border-radius:50%;
-  display:inline-grid; place-items:center; color:var(--accent); cursor:pointer;
-}
 
-/* hero */
-.hero-section{
-  min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center; padding:120px 20px 60px;
-  position:relative; z-index:10;
-}
-.hero-title{
-  font-size:clamp(48px,10vw,108px); margin:0; letter-spacing:6px; font-weight:900;
-  color:transparent; background:linear-gradient(90deg,var(--accent),#8a3dff); -webkit-background-clip:text;
-  filter:drop-shadow(0 20px 60px rgba(11,129,176,0.08));
-}
-.hero-subtitle{ margin-top:12px; color:var(--muted); font-size:1.05rem; margin-bottom:22px; }
+  /**
+   * Toggleable backgrounds go behind the content. Hoverable/active goes on top.
+   * This way they can stack/compound. Both will overlap the parent's borders!
+   * So borders will be automatically adjusted both on toggle, and hover/active,
+   * and they will be compounded.
+   */
+  .toggle-elevate::before,
+  .toggle-elevate-2::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    /*border-radius: inherit;   match rounded corners */
+    border-radius: inherit;
+    z-index: -1;
+    /* sits behind content but above backdrop */
+  }
 
-/* stats */
-.stats-container{ display:flex; gap:36px; justify-content:center; margin-top:28px; flex-wrap:wrap }
-.stat-item{ text-align:center }
-.stat-number{ font-size:2.4rem; font-weight:900; color:var(--accent); }
-.stat-label{ color:var(--muted); font-weight:700 }
+  .toggle-elevate.toggle-elevated::before {
+    background-color: var(--elevate-2);
+  }
 
-/* intro */
-.intro-section{ padding:40px 16px; display:flex; justify-content:center }
-.intro-box{ max-width:900px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius:14px; padding:22px; border:1px solid rgba(15,183,255,0.06); box-shadow:0 30px 80px rgba(2,8,20,0.55) }
+  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
+  .border.toggle-elevate::before {
+    inset: -1px;
+  }
 
-/* members */
-.members-section{ padding:60px 18px 100px }
-.section-title{ text-align:center; font-size:2.1rem; margin-bottom:28px; color:#e8fbff }
+  /* Does not work on elements with overflow:hidden! */
+  .hover-elevate:not(.no-default-hover-elevate),
+  .active-elevate:not(.no-default-active-elevate),
+  .hover-elevate-2:not(.no-default-hover-elevate),
+  .active-elevate-2:not(.no-default-active-elevate) {
+    position: relative;
+    z-index: 0;
+  }
 
-/* grid */
-.members-grid{
-  display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:22px; max-width:1200px; margin:0 auto;
-}
+  .hover-elevate:not(.no-default-hover-elevate)::after,
+  .active-elevate:not(.no-default-active-elevate)::after,
+  .hover-elevate-2:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:not(.no-default-active-elevate)::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    /*border-radius: inherit;   match rounded corners */
+    border-radius: inherit;
+    z-index: 999;
+    /* sits in front of content */
+  }
 
-/* card 3D */
-.card-3d{ perspective:1200px; height:420px; position:relative; opacity:0; transform:translateY(30px) }
-.card-inner{
-  width:100%; height:100%; border-radius:14px; transform-style:preserve-3d;
-  transition: transform 700ms cubic-bezier(.2,.9,.3,1), box-shadow 250ms;
-  box-shadow: 0 12px 40px rgba(1,13,28,0.6);
-  cursor:pointer; position:relative; overflow:hidden; background:linear-gradient(180deg, rgba(6,18,36,0.65), rgba(6,18,36,0.5));
-}
-.card-3d.flipped .card-inner{ transform: rotateY(180deg) }
+  .hover-elevate:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-1);
+  }
 
-.card-front, .card-back{
-  position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
-  border-radius:14px; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end;
-}
+  .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
+  .active-elevate-2:active:not(.no-default-active-elevate)::after {
+    background-color: var(--elevate-2);
+  }
 
-/* front */
-.card-front{ border:1px solid rgba(15,183,255,0.05) }
-.card-front .card-img{
-  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; transform-origin:center;
-  transition: transform 900ms cubic-bezier(.2,.9,.3,1);
-}
-.card-front .card-overlay{
-  position:relative; z-index:2; padding:18px; background:linear-gradient(to top, rgba(2,6,12,0.85), transparent 50%);
-}
-.card-name{ font-size:1.25rem; font-weight:900; color:#e9fbff }
-.card-rank{ margin-top:6px; color:var(--accent); font-weight:700 }
-
-/* back */
-.card-back{ transform:rotateY(180deg); padding:26px; gap:12px; align-items:center; justify-content:center; text-align:center; border:1px solid rgba(138,61,255,0.06) }
-.card-back h3{ color:var(--accent); margin:0; font-size:1.35rem }
-.card-desc{ color:var(--muted); font-size:0.95rem; line-height:1.5; margin-top:6px }
-.card-actions{ width:100%; display:flex; gap:10px; flex-direction:column; margin-top:12px }
-
-/* card link & copy */
-.card-link{ display:inline-flex; align-items:center; justify-content:center; padding:10px 12px; border-radius:10px;
-  border:1px solid rgba(255,255,255,0.04); color:var(--muted); background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent); font-weight:700; text-decoration:none }
-.card-link:hover{ color:#012430; background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:0 }
-
-.copy-btn{ padding:10px 12px; border-radius:10px; border:1px solid rgba(15,255,136,0.1); color:var(--accent); background:transparent; font-weight:700; }
-
-/* popup support */
-.overlay{ position:fixed; inset:0; background:rgba(1,6,12,0.6); z-index:200; opacity:0; pointer-events:none; transition:opacity 240ms }
-.overlay.show{ opacity:1; pointer-events:auto }
-.popup{
-  position:fixed; right:50%; transform:translateX(50%) translateY(-10%); top:12%;
-  width:420px; max-width:92%; background:linear-gradient(180deg, rgba(4,8,16,0.98), rgba(6,12,24,0.95));
-  border-radius:12px; padding:18px; z-index:300; box-shadow:0 30px 120px rgba(2,6,18,0.7); opacity:0; pointer-events:none; transition: all 300ms ease;
-}
-.popup.show{ transform:translateX(50%) translateY(0); opacity:1; pointer-events:auto }
-.popup h3{ margin:6px 0 10px; color:var(--accent) }
-.popup p.popup-desc{ color:var(--muted); margin-bottom:12px }
-.support-form input, .support-form textarea{
-  width:100%; padding:10px 12px; margin-bottom:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04);
-  background:transparent; color:#e9fbff; outline:none; resize:vertical;
-}
-.form-actions{ display:flex; gap:8px; justify-content:flex-end; margin-top:8px }
-.note.small{ color:var(--muted); font-size:0.85rem; margin-top:8px }
-
-/* footer */
-.footer{ padding:40px 18px; text-align:center; color:var(--muted); margin-top:30px }
-
-/* notification */
-.notification{
-  position:fixed; left:16px; bottom:16px; z-index:400; background:linear-gradient(90deg,#0fb7ff,#0066cc); color:#012430;
-  padding:10px 14px; border-radius:10px; box-shadow:0 8px 30px rgba(11,129,176,0.12); transform:translateY(20px); opacity:0; transition:all 300ms;
-}
-.notification.show{ transform:translateY(0); opacity:1 }
-
-/* glow-name */
-.glow-name{
-  color:var(--accent); font-weight:900; background:linear-gradient(90deg,var(--accent),#8a3dff); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  text-shadow:0 8px 28px rgba(11,129,176,0.08); font-size:0.95rem;
-}
-
-/* responsive */
-@media (max-width:900px){
-  .topbar{ padding:6px; gap:8px }
-  .brand-main{ font-size:1.1rem }
-  .controls{ gap:6px }
-  .card-3d{ height:360px }
-  .hero-section{ padding-top:100px; padding-bottom:40px }
-  .hero-title{ font-size:42px }
+  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
+  .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
+  .border.active-elevate:not(.no-active-interaction-elevate)::after,
+  .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
+  .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
+  .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
+    inset: -1px;
+  }
 }
