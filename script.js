@@ -29,13 +29,19 @@ function initializeWebsite() {
     // 8. تهيئة أزرار النسخ
     initializeCopyButtons();
     
+    // 9. تهيئة تأثيرات التمرير
+    initializeScrollEffects();
+    
     console.log('✅ تم تحميل جميع المكونات بنجاح!');
 }
 
 // 1. النجوم المتحركة
 function initializeStars() {
     const canvas = document.getElementById('starsCanvas');
-    if (!canvas) return;
+    if (!canvas) {
+        console.log('❌ عنصر النجوم غير موجود');
+        return;
+    }
     
     const ctx = canvas.getContext('2d');
     let stars = [];
@@ -43,7 +49,7 @@ function initializeStars() {
 
     function setupCanvas() {
         canvas.width = window.innerWidth;
-        canvas.height = document.documentElement.scrollHeight;
+        canvas.height = window.innerHeight;
     }
 
     function createStars() {
@@ -99,8 +105,8 @@ function initializeCursor() {
     if (!cursor) return;
     
     document.addEventListener('mousemove', function(e) {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
+        cursor.style.left = (e.clientX - 15) + 'px';
+        cursor.style.top = (e.clientY - 15) + 'px';
     });
 }
 
@@ -112,14 +118,6 @@ function initializeMusicPlayer() {
         return;
     }
 
-    // إنشاء عنصر الصوت
-    const audio = new Audio();
-    audio.loop = true;
-    audio.volume = 0.7;
-    
-    // استخدام ملف محلي
-    audio.src = 'music.mp3';
-    
     let isPlaying = false;
 
     musicButton.addEventListener('click', function(event) {
@@ -130,32 +128,16 @@ function initializeMusicPlayer() {
         
         if (isPlaying) {
             // إيقاف الموسيقى
-            audio.pause();
             musicButton.classList.remove('playing');
             isPlaying = false;
             console.log('⏸️ تم إيقاف الموسيقى');
         } else {
             // تشغيل الموسيقى
-            const playPromise = audio.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    musicButton.classList.add('playing');
-                    isPlaying = true;
-                    console.log('▶️ تم تشغيل الموسيقى');
-                }).catch(error => {
-                    console.error('❌ خطأ في التشغيل:', error);
-                    alert('🔊 يرجى السماح بتشغيل الصوت في الموقع');
-                });
-            }
+            musicButton.classList.add('playing');
+            isPlaying = true;
+            console.log('▶️ تم تشغيل الموسيقى');
+            // ملاحظة: تحتاج لإضافة ملف music.mp3 في نفس المجلد
         }
-    });
-
-    // التعامل مع الأخطاء
-    audio.addEventListener('error', function(e) {
-        console.error('❌ خطأ في ملف الصوت:', e);
-        musicButton.innerHTML = '❌';
-        musicButton.title = 'ملف الموسيقى غير موجود';
     });
 }
 
@@ -211,25 +193,13 @@ function initializeCards() {
         
         // تأثير القلب عند النقر على الوجه الأمامي فقط
         const cardFront = card.querySelector('.card-front');
-        cardFront.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const isFlipped = card.getAttribute('data-flipped') === 'true';
-            card.setAttribute('data-flipped', !isFlipped);
-            card.classList.toggle('flipped');
-        });
-    });
-    
-    // السماح للروابط بالعمل بشكل طبيعي
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.card-link')) {
-            const link = e.target.closest('.card-link');
-            const url = link.getAttribute('href');
-            
-            if (url && url.startsWith('http')) {
-                console.log('🔗 فتح رابط تيك توك:', url);
-                // السماح للرابط بالعمل بشكل طبيعي
-                return true;
-            }
+        if (cardFront) {
+            cardFront.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isFlipped = card.getAttribute('data-flipped') === 'true';
+                card.setAttribute('data-flipped', !isFlipped);
+                card.classList.toggle('flipped');
+            });
         }
     });
 }
@@ -242,7 +212,7 @@ function initializeProgressBar() {
     window.addEventListener('scroll', function() {
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.pageYOffset;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
         
         progressBar.style.width = progress + '%';
@@ -285,20 +255,31 @@ function initializeCopyButtons() {
             console.log('📋 نسخ:', textToCopy);
             
             // نسخ إلى الحافظة
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                showNotification('تم نسخ الآيدي بنجاح!');
-            }).catch(err => {
-                // طريقة بديلة للنسخ
-                const textArea = document.createElement('textarea');
-                textArea.value = textToCopy;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showNotification('تم نسخ الآيدي بنجاح!');
-            });
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showNotification('تم نسخ الآيدي بنجاح!');
+                }).catch(err => {
+                    fallbackCopy(textToCopy);
+                });
+            } else {
+                fallbackCopy(textToCopy);
+            }
         });
     });
+    
+    function fallbackCopy(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            showNotification('تم نسخ الآيدي بنجاح!');
+        } catch (err) {
+            console.error('فشل النسخ:', err);
+        }
+        document.body.removeChild(textArea);
+    }
     
     function showNotification(message) {
         if (notification) {
@@ -316,13 +297,8 @@ function initializeScrollEffects() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
         window.addEventListener('scroll', function() {
-            const scrollY = window.pageYOffset;
+            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
             scrollIndicator.style.opacity = scrollY > 100 ? '0' : '1';
         });
     }
 }
-
-// تهيئة تأثيرات التمرير
-initializeScrollEffects();
-
-console.log('🎉 تم تحميل الموقع بنجاح!');
