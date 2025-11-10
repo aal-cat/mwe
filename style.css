@@ -519,6 +519,9 @@ body {
   padding: 15px;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .account-item:hover {
@@ -540,7 +543,7 @@ body {
   font-size: 0.9rem;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
   transition: color 0.3s ease;
 }
 
@@ -550,6 +553,43 @@ body {
 
 .account-link i {
   font-size: 0.8rem;
+}
+
+/* ========== أزرار نسخ صغيرة للحسابات ========== */
+.copy-btn-small {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 255, 136, 0.2);
+  color: #0fff88;
+  background: linear-gradient(135deg, rgba(15, 255, 136, 0.1), transparent);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+
+.copy-btn-small:hover {
+  background: linear-gradient(135deg, #0fff88, #00cc66);
+  color: #012430;
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(15, 255, 136, 0.3);
+}
+
+/* عناصر النسخ فقط (بدون رابط) */
+.copy-only {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  cursor: default;
 }
 
 /* ========== تحسينات التجاوب ========== */
