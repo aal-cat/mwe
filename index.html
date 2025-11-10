@@ -1,368 +1,120 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ ٱلمياوز - الجيش الأسطوري ⚡</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>⚡ ٱلمياوز - الجيش الأسطوري ⚡</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="starsCanvas"></canvas>
-    <div class="cursor-glow"></div>
-    <div class="progress-bar"></div>
-    
-    <button class="music-toggle" id="musicBtn">
-        <i class="fas fa-music"></i>
-    </button>
-    
-    <div class="scroll-indicator">
-        <div class="scroll-arrow">↓</div>
-        <span>اسحب للأسفل</span>
-    </div>
-    
-    <button class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+  <!-- VIDEO SMOKE (الخلفية الأولى) -->
+  <video id="bgSmoke" class="bg-video" autoplay loop muted playsinline preload="auto">
+    <source src="smoke.mp4" type="video/mp4">
+    <!-- لو ما فيه فيديو، سيبقى العنصر موجود لكن مختفي -->
+  </video>
 
-    <section class="hero-section">
-        <div class="glitch-container">
-            <h1 class="hero-title glitch" data-text="ٱل مياو">ٱل مياو</h1>
+  <!-- CANVAS STARS (الخلفية الثانية) -->
+  <canvas id="starsCanvas" aria-hidden="true"></canvas>
+
+  <!-- UI top bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-names">
+        <span class="brand-main">ٱل مياو</span>
+        <div class="brand-sub">الجيش الأسطوري</div>
+      </div>
+      <div class="creators">
+        <span class="glow-name">عبيدة بنور</span>
+        <span class="sep">•</span>
+        <span class="glow-name">عبدالله</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="bgToggle" class="btn small">تبديل الخلفية</button>
+      <button id="supportBtn" class="btn small accent"><i class="fas fa-headset"></i> دعم فني</button>
+      <button id="musicBtn" class="icon-btn" title="تشغيل/إيقاف الموسيقى"><i class="fas fa-music"></i></button>
+    </div>
+  </header>
+
+  <!-- scroll indicator -->
+  <div class="scroll-indicator" id="scrollIndicator"><span>اسحب للأسفل</span><i class="fas fa-arrow-down"></i></div>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero-section" id="hero">
+      <h1 class="hero-title glitch" data-text="ٱل مياو">ٱل مياو</h1>
+      <p class="hero-subtitle">الجيش الذي احتل العالم بالسر واختفى — أساطير تنبض بالقوة</p>
+
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="stat-number" data-target="11">0</div>
+          <div class="stat-label">أساطير</div>
         </div>
-        <p class="hero-subtitle">الجيش الذي احتل العالم بالسر و اختفى</p>
-        <div class="stats-container">
-            <div class="stat-item">
-                <span class="stat-number" data-target="11">0</span>
-                <span class="stat-label">أساطير</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="99999">0</span>
-                <span class="stat-label">سنة من التاريخ</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="1000000000">0</span>
-                <span class="stat-label">ثروة</span>
-            </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="99999">0</div>
+          <div class="stat-label">سنة من التاريخ</div>
         </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="1000000000">0</div>
+          <div class="stat-label">ثروة</div>
+        </div>
+      </div>
     </section>
 
+    <!-- INTRO -->
     <section class="intro-section">
-        <div class="intro-box">
-            <div class="neon-border"></div>
-            <p class="intro-text">
-                مجموعة من جنرالات المياوز الذين احتلوا العالم لآلاف السنين، حكاياتهم وأعمالهم ما زالت تُلهم كل من يسمع عنها. هؤلاء الأبطال الأسطوريون امتلكوا قوى خارقة ومعرفة سرية مكنتهم من تشكيل مصير البشرية من وراء الستار.
-            </p>
-        </div>
+      <div class="intro-box">
+        <p class="intro-text">مجموعة من جنرالات المياوز الذين احتلوا العالم لآلاف السنين. حكاياتهم، استراتيجياتهم، وروابطهم موجودة أدناه — اضغط على أي بطاقة لتقلبها وتعرض حساباتهم.</p>
+      </div>
     </section>
 
-    <section class="members-section">
-        <h2 class="section-title">
-            <span class="title-word">أبطال</span>
-            <span class="title-word">القبيلة</span>
-        </h2>
-        
-        <div class="members-grid">
-            <!-- بطاقة عبيدة -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="1.jpg" alt="عبيدة" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">عبيدة</span>
-                            <p class="card-rank">كاريزما إلى الحد الأقصى</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>عبيدة</h3>
-                        <p>كاريزما إلى الحد الأقصى</p>
-                        <p class="card-desc">يتمتع بكاريزما طاغية تجعله محط الأنظار في أي مكان. اليد اليمنى للقائد عبدالله.</p>
-                        <a href="https://www.tiktok.com/@level.201?_r=1&_t=ZS-91GY5MLW014" target="_blank" class="card-link">
-                            تابعني على تيك توك
-                            <span class="link-arrow">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بطاقة عبدالله -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="2.jpg" alt="عبدالله" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">عبدالله</span>
-                            <p class="card-rank">😺E=mc²😺</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>عبدالله</h3>
-                        <p>😺E=mc²😺</p>
-                        <p class="card-desc">القائد الأعظم والدماغ المدبر وراء إستراتيجيات المياوز. يجمع بين الذكاء الخارق والقيادة الأسطورية.</p>
-                        <a href="https://www.tiktok.com/@124hht?_r=1&_t=ZS-91GY2H9pVkF" target="_blank" class="card-link">
-                            تابعني على تيك توك
-                            <span class="link-arrow">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بطاقة جاسم -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="3.jpg" alt="جاسم" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">جاسم</span>
-                            <p class="card-rank">مازوخي</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>جاسم</h3>
-                        <p>مازوخي</p>
-                        <p class="card-desc">محارب لا يعرف الخوف، يتحدى الصعاب ويتغلب عليها بقوة إرادة لا تُقهَر.</p>
-                        <a href="https://www.tiktok.com/@bachira_402?_r=1&_t=ZS-91GY7vFVzUu" target="_blank" class="card-link">
-                            تابعني على تيك توك
-                            <span class="link-arrow">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بطاقة محمد -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="4.jpg" alt="محمد" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">محمد</span>
-                            <p class="card-rank">المحارب الصامت</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>محمد</h3>
-                        <p>المحارب الصامت</p>
-                        <p class="card-desc">يتحرك في صمت ويضرب بقوة. أفعاله تتحدث louder من أي كلمات.</p>
-                        <a href="https://www.tiktok.com/@.999qaa?_r=1&_t=ZS-91GYExHNWbP" target="_blank" class="card-link">
-                            تابعني على تيك توك
-                            <span class="link-arrow">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بطاقة 5 -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="5.jpg" alt="المحارب الأحمر" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">المحارب الأحمر</span>
-                            <p class="card-rank">@red908287</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>المحارب الأحمر</h3>
-                        <p>@red908287</p>
-                        <p class="card-desc">خبير في التكتيكات الحمراء، يتخصص في العمليات السرية ذات الخطورة العالية.</p>
-                        <div class="card-actions">
-                            <a href="https://www.tiktok.com/@red908287?_r=1&_t=ZS-91GZ2JWmj4x" target="_blank" class="card-link">
-                                تابعني على تيك توك
-                                <span class="link-arrow">→</span>
-                            </a>
-                            <button class="copy-btn" data-id="red908287">
-                                <i class="fas fa-copy"></i>
-                                نسخ الآيدي
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بطاقة 6 -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="6.jpg" alt="ZX Aspo" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">ZX Aspo</span>
-                            <p class="card-rank">@zxaspo</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>ZX Aspo</h3>
-                        <p>@zxaspo</p>
-                        <p class="card-desc">خبير التكنولوجيا والاتصالات، يتحكم في شبكات المعلومات العالمية.</p>
-                        <div class="card-actions">
-                            <a href="https://www.tiktok.com/@zxaspo?_r=1&_t=ZS-91GZ5U0JZGp" target="_blank" class="card-link">
-                                تابعني على تيك توك
-                                <span class="link-arrow">→</span>
-                            </a>
-                            <button class="copy-btn" data-id="zxaspo">
-                                <i class="fas fa-copy"></i>
-                                نسخ الآيدي
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بطاقة 7 -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="7.jpg" alt="Zoro Gaming" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">Zoro Gaming</span>
-                            <p class="card-rank">@zorogaming369</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>Zoro Gaming</h3>
-                        <p>@zorogaming369</p>
-                        <p class="card-desc">سيد الألعاب والتكتيكات الافتراضية، يحول الألعاب إلى ساحات حرب حقيقية.</p>
-                        <div class="card-actions">
-                            <a href="https://www.tiktok.com/@zorogaming369?_r=1&_t=ZS-91GZ6I3gJPE" target="_blank" class="card-link">
-                                تابعني على تيك توك
-                                <span class="link-arrow">→</span>
-                            </a>
-                            <button class="copy-btn" data-id="zorogaming369">
-                                <i class="fas fa-copy"></i>
-                                نسخ الآيدي
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بطاقة 8 -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="8.jpg" alt="LLO" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">LLO</span>
-                            <p class="card-rank">@llo.ll2</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>LLO</h3>
-                        <p>@llo.ll2</p>
-                        <p class="card-desc">خبير الشفرات والاتصالات المشفرة، يتواصل بلغة يفهمها فقط أعضاء المياوز.</p>
-                        <div class="card-actions">
-                            <a href="https://www.tiktok.com/@llo.ll2" target="_blank" class="card-link">
-                                تابعني على تيك توك
-                                <span class="link-arrow">→</span>
-                            </a>
-                            <button class="copy-btn" data-id="llo.ll2">
-                                <i class="fas fa-copy"></i>
-                                نسخ الآيدي
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بطاقة 9 -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="9.jpg" alt="Nabaa" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">Nabaa</span>
-                            <p class="card-rank">@nabaa7065</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>Nabaa</h3>
-                        <p>@nabaa7065</p>
-                        <p class="card-desc">خبيرة الاستخبارات والتخطيط، تجمع المعلومات وتحللها ببراعة استثنائية.</p>
-                        <div class="card-actions">
-                            <a href="https://www.tiktok.com/@nabaa7065" target="_blank" class="card-link">
-                                تابعني على تيك توك
-                                <span class="link-arrow">→</span>
-                            </a>
-                            <button class="copy-btn" data-id="nabaa7065">
-                                <i class="fas fa-copy"></i>
-                                نسخ الآيدي
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بطاقة 10 -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="10.jpg" alt="EN18S" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">EN18S</span>
-                            <p class="card-rank">@en18s</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>EN18S</h3>
-                        <p>@en18s</p>
-                        <p class="card-desc">متخصص في العمليات الخاصة، يتقن فن التخفي والاختفاء في أي بيئة.</p>
-                        <div class="card-actions">
-                            <a href="https://www.tiktok.com/@en18s" target="_blank" class="card-link">
-                                تابعني على تيك توك
-                                <span class="link-arrow">→</span>
-                            </a>
-                            <button class="copy-btn" data-id="en18s">
-                                <i class="fas fa-copy"></i>
-                                نسخ الآيدي
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بطاقة 11 -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="11.jpg" alt="Memeoyah" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">Memeoyah</span>
-                            <p class="card-rank">@memeoyah</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>Memeoyah</h3>
-                        <p>@memeoyah</p>
-                        <p class="card-desc">سيد الدعاية النفسية، يستخدم الميمز كسلاح للتأثير على العقول.</p>
-                        <div class="card-actions">
-                            <a href="https://www.tiktok.com/@memeoyah" target="_blank" class="card-link">
-                                تابعني على تيك توك
-                                <span class="link-arrow">→</span>
-                            </a>
-                            <button class="copy-btn" data-id="memeoyah">
-                                <i class="fas fa-copy"></i>
-                                نسخ الآيدي
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- HEROES GRID (ديناميكي) -->
+    <section class="members-section" id="members">
+      <h2 class="section-title">أبطال القبيلة</h2>
+      <div class="members-grid" id="membersGrid"><!-- سيتم تعبئته ديناميكياً --></div>
     </section>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-text">
-                © 2025 قبيلة ٱل مياو • صُنع بواسطة 
-                <span class="glow-name">عبيدة</span> و 
-                <span class="glow-name">عبدالله</span> 💫
-            </p>
-            <div class="footer-sparkles">✨ 🌟 ✨</div>
-        </div>
-    </footer>
+  </main>
 
-    <div class="notification" id="notification">
-        <span class="notification-text">تم نسخ الآيدي بنجاح!</span>
+  <!-- footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p class="footer-text">© 2025 قبيلة ٱل مياو • صُنع بواسطة <span class="glow-name">عبيدة بنور</span> و <span class="glow-name">عبدالله</span> 💫</p>
     </div>
+  </footer>
 
-    <script src="script.js"></script>
+  <!-- SUPPORT POPUP -->
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
+  <div class="popup" id="supportPopup" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="popup-close" id="popupClose"><i class="fas fa-times"></i></button>
+    <h3>الدعم الفني</h3>
+    <p class="popup-desc">اكتب مشكلتك أو استفسارك وسيتم تجهيز رسالة جاهزة للإرسال إلى بريد الدعم.</p>
+    <form id="supportForm" class="support-form">
+      <input name="name" type="text" placeholder="الاسم" required />
+      <input name="email" type="email" placeholder="البريد الإلكتروني" required />
+      <textarea name="message" rows="6" placeholder="اكتب سؤالك أو مشكلتك..." required></textarea>
+      <div class="form-actions">
+        <button type="submit" class="btn accent">أرسل إلى الدعم</button>
+        <button type="button" id="popupCancel" class="btn">إلغاء</button>
+      </div>
+      <p class="note small">سيتم فتح تطبيق البريد لديك لإرسال الرسالة إلى <strong>gszgxgxvx@gmail.com</strong>. تأكد من الضغط على إرسال داخل تطبيق البريد.</p>
+    </form>
+  </div>
+
+  <!-- hidden audio (يمكنك وضع music.mp3 في المشروع) -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- notification -->
+  <div class="notification" id="notification" aria-live="polite"></div>
+
+  <script src="script.js"></script>
 </body>
 </html>
