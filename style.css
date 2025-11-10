@@ -1,211 +1,123 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* CYBER/FUTURISTIC DARK MODE (DEFAULT) */
-:root {
-  --button-outline: rgba(0,217,255, .15);
-  --badge-outline: rgba(0,217,255, .08);
-  --opaque-button-border-intensity: 8;
-  --elevate-1: rgba(0,217,255, .05);
-  --elevate-2: rgba(0,217,255, .12);
-  --background: 228 45% 8%;
-  --foreground: 190 100% 85%;
-  --border: 228 30% 18%;
-  --card: 228 40% 10%;
-  --card-foreground: 190 100% 85%;
-  --card-border: 228 35% 15%;
-  --sidebar: 228 42% 9%;
-  --sidebar-foreground: 190 100% 85%;
-  --sidebar-border: 228 30% 16%;
-  --sidebar-primary: 190 100% 50%;
-  --sidebar-primary-foreground: 228 45% 8%;
-  --sidebar-accent: 228 30% 18%;
-  --sidebar-accent-foreground: 190 100% 85%;
-  --sidebar-ring: 190 100% 50%;
-  --popover: 228 38% 12%;
-  --popover-foreground: 190 100% 85%;
-  --popover-border: 228 30% 20%;
-  --primary: 190 100% 50%;
-  --primary-foreground: 228 45% 8%;
-  --secondary: 228 30% 20%;
-  --secondary-foreground: 190 100% 85%;
-  --muted: 228 25% 22%;
-  --muted-foreground: 190 50% 65%;
-  --accent: 280 60% 25%;
-  --accent-foreground: 190 100% 85%;
-  --destructive: 0 84% 42%;
-  --destructive-foreground: 0 0% 98%;
-  --input: 228 30% 25%;
-  --ring: 190 100% 50%;
-  --chart-1: 190 100% 50%;
-  --chart-2: 200 85% 55%;
-  --chart-3: 240 75% 60%;
-  --chart-4: 280 70% 55%;
-  --chart-5: 320 65% 50%;
-  --font-sans: Cairo, Tajawal, sans-serif;
-  --font-serif: Georgia, serif;
-  --font-mono: Orbitron, monospace;
-  --radius: .375rem;
-  --shadow-2xs: 0px 2px 0px 0px hsl(220 8% 50% / 0.00);
-  --shadow-xs: 0px 2px 0px 0px hsl(220 8% 50% / 0.00);
-  --shadow-sm: 0px 2px 0px 0px hsl(220 8% 50% / 0.00), 0px 1px 2px -1px hsl(220 8% 50% / 0.00);
-  --shadow: 0px 2px 0px 0px hsl(220 8% 50% / 0.00), 0px 1px 2px -1px hsl(220 8% 50% / 0.00);
-  --shadow-md: 0px 2px 0px 0px hsl(220 8% 50% / 0.00), 0px 2px 4px -1px hsl(220 8% 50% / 0.00);
-  --shadow-lg: 0px 2px 0px 0px hsl(220 8% 50% / 0.00), 0px 4px 6px -1px hsl(220 8% 50% / 0.00);
-  --shadow-xl: 0px 2px 0px 0px hsl(220 8% 50% / 0.00), 0px 8px 10px -1px hsl(220 8% 50% / 0.00);
-  --shadow-2xl: 0px 2px 0px 0px hsl(220 8% 50% / 0.00);
-  --tracking-normal: 0em;
-  --spacing: 0.25rem;
-
-/* Fallback for older browsers */
-  --sidebar-primary-border: hsl(var(--sidebar-primary));
-  --sidebar-primary-border: hsl(from hsl(var(--sidebar-primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --sidebar-accent-border: hsl(var(--sidebar-accent));
-  --sidebar-accent-border: hsl(from hsl(var(--sidebar-accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --primary-border: hsl(var(--primary));
-  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --secondary-border: hsl(var(--secondary));
-  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --muted-border: hsl(var(--muted));
-  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --accent-border: hsl(var(--accent));
-  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-
-  /* Fallback for older browsers */
-  --destructive-border: hsl(var(--destructive));
-  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+body {
+  margin: 0;
+  font-family: 'Cairo', sans-serif;
+  background: url('stars-bg.gif') center/cover fixed;
+  color: #cdefff;
+  transition: background 1s ease;
+  overflow-x: hidden;
 }
 
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply font-sans antialiased bg-background text-foreground;
-  }
+.smoke-bg {
+  background: url('smoke-bg.gif') center/cover fixed !important;
 }
 
-/**
- * Using the elevate system.
- * Automatic contrast adjustment.
- *
- * <element className="hover-elevate" />
- * <element className="active-elevate-2" />
- *
- * // Using the tailwind utility when a data attribute is "on"
- * <element className="toggle-elevate data-[state=on]:toggle-elevated" />
- * // Or manually controlling the toggle state
- * <element className="toggle-elevate toggle-elevated" />
- *
- * Elevation systems have to handle many states.
- * - not-hovered, vs. hovered vs. active  (three mutually exclusive states)
- * - toggled or not
- * - focused or not (this is not handled with these utilities)
- *
- * Even without handling focused or not, this is six possible combinations that
- * need to be distinguished from eachother visually.
- */
-@layer utilities {
+.toggle-btn, .music-btn {
+  position: fixed;
+  top: 20px;
+  padding: 10px 16px;
+  border: none;
+  background: rgba(0, 255, 255, 0.2);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+  z-index: 1000;
+}
+.toggle-btn:hover, .music-btn:hover {
+  background: rgba(0, 255, 255, 0.4);
+}
+.toggle-btn { right: 20px; }
+.music-btn { left: 20px; }
 
-  /* Hide ugly search cancel button in Chrome until we can style it properly */
-  input[type="search"]::-webkit-search-cancel-button {
-    @apply hidden;
-  }
+.main-title {
+  text-align: center;
+  margin-top: 100px;
+  font-size: 2.5rem;
+  text-shadow: 0 0 15px #00f6ff;
+}
 
-  /* Placeholder styling for contentEditable div */
-  [contenteditable][data-placeholder]:empty::before {
-    content: attr(data-placeholder);
-    color: hsl(var(--muted-foreground));
-    pointer-events: none;
-  }
+.heroes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 30px;
+  padding: 40px;
+}
 
-  /* .no-default-hover-elevate/no-default-active-elevate is an escape hatch so consumers of
-   * buttons/badges can remove the automatic brightness adjustment on interactions
-   * and program their own. */
-  .no-default-hover-elevate {}
+.card {
+  perspective: 1000px;
+}
+.card-inner {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+  cursor: pointer;
+}
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 320px;
+  border-radius: 15px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border: 1px solid rgba(0,255,255,0.2);
+  box-shadow: 0 0 15px rgba(0,255,255,0.1);
+}
+.card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-front h2 {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.6);
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+  color: #00ffff;
+}
+.card-back {
+  background: rgba(0, 20, 40, 0.95);
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.card-back h3 { color: #00f6ff; margin-bottom: 10px; }
+.card-back button {
+  padding: 8px 14px;
+  background: #00f6ff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #001;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.card-back button:hover { background: #00ffff; }
 
-  .no-default-active-elevate {}
+.glow {
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #00f6ff;
+  font-weight: bold;
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%,100% { text-shadow: 0 0 10px #0ff, 0 0 25px #00f6ff; }
+  50% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff; }
+}
 
-
-  /**
-   * Toggleable backgrounds go behind the content. Hoverable/active goes on top.
-   * This way they can stack/compound. Both will overlap the parent's borders!
-   * So borders will be automatically adjusted both on toggle, and hover/active,
-   * and they will be compounded.
-   */
-  .toggle-elevate::before,
-  .toggle-elevate-2::before {
-    content: "";
-    pointer-events: none;
-    position: absolute;
-    inset: 0px;
-    /*border-radius: inherit;   match rounded corners */
-    border-radius: inherit;
-    z-index: -1;
-    /* sits behind content but above backdrop */
-  }
-
-  .toggle-elevate.toggle-elevated::before {
-    background-color: var(--elevate-2);
-  }
-
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
-  .border.toggle-elevate::before {
-    inset: -1px;
-  }
-
-  /* Does not work on elements with overflow:hidden! */
-  .hover-elevate:not(.no-default-hover-elevate),
-  .active-elevate:not(.no-default-active-elevate),
-  .hover-elevate-2:not(.no-default-hover-elevate),
-  .active-elevate-2:not(.no-default-active-elevate) {
-    position: relative;
-    z-index: 0;
-  }
-
-  .hover-elevate:not(.no-default-hover-elevate)::after,
-  .active-elevate:not(.no-default-active-elevate)::after,
-  .hover-elevate-2:not(.no-default-hover-elevate)::after,
-  .active-elevate-2:not(.no-default-active-elevate)::after {
-    content: "";
-    pointer-events: none;
-    position: absolute;
-    inset: 0px;
-    /*border-radius: inherit;   match rounded corners */
-    border-radius: inherit;
-    z-index: 999;
-    /* sits in front of content */
-  }
-
-  .hover-elevate:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-1);
-  }
-
-  .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate-2:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-2);
-  }
-
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
-  .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
-    inset: -1px;
-  }
+.footer {
+  text-align: center;
+  padding: 30px;
+  background: rgba(0,0,0,0.5);
+  border-top: 1px solid rgba(0,255,255,0.2);
 }
