@@ -465,3 +465,247 @@ body{
   .card-3d{ height:360px }
   .hero-section{ padding-top:100px; padding-bottom:40px }
 }
+
+/* ========== تحسينات الأداء والسلاسة ========== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* تحسين أداء التمرير */
+.members-grid, .accounts-grid {
+  will-change: transform;
+}
+
+/* تحسين أداء البطاقات */
+.card-3d {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.card-img {
+  transform: translateZ(0);
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* ========== قسم روابط الحسابات ========== */
+.accounts-section {
+  padding: 60px 20px;
+  background: linear-gradient(180deg, transparent, rgba(15, 183, 255, 0.05));
+}
+
+.accounts-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.accounts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.account-item {
+  background: linear-gradient(135deg, rgba(6, 18, 36, 0.7), rgba(4, 12, 24, 0.5));
+  border: 1px solid rgba(15, 183, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.account-item:hover {
+  border-color: rgba(15, 183, 255, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(15, 183, 255, 0.1);
+}
+
+.account-name {
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.account-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+
+.account-link:hover {
+  color: var(--accent);
+}
+
+.account-link i {
+  font-size: 0.8rem;
+}
+
+/* ========== تحسينات التجاوب ========== */
+@media (max-width: 1200px) {
+  .members-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: clamp(36px, 8vw, 72px);
+    letter-spacing: 3px;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+  
+  .stats-container {
+    gap: 25px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .members-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 10px;
+  }
+  
+  .card-3d {
+    height: 380px;
+  }
+  
+  .accounts-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .brand {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .hero-section {
+    padding: 100px 15px 40px;
+  }
+  
+  .stat-number {
+    font-size: 1.8rem;
+  }
+  
+  .stat-label {
+    font-size: 0.9rem;
+  }
+  
+  .card-3d {
+    height: 350px;
+  }
+  
+  .card-back {
+    padding: 25px 20px;
+  }
+  
+  .accounts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========== تحسينات التحميل والظهور ========== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== شريط التقدم ========== */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #8a3dff);
+  z-index: 1000;
+  transition: width 0.1s ease;
+}
+
+/* ========== تحسينات الأداء للشاشات الكبيرة ========== */
+@media (min-width: 1440px) {
+  .members-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+  }
+  
+  .card-3d {
+    height: 450px;
+  }
+}
+
+/* ========== تحسينات التباين وإمكانية الوصول ========== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* تحسين التباين للنص */
+.intro-text, .card-desc, .popup-desc {
+  line-height: 1.7;
+}
+
+/* ========== تأثيرات دقيقة للزر ========== */
+.btn, .icon-btn, .card-link, .copy-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before, .icon-btn::before, .card-link::before, .copy-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before, .icon-btn:hover::before, .card-link:hover::before, .copy-btn:hover::before {
+  left: 100%;
+}
