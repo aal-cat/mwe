@@ -4,14 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <meta name="description" content="قبيلة آل مياو - مجموعة من الأبطال الأسطوريين في عالم الألعاب الإلكترونية" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <title>قبيلة آل مياو | Al Meow Clan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="container">
+      <header>
+        <h1>قبيلة آل مياو</h1>
+        <p class="subtitle">Al Meow Clan</p>
+        <div class="controls">
+          <button id="bgToggle">تبديل الخلفية</button>
+          <button id="musicToggle">تشغيل الموسيقى</button>
+        </div>
+      </header>
+      <div id="heroesGrid" class="grid"></div>
+      
+      <section class="support-section">
+        <h2>الدعم الفني</h2>
+        <p class="support-subtitle">هل تحتاج إلى مساعدة؟ أرسل لنا رسالة وسنرد عليك قريباً</p>
+        <form id="supportForm" class="support-form">
+          <div class="form-group">
+            <label for="supportName">الاسم</label>
+            <input type="text" id="supportName" required placeholder="أدخل اسمك">
+          </div>
+          <div class="form-group">
+            <label for="supportEmail">البريد الإلكتروني</label>
+            <input type="email" id="supportEmail" required placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label for="supportMessage">الرسالة</label>
+            <textarea id="supportMessage" required placeholder="اكتب رسالتك هنا..." rows="5"></textarea>
+          </div>
+          <button type="submit" class="submit-btn">إرسال الرسالة</button>
+        </form>
+      </section>
+    </div>
+    <audio id="bgMusic" loop>
+      <source src="music.mp3" type="audio/mpeg">
+    </audio>
+    <script src="script.js"></script>
   </body>
 </html>
