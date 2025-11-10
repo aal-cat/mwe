@@ -12,38 +12,34 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- VIDEO SMOKE (الخلفية الأولى) -->
-  <video id="bgSmoke" class="bg-video" autoplay loop muted playsinline preload="auto">
+  <!-- VIDEO SMOKE (اختياري) -->
+  <video id="bgSmoke" class="bg-video" autoplay loop muted playsinline preload="auto" aria-hidden="true">
     <source src="smoke.mp4" type="video/mp4">
-    <!-- لو ما فيه فيديو، سيبقى العنصر موجود لكن مختفي -->
   </video>
 
-  <!-- CANVAS STARS (الخلفية الثانية) -->
+  <!-- CANVAS STARS -->
   <canvas id="starsCanvas" aria-hidden="true"></canvas>
 
-  <!-- UI top bar -->
+  <!-- TOP BAR -->
   <header class="topbar">
     <div class="brand">
-      <div class="brand-names">
-        <span class="brand-main">ٱل مياو</span>
+      <div class="brand-left">
+        <div class="brand-main">ٱل مياو</div>
         <div class="brand-sub">الجيش الأسطوري</div>
       </div>
       <div class="creators">
-        <span class="glow-name">عبيدة</span>
+        <span class="glow-name">عبيدة بنور</span>
         <span class="sep">•</span>
         <span class="glow-name">عبدالله</span>
       </div>
     </div>
 
     <div class="controls">
-      <button id="bgToggle" class="btn small">تبديل الخلفية</button>
-      <button id="supportBtn" class="btn small accent"><i class="fas fa-headset"></i> دعم فني</button>
+      <button id="bgToggle" class="btn small" title="تبديل الخلفية"><i class="fas fa-image"></i> خلفية</button>
+      <button id="supportBtn" class="btn small accent" title="الدعم الفني"><i class="fas fa-headset"></i></button>
       <button id="musicBtn" class="icon-btn" title="تشغيل/إيقاف الموسيقى"><i class="fas fa-music"></i></button>
     </div>
   </header>
-
-  <!-- scroll indicator -->
-  <div class="scroll-indicator" id="scrollIndicator"><span>اسحب للأسفل</span><i class="fas fa-arrow-down"></i></div>
 
   <!-- HERO -->
   <main>
@@ -70,41 +66,32 @@
     <!-- INTRO -->
     <section class="intro-section">
       <div class="intro-box">
-        <p class="intro-text">مجموعة من جنرالات المياوز الذين احتلوا العالم لآلاف السنين. حكاياتهم، استراتيجياتهم، وروابطهم موجودة أدناه — اضغط على أي بطاقة لتقلبها وتعرض حساباتهم.</p>
+        <p class="intro-text">مجموعة من جنرالات المياوز الذين احتلوا العالم لآلاف السنين. اضغط على أي بطاقة لتقلبها وتعرض حساباتهم أو نسخ الآيدي.</p>
       </div>
     </section>
 
     <!-- HEROES GRID (ديناميكي) -->
     <section class="members-section" id="members">
       <h2 class="section-title">أبطال القبيلة</h2>
-      <div class="members-grid" id="membersGrid"><!-- سيتم تعبئته ديناميكياً --></div>
+      <div class="members-grid" id="membersGrid"><!-- يتم تعبئته ديناميكياً --></div>
     </section>
-
-    <!-- قسم روابط الحسابات -->
-    <section class="accounts-section" id="accounts">
-      <div class="accounts-container">
-        <h2 class="section-title">روابط حسابات الأبطال</h2>
-        <div class="accounts-grid" id="accountsGrid">
-          <!-- سيتم تعبئته ديناميكياً -->
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <!-- footer -->
   <footer class="footer">
     <div class="footer-content">
-      <p class="footer-text">© 2025 قبيلة ٱل مياو • صُنع بواسطة <span class="glow-name">عبيدة </span> و <span class="glow-name">عبدالله</span> 💫</p>
+      <p class="footer-text">© 2025 قبيلة ٱل مياو • صُنع بواسطة <span class="glow-name">عبيدة بنور</span> و <span class="glow-name">عبدالله</span> 💫</p>
     </div>
   </footer>
 
   <!-- SUPPORT POPUP -->
   <div class="overlay" id="overlay" aria-hidden="true"></div>
   <div class="popup" id="supportPopup" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="popup-close" id="popupClose"><i class="fas fa-times"></i></button>
+    <button class="popup-close" id="popupClose" aria-label="إغلاق"><i class="fas fa-times"></i></button>
     <h3>الدعم الفني</h3>
     <p class="popup-desc">اكتب مشكلتك أو استفسارك وسيتم تجهيز رسالة جاهزة للإرسال إلى بريد الدعم.</p>
+
+    <!-- form: سيحاول الإرسال عبر FORM_ENDPOINT إن حُدّد في script.js، وإلا يستخدم mailto -->
     <form id="supportForm" class="support-form">
       <input name="name" type="text" placeholder="الاسم" required />
       <input name="email" type="email" placeholder="البريد الإلكتروني" required />
@@ -113,11 +100,11 @@
         <button type="submit" class="btn accent">أرسل إلى الدعم</button>
         <button type="button" id="popupCancel" class="btn">إلغاء</button>
       </div>
-      <p class="note small">سيتم فتح تطبيق البريد لديك لإرسال الرسالة إلى <strong>gszgxgxvx@gmail.com</strong>. تأكد من الضغط على إرسال داخل تطبيق البريد.</p>
+      <p class="note small">إذا لم يتم تفعيل خدمة الإرسال التلقائي، سيُفتح تطبيق البريد لإرسال الرسالة يدوياً إلى <strong>gszgxgxvx@gmail.com</strong>.</p>
     </form>
   </div>
 
-  <!-- hidden audio (يمكنك وضع music.mp3 في المشروع) -->
+  <!-- optional audio -->
   <audio id="bgMusic" loop preload="auto">
     <source src="music.mp3" type="audio/mpeg">
   </audio>
