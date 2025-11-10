@@ -1,10 +1,10 @@
 // الانتظار حتى تحميل الصفحة بالكامل
-window.addEventListener('load', function() {
+document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 بدء تحميل الموقع...');
-    initializeAllFunctions();
+    initializeWebsite();
 });
 
-function initializeAllFunctions() {
+function initializeWebsite() {
     // 1. تهيئة النجوم
     initializeStars();
     
@@ -43,7 +43,7 @@ function initializeStars() {
 
     function setupCanvas() {
         canvas.width = window.innerWidth;
-        canvas.height = window.documentElement.scrollHeight;
+        canvas.height = document.documentElement.scrollHeight;
     }
 
     function createStars() {
@@ -198,29 +198,28 @@ function initializeCounters() {
 function initializeCards() {
     const cards = document.querySelectorAll('.card-3d');
     
-    cards.forEach(card => {
-        // تأثير الظهور
+    // تأثير الظهور
+    cards.forEach((card, index) => {
         card.style.opacity = '0';
+        card.style.transform = 'translateY(50px)';
+        
         setTimeout(() => {
+            card.style.transition = 'all 0.6s ease';
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
-        }, 100);
+        }, index * 100);
         
-        // تأثير القلب عند النقر
-        card.addEventListener('click', function(e) {
-            // إذا كان النقر على رابط أو زر، توقف هنا
-            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-                return;
-            }
-            
-            const cardInner = this.querySelector('.card-inner');
-            const isFlipped = cardInner.style.transform === 'rotateY(180deg)';
-            
-            cardInner.style.transform = isFlipped ? 'rotateY(0deg)' : 'rotateY(180deg)';
+        // تأثير القلب عند النقر على الوجه الأمامي فقط
+        const cardFront = card.querySelector('.card-front');
+        cardFront.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isFlipped = card.getAttribute('data-flipped') === 'true';
+            card.setAttribute('data-flipped', !isFlipped);
+            card.classList.toggle('flipped');
         });
     });
     
-    // إصلاح روابط تيك توك - طريقة مباشرة
+    // منع انتشار النقر للروابط والأزرار
     document.addEventListener('click', function(e) {
         if (e.target.closest('.card-link')) {
             e.preventDefault();
@@ -305,7 +304,7 @@ function initializeCopyButtons() {
     
     function showNotification(message) {
         if (notification) {
-            notification.textContent = message;
+            notification.querySelector('.notification-text').textContent = message;
             notification.classList.add('show');
             setTimeout(() => {
                 notification.classList.remove('show');
@@ -325,29 +324,7 @@ function initializeScrollEffects() {
     }
 }
 
-// إضافة CSS ديناميكي للأنيميشن
-const dynamicStyles = `
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .card-3d {
-        transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-`;
-
-const styleSheet = document.createElement('style');
-styleSheet.textContent = dynamicStyles;
-document.head.appendChild(styleSheet);
-
 // تهيئة تأثيرات التمرير
 initializeScrollEffects();
 
-console.log('🎉 تم تحميل script.js بنجاح!');
+console.log('🎉 تم تحميل الموقع بنجاح!');
