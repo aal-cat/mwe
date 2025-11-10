@@ -5,125 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⚡ ٱلمياوز - الجيش الأسطوري ⚡</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS الأساسي فقط */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background: #0d0221; 
+            color: white; 
+            font-family: Arial, sans-serif;
+        }
+        .hero-section { 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+        }
+        .hero-title { 
+            font-size: 4rem; 
+            color: white; 
+            margin-bottom: 20px; 
+        }
+    </style>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas id="starsCanvas"></canvas>
-    <div class="cursor-glow"></div>
-    <div class="progress-bar"></div>
-    
-    <button class="music-toggle" id="musicBtn">
-        <i class="fas fa-music"></i>
-    </button>
-    
-    <div class="scroll-indicator">
-        <div class="scroll-arrow">↓</div>
-        <span>اسحب للأسفل</span>
-    </div>
-    
-    <button class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <section class="hero-section">
-        <div class="glitch-container">
-            <h1 class="hero-title glitch" data-text="ٱل مياو">ٱل مياو</h1>
-        </div>
-        <p class="hero-subtitle">الجيش الذي احتل العالم بالسر و اختفى</p>
-        <div class="stats-container">
-            <div class="stat-item">
-                <span class="stat-number" data-target="11">0</span>
-                <span class="stat-label">أساطير</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="99999">0</span>
-                <span class="stat-label">سنة من التاريخ</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-target="1000000000">0</span>
-                <span class="stat-label">ثروة</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="intro-section">
-        <div class="intro-box">
-            <div class="neon-border"></div>
-            <p class="intro-text">
-                مجموعة من جنرالات المياوز الذين احتلوا العالم لآلاف السنين، حكاياتهم وأعمالهم ما زالت تُلهم كل من يسمع عنها. هؤلاء الأبطال الأسطوريون امتلكوا قوى خارقة ومعرفة سرية مكنتهم من تشكيل مصير البشرية من وراء الستار.
-            </p>
-        </div>
-    </section>
-
-    <section class="members-section">
-        <h2 class="section-title">
-            <span class="title-word">أبطال</span>
-            <span class="title-word">القبيلة</span>
-        </h2>
-        
-        <div class="members-grid">
-            <!-- بطاقة عبيدة -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="1.jpg" alt="عبيدة" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">عبيدة</span>
-                            <p class="card-rank">كاريزما إلى الحد الأقصى</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>عبيدة</h3>
-                        <p>كاريزما إلى الحد الأقصى</p>
-                        <p class="card-desc">يتمتع بكاريزما طاغية تجعله محط الأنظار في أي مكان. اليد اليمنى للقائد عبدالله.</p>
-                        <a href="https://www.tiktok.com/@level.201?_r=1&_t=ZS-91GY5MLW014" target="_blank" class="card-link">
-                            تابعني على تيك توك
-                            <span class="link-arrow">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بطاقة عبدالله -->
-            <div class="card-3d" data-flipped="false">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="2.jpg" alt="عبدالله" class="card-img" onerror="this.style.display='none'">
-                        <div class="card-overlay">
-                            <span class="card-name glow-name">عبدالله</span>
-                            <p class="card-rank">😺E=mc²😺</p>
-                        </div>
-                    </div>
-                    <div class="card-back">
-                        <h3>عبدالله</h3>
-                        <p>😺E=mc²😺</p>
-                        <p class="card-desc">القائد الأعظم والدماغ المدبر وراء إستراتيجيات المياوز. يجمع بين الذكاء الخارق والقيادة الأسطورية.</p>
-                        <a href="https://www.tiktok.com/@124hht?_r=1&_t=ZS-91GY2H9pVkF" target="_blank" class="card-link">
-                            تابعني على تيك توك
-                            <span class="link-arrow">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- باقي البطاقات بنفس الهيكل -->
-            <!-- ... -->
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-text">
-                © 2025 قبيلة ٱل مياو • صُنع بواسطة 
-                <span class="glow-name">عبيدة</span> و 
-                <span class="glow-name">عبدالله</span> 💫
-            </p>
-            <div class="footer-sparkles">✨ 🌟 ✨</div>
-        </div>
-    </footer>
-
-    <div class="notification" id="notification">
-        <span class="notification-text">تم نسخ الآيدي بنجاح!</span>
+    <div class="hero-section">
+        <h1 class="hero-title">ٱل مياو</h1>
+        <p>الجيش الذي احتل العالم بالسر و اختفى</p>
     </div>
 
     <script src="script.js"></script>
