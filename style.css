@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+/* إصلاح طارئ - إظهار المحتوى فوراً */
+body {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
 
+.hero-section {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+.card-3d {
+    opacity: 1 !important;
+    transform: none !important;
+}
 * {
     margin: 0;
     padding: 0;
