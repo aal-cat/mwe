@@ -2,23 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CYBER/FUTURISTIC DARK MODE (DEFAULT) */
+/* DARK MODE - Cyber Gaming Theme */
 :root {
-  --button-outline: rgba(0,217,255, .15);
-  --badge-outline: rgba(0,217,255, .08);
+  --button-outline: rgba(0, 255, 255, .15);
+  --badge-outline: rgba(0, 255, 255, .08);
   --opaque-button-border-intensity: 8;
-  --elevate-1: rgba(0,217,255, .05);
-  --elevate-2: rgba(0,217,255, .12);
-  --background: 228 45% 8%;
-  --foreground: 190 100% 85%;
-  --border: 228 30% 18%;
-  --card: 228 40% 10%;
-  --card-foreground: 190 100% 85%;
-  --card-border: 228 35% 15%;
-  --sidebar: 228 42% 9%;
-  --sidebar-foreground: 190 100% 85%;
-  --sidebar-border: 228 30% 16%;
-  --sidebar-primary: 190 100% 50%;
-  --sidebar-primary-foreground: 228 45% 8%;
-  --sidebar-accent: 228 30% 18%;
-  --sidebar-accent-foreground: 190 100% 85%;
+  --elevate-1: rgba(0, 212, 255, .04);
+  --elevate-2: rgba(0, 212, 255, .10);
+  --background: 225 45% 6%;
+  --foreground: 180 100% 90%;
+  --border: 225 30% 15%;
+  --card: 225 40% 10%;
+  --card-foreground: 180 100% 90%;
+  --card-border: 225 35% 14%;
+  --sidebar: 225 42% 8%;
+  --sidebar-foreground: 180 100% 90%;
+  --sidebar-border: 225 35% 12%;
+  --sidebar-primary: 188 100% 50%;
+  --sidebar-primary-foreground: 225 45% 6%;
+  --sidebar-accent: 225 35% 14%;
+  --sidebar-accent-foreground: 180 100% 90%;
+  --sidebar-ring: 188 100% 50%;
+  --popover: 225 42% 12%;
+  --popover-foreground: 180 100% 90%;
+  --popover-border: 225 30% 16%;
+  --primary: 188 100% 50%;
+  --primary-foreground: 225 45% 6%;
+  --secondary: 225 35% 18%;
+  --secondary-foreground: 180 100% 90%;
+  --muted: 225 25% 20%;
+  --muted-foreground: 180 50% 65%;
+  --accent: 188 80% 25%;
+  --accent-foreground: 180 100% 95%;
+  --destructive: 0 84% 45%;
+  --destructive-foreground: 0 0% 98%;
+  --input: 225 30% 22%;
+  --ring: 188 100% 50%;
+  --chart-1: 188 100% 50%;
