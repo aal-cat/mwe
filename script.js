@@ -219,18 +219,16 @@ function initializeCards() {
         });
     });
     
-    // منع انتشار النقر للروابط والأزرار
+    // السماح للروابط بالعمل بشكل طبيعي
     document.addEventListener('click', function(e) {
         if (e.target.closest('.card-link')) {
-            e.preventDefault();
-            e.stopPropagation();
-            
             const link = e.target.closest('.card-link');
             const url = link.getAttribute('href');
             
             if (url && url.startsWith('http')) {
                 console.log('🔗 فتح رابط تيك توك:', url);
-                window.open(url, '_blank');
+                // السماح للرابط بالعمل بشكل طبيعي
+                return true;
             }
         }
     });
