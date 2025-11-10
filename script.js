@@ -24,20 +24,97 @@ document.addEventListener('DOMContentLoaded', () => {
     bgSmoke.classList.add('active');
   }
 
-  // بيانات الأبطال
-  const heroes = [
-    { img:'1.jpg', name:'عبيدة', rank:'كاريزما إلى الحد الأقصى', desc:'يتمتع بكاريزما طاغية تجعله محط الأنظار. اليد اليمنى للقائد عبدالله.', link:'https://www.tiktok.com/@level.201' , idText:'level.201' },
-    { img:'2.jpg', name:'عبدالله', rank:'😺E=mc²😺', desc:'القائد الأعظم والدماغ المدبر وراء إستراتيجيات المياوز.', link:'https://www.tiktok.com/@124hht', idText:'124hht' },
-    { img:'3.jpg', name:'جاسم', rank:'مازوخي', desc:'محارب لا يعرف الخوف.', link:'https://www.tiktok.com/@bachira_402', idText:'bachira_402' },
-    { img:'4.jpg', name:'محمد', rank:'المحارب الصامت', desc:'يتحرك في صمت ويضرب بقوة.', link:'https://www.tiktok.com/@.999qaa', idText:'.999qaa' },
-    { img:'5.jpg', name:'المحارب الأحمر', rank:'@red908287', desc:'خبير في التكتيكات الحمراء.', link:'https://www.tiktok.com/@red908287', idText:'red908287' },
-    { img:'6.jpg', name:'ZX Aspo', rank:'@zxaspo', desc:'خبير التكنولوجيا والاتصالات.', link:'https://www.tiktok.com/@zxaspo', idText:'zxaspo' },
-    { img:'7.jpg', name:'Zoro Gaming', rank:'@zorogaming369', desc:'سيد الألعاب والتكتيكات الافتراضية.', link:'https://www.tiktok.com/@zorogaming369', idText:'zorogaming369' },
-    { img:'8.jpg', name:'LLO', rank:'@llo.ll2', desc:'خبير الشفرات والاتصالات المشفرة.', link:'https://www.tiktok.com/@llo.ll2', idText:'llo.ll2' },
-    { img:'9.jpg', name:'Nabaa', rank:'@nabaa7065', desc:'خبيرة الاستخبارات والتخطيط.', link:'https://www.tiktok.com/@nabaa7065', idText:'nabaa7065' },
-    { img:'10.jpg', name:'EN18S', rank:'@en18s', desc:'متخصص في العمليات الخاصة.', link:'https://www.tiktok.com/@en18s', idText:'en18s' },
-    { img:'11.jpg', name:'Memeoyah', rank:'@memeoyah', desc:'سيد الدعاية النفسية.', link:'https://www.tiktok.com/@memeoyah', idText:'memeoyah' }
-  ];
+  // بيانات الأبطال المحدثة
+const heroes = [
+  { 
+    img:'1.jpg', 
+    name:'عبدالله', 
+    rank:'😺E=mc²😺', 
+    desc:'القائد الأعظم والدماغ المدبر وراء إستراتيجيات المياوز.', 
+    link:'https://www.tiktok.com/@124hht', 
+    idText:'124hht' 
+  },
+  { 
+    img:'2.jpg', 
+    name:'عبيدة', 
+    rank:'كاريزما إلى الحد الأقصى', 
+    desc:'يتمتع بكاريزما طاغية تجعله محط الأنظار. اليد اليمنى للقائد عبدالله.', 
+    link:'https://www.tiktok.com/@level.201', 
+    idText:'level.201' 
+  },
+  { 
+    img:'3.jpg', 
+    name:'جاسم', 
+    rank:'مازوخي', 
+    desc:'محارب لا يعرف الخوف.', 
+    link:'https://www.tiktok.com/@bachira_402', 
+    idText:'bachira_402' 
+  },
+  { 
+    img:'4.jpg', 
+    name:'محمد', 
+    rank:'المحارب الصامت', 
+    desc:'يتحرك في صمت ويضرب بقوة.', 
+    link:'https://www.tiktok.com/@.999qaa', 
+    idText:'.999qaa' 
+  },
+  { 
+    img:'5.jpg', 
+    name:'المحارب الأحمر', 
+    rank:'@red908287', 
+    desc:'خبير في التكتيكات الحمراء.', 
+    link:'https://www.tiktok.com/@red908287?_r=1&_t=ZS-91GZ2JWmj4x', 
+    idText:'red908287' 
+  },
+  { 
+    img:'6.jpg', 
+    name:'ZX Aspo', 
+    rank:'@zxaspo', 
+    desc:'خبير التكنولوجيا والاتصالات.', 
+    link:'https://www.tiktok.com/@zxaspo?_r=1&_t=ZS-91GZ5U0JZGp', 
+    idText:'zxaspo' 
+  },
+  { 
+    img:'7.jpg', 
+    name:'Zoro Gaming', 
+    rank:'@zorogaming369', 
+    desc:'سيد الألعاب والتكتيكات الافتراضية.', 
+    link:'https://www.tiktok.com/@zorogaming369?_r=1&_t=ZS-91GZ6I3gJPE', 
+    idText:'zorogaming369' 
+  },
+  { 
+    img:'8.jpg', 
+    name:'LLO', 
+    rank:'@llo.ll2', 
+    desc:'خبير الشفرات والاتصالات المشفرة.', 
+    link:'#', 
+    idText:'llo.ll2' 
+  },
+  { 
+    img:'9.jpg', 
+    name:'Nabaa', 
+    rank:'@nabaa7065', 
+    desc:'خبيرة الاستخبارات والتخطيط.', 
+    link:'#', 
+    idText:'nabaa7065' 
+  },
+  { 
+    img:'10.jpg', 
+    name:'EN18S', 
+    rank:'@en18s', 
+    desc:'متخصص في العمليات الخاصة.', 
+    link:'#', 
+    idText:'en18s' 
+  },
+  { 
+    img:'11.jpg', 
+    name:'Memeoyah', 
+    rank:'@memeoyah', 
+    desc:'سيد الدعاية النفسية.', 
+    link:'#', 
+    idText:'memeoyah' 
+  }
+];
 
   // توليد البطاقات ديناميكياً
   function buildCards() {
