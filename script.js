@@ -19,8 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const bgMusic = document.getElementById('bgMusic');
   const scrollIndicator = document.getElementById('scrollIndicator');
 
-  let usingSmoke = true; // الوضع الابتدائي: الدخان (إن وُجد)
-  // تأكد من وجود فيديو، وإلا نستخدم النجوم
+  let usingSmoke = true;
   if (!bgSmoke || !bgSmoke.querySelector('source') || !bgSmoke.querySelector('source').src) {
     usingSmoke = false;
     bgSmoke && bgSmoke.classList.remove('active');
@@ -29,10 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================
-  // بيانات الأبطال (من الكود السابق، مهيأة ديناميكياً)
-  // id: اسم الآيدي الذي سيُنسخ
-  // img: اسم ملف الصورة (1.jpg .. 11.jpg)
-  // name, rank, desc, link
+  // بيانات الأبطال
   // =========================
   const heroes = [
     { img:'1.jpg', name:'عبيدة', rank:'كاريزما إلى الحد الأقصى', desc:'يتمتع بكاريزما طاغية تجعله محط الأنظار. اليد اليمنى للقائد عبدالله.', link:'https://www.tiktok.com/@level.201' , idText:'level.201' },
@@ -78,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       membersGrid.appendChild(cardWrap);
 
-      // دخول متدرج
       setTimeout(()=> {
         cardWrap.style.opacity = 1;
         cardWrap.style.transform = 'translateY(0)';
@@ -98,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let w = canvas.width = window.innerWidth;
     let h = canvas.height = window.innerHeight;
     const particles = [];
-    const count = Math.max(80, Math.floor((w*h)/50000)); // scalable
+    const count = Math.max(80, Math.floor((w*h)/50000));
     for (let i=0;i<count;i++){
       particles.push({
         x: Math.random()*w,
@@ -114,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function draw(){
       ctx.clearRect(0,0,w,h);
-      // soft vignette
       const g = ctx.createRadialGradient(w/2,h/2,0,w/2,h/2,Math.max(w,h)/1.2);
       g.addColorStop(0,'rgba(2,6,16,0)');
       g.addColorStop(1,'rgba(2,6,10,0.6)');
@@ -157,21 +151,18 @@ document.addEventListener('DOMContentLoaded', () => {
     showNotice(usingSmoke ? 'النجوم مفعل' : 'دخان مفعل');
   });
 
-  // تطبيق الوضع الابتدائي
   setBackground(usingSmoke);
 
   // =========================
-  // Flip cards عند النقر (مع تجاهل الروابط وأزرار النسخ)
+  // Flip cards عند النقر
   // =========================
   membersGrid.addEventListener('click', (e) => {
     const card = e.target.closest('.card-3d');
     if (!card) return;
-    // إذا ضغطت على رابط أو زر نسخ، لا نقلب البطاقة
     if (e.target.closest('.card-link') || e.target.closest('.copy-btn')) return;
     card.classList.toggle('flipped');
   });
 
-  // تأثير حركة صورة عند hover / flip
   membersGrid.addEventListener('mouseover', (e) => {
     const card = e.target.closest('.card-3d');
     if (!card) return;
@@ -197,7 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(text);
       } else {
-        // fallback
         const ta = document.createElement('textarea');
         ta.value = text; document.body.appendChild(ta); ta.select();
         document.execCommand('copy'); ta.remove();
@@ -235,12 +225,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const name = f.get('name') || 'مستخدم';
     const email = f.get('email') || '';
     const message = f.get('message') || '';
-    // نستخدم mailto لفتح تطبيق البريد مع ملء الحقول
     const to = 'gszgxgxvx@gmail.com';
     const subject = `رسالة دعم فني من ${encodeURIComponent(name)}`;
     const body = encodeURIComponent(`الاسم: ${name}\nالبريد: ${email}\n\n${message}`);
     const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
-    // افتح في نافذة جديدة/تاب
     window.location.href = mailto;
     showNotice('تم تجهيز الرسالة في تطبيق البريد — اضغط إرسال لإرسالها.');
     closeSupport();
@@ -261,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================
-  // Counters عند التمرير (fade+slide)
+  // Counters عند التمرير
   // =========================
   const statEls = document.querySelectorAll('.stat-number');
   const statsObserver = new IntersectionObserver(entries=>{
@@ -299,7 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
       scrolledOnce = true;
       scrollIndicator && (scrollIndicator.style.opacity = '0');
     }
-    // تحديث progress bar top (إن وُجد)
     const progress = document.querySelector('.progress-bar');
     if (progress) {
       const docH = document.documentElement.scrollHeight - window.innerHeight;
@@ -320,7 +307,6 @@ document.addEventListener('DOMContentLoaded', () => {
     noticeTimer = setTimeout(()=> notification.classList.remove('show'), time);
   }
 
-  // small initial notice
   setTimeout(()=> showNotice('مرحباً — الموقع جاهز! اضغط خلفية لتبديلها أو اضغط على بطاقة لعرض الحساب.'), 800);
 
   // =========================
@@ -331,5 +317,4 @@ document.addEventListener('DOMContentLoaded', () => {
       if (popup.classList.contains('show')) closeSupport();
     }
   });
-
 });
