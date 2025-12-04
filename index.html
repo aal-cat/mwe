@@ -1,95 +1,12 @@
-<!doctype html>
-<html lang="ar">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>مانهوا — الصفحة الرئيسية</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-</head>
-<body dir="rtl">
-  <header class="site-header">
-    <div class="container">
-      <div class="brand">
-        <h1>مانهوا</h1>
-        <p class="tag">اقرأ المانهوا المفضلة بسهولة</p>
-      </div>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="#">الرئيسية</a></li>
-          <li><a href="#">الأقسام</a></li>
-          <li><a href="#">الجديد</a></li>
-          <li><a href="#">التصنيفات</a></li>
-        </ul>
-      </nav>
-      <button class="menu-btn" id="menuBtn" aria-label="قائمة">☰</button>
-    </div>
-    <div class="search-row">
-      <div class="container">
-        <input id="searchInput" placeholder="ابحث عن مانهوا، اسم شخصية، أو تصنيف..." />
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero container">
-      <div class="hero-left">
-        <h2>أحدث الإصدارات</h2>
-        <p>تابع آخر الفصول والمانهوا المترجمة بسهولة وبواجهة بسيطة.</p>
-        <a class="btn" href="#">استعرض الآن</a>
-      </div>
-      <div class="hero-right">
-        <div class="hero-card">صورة مانهوا</div>
-      </div>
-    </section>
-
-    <section class="container gallery">
-      <h3>مقترحات لك</h3>
-      <div class="grid" id="thumbGrid">
-        <!-- Cards generated or static -->
-        <article class="card">
-          <div class="thumb">غلاف 1</div>
-          <h4>عنوان المانهوا 1</h4>
-          <p class="meta">الفصل 120 · أكشن</p>
-        </article>
-
-        <article class="card">
-          <div class="thumb">غلاف 2</div>
-          <h4>عنوان المانهوا 2</h4>
-          <p class="meta">الفصل 45 · رومانسي</p>
-        </article>
-
-        <article class="card">
-          <div class="thumb">غلاف 3</div>
-          <h4>عنوان المانهوا 3</h4>
-          <p class="meta">الفصل 9 · فانتازيا</p>
-        </article>
-
-        <article class="card">
-          <div class="thumb">غلاف 4</div>
-          <h4>عنوان المانهوا 4</h4>
-          <p class="meta">الفصل 3 · كوميدي</p>
-        </article>
-
-      </div>
-    </section>
-
-    <section class="container simple-list">
-      <h3>آخر الفصول</h3>
-      <ul id="latestList">
-        <li><strong>مانهوا A</strong> — فصل 201</li>
-        <li><strong>مانهوا B</strong> — فصل 37</li>
-        <li><strong>مانهوا C</strong> — فصل 12</li>
-      </ul>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2025 موقع مانهوا تجريبي — للتطوير فقط</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<!doctype html><html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>موقع المانهوا</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js"></script>
+<script src="script.js"></script>
+</head><body>
+<h1>المانهوا المتاحة</h1>
+<div id="list"></div>
+</body></html>
