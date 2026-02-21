@@ -1,12 +1,529 @@
-<!doctype html><html lang="ar" dir="rtl"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>موقع المانهوا</title>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js"></script>
-<script src="script.js"></script>
-</head><body>
-<h1>المانهوا المتاحة</h1>
-<div id="list"></div>
-</body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة X O</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .game-mode {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .mode-btn.active {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .mode-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .status {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            color: #333;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .status.winner {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #2c5f2d;
+            animation: pulse 1s infinite;
+        }
+
+        .status.draw {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: #333;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+            background: #667eea;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .cell {
+            aspect-ratio: 1;
+            background: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .cell:hover:not(.taken) {
+            background: #f0f0f0;
+            transform: scale(0.95);
+        }
+
+        .cell.taken {
+            cursor: not-allowed;
+        }
+
+        .cell.x {
+            color: #667eea;
+            text-shadow: 2px 2px 4px rgba(102, 126, 234, 0.3);
+        }
+
+        .cell.o {
+            color: #f093fb;
+            text-shadow: 2px 2px 4px rgba(240, 147, 251, 0.3);
+        }
+
+        .cell.winning {
+            animation: winPulse 0.5s ease-in-out infinite alternate;
+            background: #ffd700 !important;
+        }
+
+        @keyframes winPulse {
+            from { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            to { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .score {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            min-width: 100px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .score-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .score-value {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .difficulty {
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .difficulty.show {
+            display: block;
+        }
+
+        select {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid #667eea;
+            font-size: 1em;
+            background: white;
+            color: #333;
+            cursor: pointer;
+        }
+
+        @media (max-width: 480px) {
+            .game-container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .cell {
+                font-size: 2em;
+            }
+            
+            .score {
+                padding: 10px 15px;
+                min-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>❌⭕ لعبة X O</h1>
+        <p class="subtitle">حاول أن تفوز بتكوين خط من 3 خانات!</p>
+        
+        <div class="game-mode">
+            <button class="mode-btn active" onclick="setMode('pvp')">👥 لاعب ضد لاعب</button>
+            <button class="mode-btn" onclick="setMode('ai')">🤖 لاعب ضد الكمبيوتر</button>
+        </div>
+
+        <div class="difficulty" id="difficultySelect">
+            <select id="difficulty" onchange="setDifficulty(this.value)">
+                <option value="easy">🟢 سهل</option>
+                <option value="medium" selected>🟡 متوسط</option>
+                <option value="hard">🔴 صعب</option>
+            </select>
+        </div>
+
+        <div class="score-board">
+            <div class="score">
+                <div class="score-label">❌ اللاعب 1</div>
+                <div class="score-value" id="scoreX">0</div>
+            </div>
+            <div class="score">
+                <div class="score-label">⭕ اللاعب 2</div>
+                <div class="score-value" id="scoreO">0</div>
+            </div>
+            <div class="score">
+                <div class="score-label">🤝 تعادل</div>
+                <div class="score-value" id="scoreDraw">0</div>
+            </div>
+        </div>
+
+        <div class="status" id="status">دور اللاعب ❌</div>
+
+        <div class="board" id="board">
+            <button class="cell" data-index="0"></button>
+            <button class="cell" data-index="1"></button>
+            <button class="cell" data-index="2"></button>
+            <button class="cell" data-index="3"></button>
+            <button class="cell" data-index="4"></button>
+            <button class="cell" data-index="5"></button>
+            <button class="cell" data-index="6"></button>
+            <button class="cell" data-index="7"></button>
+            <button class="cell" data-index="8"></button>
+        </div>
+
+        <div class="controls">
+            <button class="btn-primary" onclick="resetGame()">🔄 لعبة جديدة</button>
+            <button class="btn-secondary" onclick="resetScores()">🗑️ تصفير النقاط</button>
+        </div>
+    </div>
+
+    <script>
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = 'X';
+        let gameActive = true;
+        let gameMode = 'pvp'; // 'pvp' or 'ai'
+        let difficulty = 'medium';
+        let scores = { X: 0, O: 0, draw: 0 };
+
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // صفوف
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // أعمدة
+            [0, 4, 8], [2, 4, 6] // قطريات
+        ];
+
+        const cells = document.querySelectorAll('.cell');
+        const statusDisplay = document.getElementById('status');
+
+        cells.forEach(cell => {
+            cell.addEventListener('click', handleCellClick);
+        });
+
+        function handleCellClick(e) {
+            const clickedCell = e.target;
+            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
+
+            if (board[clickedCellIndex] !== '' || !gameActive) {
+                return;
+            }
+
+            handleCellPlayed(clickedCell, clickedCellIndex);
+            handleResultValidation();
+
+            if (gameMode === 'ai' && gameActive && currentPlayer === 'O') {
+                setTimeout(makeAIMove, 500);
+            }
+        }
+
+        function handleCellPlayed(cell, index) {
+            board[index] = currentPlayer;
+            cell.textContent = currentPlayer === 'X' ? '❌' : '⭕';
+            cell.classList.add('taken', currentPlayer.toLowerCase());
+        }
+
+        function handleResultValidation() {
+            let roundWon = false;
+            let winningLine = [];
+
+            for (let i = 0; i < winningConditions.length; i++) {
+                const [a, b, c] = winningConditions[i];
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    roundWon = true;
+                    winningLine = [a, b, c];
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                statusDisplay.textContent = `🎉 اللاعب ${currentPlayer === 'X' ? '❌' : '⭕'} فاز!`;
+                statusDisplay.classList.add('winner');
+                scores[currentPlayer]++;
+                updateScores();
+                highlightWinningCells(winningLine);
+                gameActive = false;
+                return;
+            }
+
+            if (!board.includes('')) {
+                statusDisplay.textContent = '🤝 تعادل!';
+                statusDisplay.classList.add('draw');
+                scores.draw++;
+                updateScores();
+                gameActive = false;
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            updateStatus();
+        }
+
+        function updateStatus() {
+            const playerSymbol = currentPlayer === 'X' ? '❌' : '⭕';
+            if (gameMode === 'ai' && currentPlayer === 'O') {
+                statusDisplay.textContent = '🤖 دور الكمبيوتر...';
+            } else {
+                statusDisplay.textContent = `دور اللاعب ${playerSymbol}`;
+            }
+        }
+
+        function highlightWinningCells(line) {
+            line.forEach(index => {
+                cells[index].classList.add('winning');
+            });
+        }
+
+        function makeAIMove() {
+            if (!gameActive) return;
+
+            let move;
+            
+            if (difficulty === 'hard') {
+                move = getBestMove();
+            } else if (difficulty === 'medium') {
+                // 70% chance of best move, 30% random
+                move = Math.random() > 0.3 ? getBestMove() : getRandomMove();
+            } else {
+                move = getRandomMove();
+            }
+
+            if (move !== -1) {
+                const cell = document.querySelector(`[data-index="${move}"]`);
+                handleCellPlayed(cell, move);
+                handleResultValidation();
+            }
+        }
+
+        function getRandomMove() {
+            const available = board.map((cell, index) => cell === '' ? index : null).filter(val => val !== null);
+            return available.length > 0 ? available[Math.floor(Math.random() * available.length)] : -1;
+        }
+
+        function getBestMove() {
+            // Check if AI can win
+            for (let i = 0; i < 9; i++) {
+                if (board[i] === '') {
+                    board[i] = 'O';
+                    if (checkWin('O')) {
+                        board[i] = '';
+                        return i;
+                    }
+                    board[i] = '';
+                }
+            }
+
+            // Block player from winning
+            for (let i = 0; i < 9; i++) {
+                if (board[i] === '') {
+                    board[i] = 'X';
+                    if (checkWin('X')) {
+                        board[i] = '';
+                        return i;
+                    }
+                    board[i] = '';
+                }
+            }
+
+            // Take center if available
+            if (board[4] === '') return 4;
+
+            // Take corners
+            const corners = [0, 2, 6, 8];
+            const availableCorners = corners.filter(i => board[i] === '');
+            if (availableCorners.length > 0) {
+                return availableCorners[Math.floor(Math.random() * availableCorners.length)];
+            }
+
+            // Take any available space
+            return getRandomMove();
+        }
+
+        function checkWin(player) {
+            return winningConditions.some(([a, b, c]) => {
+                return board[a] === player && board[b] === player && board[c] === player;
+            });
+        }
+
+        function resetGame() {
+            board = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+            currentPlayer = 'X';
+            statusDisplay.textContent = 'دور اللاعب ❌';
+            statusDisplay.classList.remove('winner', 'draw');
+            
+            cells.forEach(cell => {
+                cell.textContent = '';
+                cell.classList.remove('taken', 'x', 'o', 'winning');
+            });
+        }
+
+        function resetScores() {
+            scores = { X: 0, O: 0, draw: 0 };
+            updateScores();
+            resetGame();
+        }
+
+        function updateScores() {
+            document.getElementById('scoreX').textContent = scores.X;
+            document.getElementById('scoreO').textContent = scores.O;
+            document.getElementById('scoreDraw').textContent = scores.draw;
+        }
+
+        function setMode(mode) {
+            gameMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const difficultyDiv = document.getElementById('difficultySelect');
+            if (mode === 'ai') {
+                difficultyDiv.classList.add('show');
+            } else {
+                difficultyDiv.classList.remove('show');
+            }
+            
+            resetScores();
+        }
+
+        function setDifficulty(level) {
+            difficulty = level;
+            resetGame();
+        }
+    </script>
+</body>
+</html>
