@@ -1,13 +1,446 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Web Guardian</title>
-    <script type="module" crossorigin src="./assets/index-BE2ttjiM.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Bm9_E-YG.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نرجس - عيد ميلاد سعيد</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Naskh Arabic', 'Amiri', serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #fff;
+        }
+        
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 70%);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .name-container {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .name {
+            font-size: clamp(4rem, 15vw, 8rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffd700, #ffec8b, #fff, #ffd700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255,215,0,0.3);
+            letter-spacing: 0.1em;
+            position: relative;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .flower-decoration {
+            font-size: 3rem;
+            margin: 1rem 0;
+            animation: bloom 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes bloom {
+            from { transform: scale(1) rotate(-5deg); }
+            to { transform: scale(1.1) rotate(5deg); }
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            margin-bottom: 2rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .meaning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+        
+        .meaning-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .meaning-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .meaning-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255,215,0,0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .meaning-card:hover::before {
+            opacity: 1;
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .card-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+        }
+        
+        .poem-section {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 30px;
+            border: 2px solid rgba(255,215,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .poem-section::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            right: 30px;
+            font-size: 8rem;
+            color: rgba(255,215,0,0.2);
+            font-family: serif;
+        }
+        
+        .poem-title {
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .poem-lines {
+            font-size: 1.3rem;
+            line-height: 2.2;
+            text-align: center;
+            color: #fff;
+            font-style: italic;
+        }
+        
+        .birthday-message {
+            margin-top: 4rem;
+            padding: 3rem;
+            background: radial-gradient(circle, rgba(255,215,0,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            text-align: center;
+        }
+        
+        .birthday-text {
+            font-size: 2.5rem;
+            color: #ffd700;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .signature {
+            margin-top: 3rem;
+            font-size: 1.2rem;
+            color: #aaa;
+            font-style: italic;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        .narcissus-flower {
+            position: fixed;
+            bottom: -100px;
+            font-size: 4rem;
+            animation: growFlower 4s ease-out forwards, sway 3s ease-in-out infinite 4s;
+            opacity: 0.8;
+            z-index: 0;
+        }
+        
+        @keyframes growFlower {
+            0% { bottom: -100px; opacity: 0; }
+            100% { bottom: 20px; opacity: 0.8; }
+        }
+        
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        .flower1 { right: 10%; animation-delay: 0s; }
+        .flower2 { right: 25%; animation-delay: 0.5s; font-size: 3rem; }
+        .flower3 { left: 10%; animation-delay: 1s; }
+        .flower4 { left: 25%; animation-delay: 1.5s; font-size: 3.5rem; }
+        
+        @media (max-width: 768px) {
+            .meaning-grid {
+                grid-template-columns: 1fr;
+            }
+            .poem-lines {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+    
+    <section class="hero">
+        <div class="name-container">
+            <div class="flower-decoration">🌸</div>
+            <h1 class="name">نرجس</h1>
+            <div class="flower-decoration">🌸</div>
+        </div>
+        
+        <p class="subtitle">زهرةٌ باسمة في حديقةِ الحياة</p>
+        
+        <div class="meaning-grid">
+            <div class="meaning-card">
+                <span class="card-icon">✨</span>
+                <h3 class="card-title">الجمال الأخّاذ</h3>
+                <p class="card-text">
+                    كزهرة النرجس التي تخطف الأنفاس ببياضها الناصع ورائحتها العطرة، 
+                    أنتِ جمالٌ يتجسد في أبهى صوره، نورٌ يضيء كل مكانٍ تخطوين فيه
+                </p>
+            </div>
+            
+            <div class="meaning-card">
+                <span class="card-icon">🌟</span>
+                <h3 class="card-title">الذكاء الحكيم</h3>
+                <p class="card-text">
+                    تحملين في عقلكِ نبضاً حكيماً، قادراً على حل الألغاز وإيجاد 
+                    الحلول ببراعة. ذكاؤكِ ليس مجرد معرفة، بل هو فنٌ في التفكير العميق
+                </p>
+            </div>
+            
+            <div class="meaning-card">
+                <span class="card-icon">💎</span>
+                <h3 class="card-title">الأناقة الفريدة</h3>
+                <p class="card-text">
+                    أناقتكِ ليست في الثياب بل في الروح، طريقةٌ في التعامل، 
+                    لمسةٌ من الرقي في كل حركة. أنتِ النبضة الجميلة في إيقاع الحياة
+                </p>
+            </div>
+            
+            <div class="meaning-card">
+                <span class="card-icon">🕊️</span>
+                <h3 class="card-title">النقاء الروحي</h3>
+                <p class="card-text">
+                    كالنرجس الأبيض النقي، قلبكِ صافٍ كبلورة الثلج، 
+                    تملكين القدرة على احتواء الآخرين بمحبةٍ صادقةٍ لا حدود لها
+                </p>
+            </div>
+            
+            <div class="meaning-card">
+                <span class="card-icon">🌺</span>
+                <h3 class="card-title">الإعجاب بالجمال</h3>
+                <p class="card-text">
+                    كأسطورة النرجس الجميلة، تعكسين الجمال الحقيقي 
+                    ليس الغرور بل التقدير العميق لروعة الوجود ودقة تفاصيل الكون
+                </p>
+            </div>
+            
+            <div class="meaning-card">
+                <span class="card-icon">🌅</span>
+                <h3 class="card-title">بشائر الربيع</h3>
+                <p class="card-text">
+                    مهما طال الشتاء، فإن مجيئكِ يحمل بشائر الخير والأمل. 
+                    أنتِ الفصل الجميل الذي يولد من جديد في كل صباح
+                </p>
+            </div>
+        </div>
+        
+        <div class="poem-section">
+            <h2 class="poem-title">في مدح نرجس</h2>
+            <div class="poem-lines">
+                يا زهرةً في حقول الإعجاب تنمو<br>
+                يا نرجساً بجمال الروح يزهو<br>
+                <br>
+                في عينيكِ سرُّ الحكمةِ يَكمنُ<br>
+                وفي ابتسامتكِ للأملِ يَدُنو<br>
+                <br>
+                كالنرجسِ الأبيضِ في نقائِهِ<br>
+                قلبُكِ طهورٌ، طيبٌ، يُضيءُ ويَهُو<br>
+                <br>
+                كلُّ عامٍ وأنتِ بألفِ خيرٍ<br>
+                يا أجملَ ما في الكونِ قد يُزهو 🌸
+            </div>
+        </div>
+        
+        <div class="birthday-message">
+            <div class="birthday-text">🎉 كل عام وأنتِ بخير يا نرجس 🎂</div>
+            <p style="font-size: 1.3rem; color: #e0e0e0; margin-top: 1rem;">
+                عيد ميلاد سعيد مليء بالمحبة والنجاح والسعادة الأبدية
+            </p>
+        </div>
+        
+        <div class="signature">
+            مع كل التقدير والإعجاب 🌟
+        </div>
+        
+        <div class="scroll-indicator">↓</div>
+    </section>
+    
+    <div class="narcissus-flower flower1">🌼</div>
+    <div class="narcissus-flower flower2">🌸</div>
+    <div class="narcissus-flower flower3">🌼</div>
+    <div class="narcissus-flower flower4">🌺</div>
+    
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        const colors = ['#ffd700', '#ffec8b', '#ffffff', '#ffb6c1'];
+        
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 5 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]} 0%, transparent 70%)`;
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add parallax effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.meaning-card');
+            const x = (window.innerWidth - e.pageX) / 50;
+            const y = (window.innerHeight - e.pageY) / 50;
+            
+            cards.forEach((card, index) => {
+                const speed = (index + 1) * 0.5;
+                card.style.transform = `translateX(${x * speed}px) translateY(${y * speed}px)`;
+            });
+        });
+        
+        // Reveal animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.meaning-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+</body>
 </html>
