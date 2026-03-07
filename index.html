@@ -2,10 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نرجس - عيد ميلاد سعيد</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>نرجس - هدية عيد ميلاد خالدة</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@200;300;400;600;700;900&family=Scheherazade:wght@400;700&display=swap');
         
         * {
             margin: 0;
@@ -13,15 +13,99 @@
             box-sizing: border-box;
         }
         
-        body {
-            font-family: 'Noto Naskh Arabic', 'Amiri', serif;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            color: #fff;
+        :root {
+            --gold-primary: #FFD700;
+            --gold-light: #FFF8DC;
+            --gold-dark: #B8860B;
+            --rose-gold: #E8B4B8;
+            --purple-deep: #0a0a1a;
+            --purple-mid: #1a1a3e;
+            --purple-light: #2d2d5a;
+            --white-pure: #ffffff;
+            --shadow-gold: rgba(255, 215, 0, 0.4);
+            
+            /* Fluid Typography Scale using clamp() */
+            --text-xs: clamp(0.75rem, 2vw, 0.875rem);
+            --text-sm: clamp(0.875rem, 2.5vw, 1rem);
+            --text-base: clamp(1rem, 3vw, 1.125rem);
+            --text-lg: clamp(1.125rem, 3.5vw, 1.25rem);
+            --text-xl: clamp(1.25rem, 4vw, 1.5rem);
+            --text-2xl: clamp(1.5rem, 5vw, 2rem);
+            --text-3xl: clamp(1.875rem, 6vw, 2.5rem);
+            --text-4xl: clamp(2.25rem, 8vw, 3.5rem);
+            --text-5xl: clamp(3rem, 12vw, 6rem);
+            --text-6xl: clamp(3.75rem, 15vw, 8rem);
+            
+            /* Fluid Spacing */
+            --space-xs: clamp(0.5rem, 2vw, 0.75rem);
+            --space-sm: clamp(0.75rem, 2.5vw, 1rem);
+            --space-md: clamp(1rem, 3vw, 1.5rem);
+            --space-lg: clamp(1.5rem, 4vw, 2rem);
+            --space-xl: clamp(2rem, 5vw, 3rem);
+            --space-2xl: clamp(3rem, 6vw, 4rem);
+            --space-3xl: clamp(4rem, 8vw, 6rem);
         }
         
-        .floating-particles {
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: 'Cairo', 'Noto Naskh Arabic', sans-serif;
+            background: var(--purple-deep);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--white-pure);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Preloader - Mobile Optimized */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--purple-mid) 0%, var(--purple-deep) 100%);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .preloader-flower {
+            font-size: clamp(4rem, 20vw, 8rem);
+            animation: preloader-bloom 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px var(--gold-primary));
+        }
+        
+        @keyframes preloader-bloom {
+            0%, 100% { transform: scale(0.8) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(10deg); }
+        }
+        
+        .preloader-text {
+            margin-top: var(--space-md);
+            font-size: var(--text-lg);
+            color: var(--gold-primary);
+            letter-spacing: 0.3em;
+            animation: shimmer-text 2s linear infinite;
+            text-align: center;
+            padding: 0 var(--space-md);
+        }
+        
+        /* Cosmic Background */
+        .cosmos {
             position: fixed;
             top: 0;
             left: 0;
@@ -29,99 +113,279 @@
             height: 100%;
             pointer-events: none;
             z-index: 1;
+            overflow: hidden;
+            background: radial-gradient(ellipse at bottom, var(--purple-mid) 0%, var(--purple-deep) 50%, #000 100%);
         }
         
-        .particle {
+        .star {
             position: absolute;
-            background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 70%);
+            background: var(--gold-primary);
             border-radius: 50%;
-            animation: float 15s infinite ease-in-out;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            box-shadow: 0 0 10px var(--gold-primary);
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
         
+        .shooting-star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            border-radius: 50%;
+            animation: shoot 3s linear infinite;
+            opacity: 0;
+        }
+        
+        @keyframes shoot {
+            0% { transform: translateX(-100px) translateY(100px); opacity: 1; }
+            100% { transform: translateX(100vw) translateY(-100px); opacity: 0; }
+        }
+        
+        /* Aurora Effect */
+        .aurora {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(255,215,0,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(232,180,184,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 2;
+            animation: aurora-shift 20s ease-in-out infinite;
+        }
+        
+        @keyframes aurora-shift {
+            0%, 100% { transform: translateX(0) scale(1); }
+            50% { transform: translateX(50px) scale(1.1); }
+        }
+        
+        /* Hero Section - Responsive */
         .hero {
             min-height: 100vh;
+            min-height: 100dvh; /* Dynamic viewport height for mobile */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            z-index: 2;
-            padding: 2rem;
+            z-index: 10;
+            padding: var(--space-lg);
             text-align: center;
+            perspective: 2000px;
+        }
+        
+        .birthday-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--gold-primary);
+            border-radius: 50px;
+            font-size: var(--text-sm);
+            color: var(--gold-primary);
+            margin-bottom: var(--space-xl);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            animation: badge-glow 3s ease-in-out infinite alternate;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 30px rgba(255,215,0,0.2);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        @keyframes badge-glow {
+            from { box-shadow: 0 0 20px var(--shadow-gold); }
+            to { box-shadow: 0 0 60px var(--shadow-gold), inset 0 0 30px rgba(255,215,0,0.1); }
         }
         
         .name-container {
             position: relative;
-            margin-bottom: 3rem;
+            margin: var(--space-md) 0;
+            transform-style: preserve-3d;
+            animation: container-float 8s ease-in-out infinite;
+            width: 100%;
+            max-width: 100%;
         }
         
-        .name {
-            font-size: clamp(4rem, 15vw, 8rem);
-            font-weight: 700;
-            background: linear-gradient(45deg, #ffd700, #ffec8b, #fff, #ffd700);
-            background-size: 200% 200%;
+        @keyframes container-float {
+            0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+            25% { transform: translateY(-10px) rotateX(2deg) rotateY(-2deg); }
+            50% { transform: translateY(-20px) rotateX(0deg) rotateY(2deg); }
+            75% { transform: translateY(-10px) rotateX(-2deg) rotateY(0deg); }
+        }
+        
+        .name-3d {
+            font-size: var(--text-6xl);
+            font-weight: 900;
+            background: linear-gradient(
+                45deg, 
+                var(--gold-dark) 0%, 
+                var(--gold-primary) 20%, 
+                var(--gold-light) 40%, 
+                var(--rose-gold) 60%,
+                var(--gold-primary) 80%, 
+                var(--gold-dark) 100%
+            );
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: shimmer 3s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(255,215,0,0.3);
+            animation: gradient-shift 5s ease infinite, text-shimmer 3s ease-in-out infinite;
+            text-shadow: 0 0 40px var(--shadow-gold);
             letter-spacing: 0.1em;
             position: relative;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8));
+            line-height: 1.2;
+            word-break: break-word;
         }
         
-        @keyframes shimmer {
+        @keyframes gradient-shift {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
         
-        .flower-decoration {
-            font-size: 3rem;
-            margin: 1rem 0;
-            animation: bloom 2s ease-in-out infinite alternate;
+        @keyframes text-shimmer {
+            0%, 100% { filter: brightness(1) drop-shadow(0 0 30px var(--shadow-gold)); }
+            50% { filter: brightness(1.3) drop-shadow(0 0 60px var(--shadow-gold)); }
         }
         
-        @keyframes bloom {
-            from { transform: scale(1) rotate(-5deg); }
-            to { transform: scale(1.1) rotate(5deg); }
+        .name-reflection {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            font-size: var(--text-6xl);
+            font-weight: 900;
+            background: linear-gradient(180deg, rgba(255,215,0,0.3) 0%, transparent 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transform: scaleY(-1) translateY(-20%);
+            opacity: 0.3;
+            filter: blur(2px);
+            pointer-events: none;
+            line-height: 1.2;
         }
         
-        .subtitle {
-            font-size: 1.5rem;
-            color: #e0e0e0;
-            margin-bottom: 2rem;
+        .flower-crown {
+            font-size: clamp(2rem, 8vw, 4rem);
+            margin: var(--space-md) 0;
+            animation: crown-bloom 4s ease-in-out infinite;
+            display: inline-block;
+            filter: drop-shadow(0 0 30px rgba(255,215,0,0.6));
+        }
+        
+        @keyframes crown-bloom {
+            0%, 100% { transform: scale(1) rotate(-10deg); filter: hue-rotate(0deg) brightness(1); }
+            50% { transform: scale(1.3) rotate(10deg); filter: hue-rotate(30deg) brightness(1.3); }
+        }
+        
+        .subtitle-divine {
+            font-size: var(--text-lg);
+            color: var(--gold-light);
             font-style: italic;
-            opacity: 0.9;
+            max-width: min(90%, 700px);
+            margin: var(--space-lg) auto;
+            line-height: 2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            opacity: 0;
+            animation: fade-in-up 1s ease forwards 1s;
+            padding: 0 var(--space-md);
         }
         
-        .meaning-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            width: 100%;
-            margin: 3rem auto;
-            padding: 0 1rem;
+        @keyframes fade-in-up {
+            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(30px); }
         }
         
-        .meaning-card {
-            background: rgba(255,255,255,0.05);
+        .scroll-indicator {
+            position: absolute;
+            bottom: var(--space-xl);
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce-luxury 2s infinite;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: var(--gold-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255,215,0,0.1);
+            width: clamp(50px, 15vw, 60px);
+            height: clamp(50px, 15vw, 60px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gold-primary);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,215,0,0.2);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.4s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .scroll-indicator:hover, .scroll-indicator:active {
+            transform: translateX(-50%) scale(1.2);
+            box-shadow: 0 0 40px var(--gold-primary);
+            background: rgba(255,215,0,0.2);
+        }
+        
+        @keyframes bounce-luxury {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        /* Mythology Section - Responsive Grid */
+        .mythology-section {
+            max-width: min(95%, 1200px);
+            margin: var(--space-3xl) auto;
+            padding: var(--space-xl) var(--space-md);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .section-title-luxury {
+            text-align: center;
+            font-size: var(--text-3xl);
+            color: var(--gold-primary);
+            margin-bottom: var(--space-2xl);
+            position: relative;
+            font-weight: 700;
+            text-shadow: 0 0 40px rgba(255,215,0,0.3);
+            padding: 0 var(--space-sm);
+        }
+        
+        .section-title-luxury::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(80%, 300px);
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), var(--rose-gold), var(--gold-primary), transparent);
+            border-radius: 2px;
+        }
+        
+        .myth-card-luxury {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: clamp(20px, 5vw, 40px);
+            padding: clamp(2rem, 5vw, 4rem);
+            margin: var(--space-xl) 0;
             position: relative;
             overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
         
-        .meaning-card::before {
+        .myth-card-luxury::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -130,300 +394,820 @@
             height: 200%;
             background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.6s ease;
         }
         
-        .meaning-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255,215,0,0.5);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        .myth-card-luxury:hover, .myth-card-luxury:active {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.4), inset 0 0 80px rgba(255,215,0,0.05);
         }
         
-        .meaning-card:hover::before {
+        .myth-card-luxury:hover::before, .myth-card-luxury:active::before {
             opacity: 1;
         }
         
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
+        .myth-quote-luxury {
+            font-size: var(--text-xl);
+            line-height: 2.2;
+            color: var(--gold-light);
+            font-style: italic;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            font-family: 'Amiri', serif;
+            padding: 0 var(--space-sm);
         }
         
-        .card-title {
-            font-size: 1.5rem;
-            color: #ffd700;
-            margin-bottom: 1rem;
-            font-weight: 700;
+        .myth-quote-luxury::before,
+        .myth-quote-luxury::after {
+            content: '❝';
+            font-size: clamp(2rem, 6vw, 5rem);
+            color: rgba(255, 215, 0, 0.15);
+            position: absolute;
+            font-family: serif;
+            line-height: 1;
         }
         
-        .card-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #e0e0e0;
+        .myth-quote-luxury::before {
+            top: -20px;
+            right: -10px;
         }
         
-        .poem-section {
-            max-width: 800px;
-            margin: 4rem auto;
-            padding: 3rem;
-            background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,255,255,0.05) 100%);
-            border-radius: 30px;
-            border: 2px solid rgba(255,215,0,0.3);
+        .myth-quote-luxury::after {
+            content: '❞';
+            bottom: -40px;
+            left: -10px;
+        }
+        
+        /* Attributes Grid - CSS Grid with auto-fit */
+        .attributes-luxury {
+            max-width: min(95%, 1400px);
+            margin: var(--space-3xl) auto;
+            padding: 0 var(--space-md);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .attributes-grid-luxury {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+            gap: var(--space-xl);
+        }
+        
+        .attribute-card-luxury {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: clamp(20px, 4vw, 30px);
+            padding: clamp(2rem, 5vw, 3rem);
             position: relative;
             overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
         
-        .poem-section::before {
-            content: '"';
+        .attribute-card-luxury::after {
+            content: '';
             position: absolute;
-            top: -20px;
-            right: 30px;
-            font-size: 8rem;
-            color: rgba(255,215,0,0.2);
-            font-family: serif;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.15), transparent);
+            transition: left 0.8s ease;
         }
         
-        .poem-title {
-            font-size: 2rem;
-            color: #ffd700;
-            margin-bottom: 2rem;
-            text-align: center;
+        .attribute-card-luxury:hover::after, .attribute-card-luxury:active::after {
+            left: 100%;
         }
         
-        .poem-lines {
-            font-size: 1.3rem;
-            line-height: 2.2;
-            text-align: center;
-            color: #fff;
-            font-style: italic;
+        .attribute-card-luxury:hover, .attribute-card-luxury:active {
+            transform: translateY(-15px) scale(1.05);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 40px rgba(255,215,0,0.15);
         }
         
-        .birthday-message {
-            margin-top: 4rem;
-            padding: 3rem;
-            background: radial-gradient(circle, rgba(255,215,0,0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            text-align: center;
+        .card-icon-luxury {
+            font-size: clamp(3rem, 10vw, 5rem);
+            margin-bottom: var(--space-md);
+            display: block;
+            animation: icon-float-luxury 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255,215,0,0.4));
         }
         
-        .birthday-text {
-            font-size: 2.5rem;
-            color: #ffd700;
+        @keyframes icon-float-luxury {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        
+        .card-title-luxury {
+            font-size: var(--text-2xl);
+            color: var(--gold-primary);
+            margin-bottom: var(--space-sm);
             font-weight: 700;
-            margin-bottom: 1rem;
-            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+            display: inline-block;
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .card-title-luxury::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-primary), var(--rose-gold));
+            transition: width 0.4s ease;
+            border-radius: 2px;
         }
         
-        .signature {
-            margin-top: 3rem;
-            font-size: 1.2rem;
-            color: #aaa;
+        .attribute-card-luxury:hover .card-title-luxury::after,
+        .attribute-card-luxury:active .card-title-luxury::after {
+            width: 100%;
+        }
+        
+        .card-text-luxury {
+            font-size: var(--text-base);
+            line-height: 2;
+            color: #f0f0f0;
+            text-align: center;
+        }
+        
+        /* Poetry Section - Responsive */
+        .poetry-luxury {
+            max-width: min(95%, 1000px);
+            margin: var(--space-3xl) auto;
+            padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 4vw, 3rem);
+            background: 
+                linear-gradient(135deg, rgba(255,215,0,0.08) 0%, transparent 50%),
+                rgba(255,255,255,0.02);
+            border-radius: clamp(30px, 6vw, 60px);
+            border: 2px solid rgba(255, 215, 0, 0.25);
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+            box-shadow: inset 0 0 100px rgba(255,215,0,0.05), 0 40px 80px rgba(0,0,0,0.3);
+        }
+        
+        .poetry-luxury::before,
+        .poetry-luxury::after {
+            content: '❦';
+            position: absolute;
+            font-size: clamp(2rem, 6vw, 4rem);
+            color: rgba(255, 215, 0, 0.2);
+            animation: rotate-slow 15s linear infinite;
+        }
+        
+        .poetry-luxury::before {
+            top: 20px;
+            right: 20px;
+        }
+        
+        .poetry-luxury::after {
+            bottom: 20px;
+            left: 20px;
+            animation-direction: reverse;
+        }
+        
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .poetry-title-luxury {
+            text-align: center;
+            font-size: var(--text-3xl);
+            color: var(--gold-primary);
+            margin-bottom: var(--space-xl);
+            font-weight: 700;
+            text-shadow: 0 0 30px rgba(255,215,0,0.3);
+        }
+        
+        .poem-content-luxury {
+            font-size: var(--text-xl);
+            line-height: 3;
+            text-align: center;
+            color: var(--white-pure);
+            font-family: 'Scheherazade', 'Amiri', serif;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .poem-line-luxury {
+            margin: var(--space-sm) 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fade-in-up-luxury 1s ease forwards;
+        }
+        
+        .poem-line-luxury:nth-child(1) { animation-delay: 0.3s; }
+        .poem-line-luxury:nth-child(2) { animation-delay: 0.6s; }
+        .poem-line-luxury:nth-child(3) { animation-delay: 0.9s; }
+        .poem-line-luxury:nth-child(4) { animation-delay: 1.2s; }
+        .poem-line-luxury:nth-child(5) { animation-delay: 1.5s; }
+        .poem-line-luxury:nth-child(6) { animation-delay: 1.8s; }
+        .poem-line-luxury:nth-child(7) { animation-delay: 2.1s; }
+        .poem-line-luxury:nth-child(8) { animation-delay: 2.4s; }
+        
+        @keyframes fade-in-up-luxury {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Birthday Celebration - Responsive */
+        .birthday-celebration {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            padding: var(--space-xl) var(--space-md);
+            background: radial-gradient(circle at center, rgba(255,215,0,0.15) 0%, transparent 60%);
+        }
+        
+        .birthday-orb {
+            width: min(90vw, 500px);
+            height: min(90vw, 500px);
+            border-radius: 50%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255,215,0,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(232,180,184,0.2) 0%, transparent 50%),
+                linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            border: 3px solid rgba(255, 215, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: orb-pulse 4s ease-in-out infinite;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 100px rgba(255,215,0,0.2), inset 0 0 100px rgba(255,215,0,0.1);
+            padding: var(--space-md);
+        }
+        
+        @keyframes orb-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 80px rgba(255,215,0,0.3), inset 0 0 80px rgba(255,215,0,0.1);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 150px rgba(255,215,0,0.5), inset 0 0 120px rgba(255,215,0,0.2);
+                transform: scale(1.05);
+            }
+        }
+        
+        .birthday-main-text {
+            font-size: var(--text-4xl);
+            color: var(--gold-primary);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: var(--space-md);
+            text-shadow: 0 0 40px rgba(255,215,0,0.6);
+            line-height: 1.4;
+        }
+        
+        .birthday-sub-luxury {
+            font-size: var(--text-lg);
+            color: var(--gold-light);
+            text-align: center;
+            max-width: min(90%, 600px);
+            line-height: 2.2;
             font-style: italic;
         }
         
-        .scroll-indicator {
+        .cake-emoji {
+            font-size: clamp(4rem, 15vw, 6rem);
+            margin: var(--space-md) 0;
+            animation: cake-bounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(255,215,0,0.5));
+        }
+        
+        @keyframes cake-bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+        }
+        
+        /* Fireworks Canvas */
+        #fireworks-canvas {
             position: absolute;
-            bottom: 2rem;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        /* Signature */
+        .signature-luxury {
+            text-align: center;
+            padding: var(--space-3xl) var(--space-md);
+            font-size: var(--text-lg);
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
+        }
+        
+        .signature-heart-luxury {
+            color: #ff1493;
+            animation: heartbeat-luxury 1.5s ease-in-out infinite;
+            display: inline-block;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+        }
+        
+        @keyframes heartbeat-luxury {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+        }
+        
+        /* Floating Elements - Responsive positioning */
+        .floating-element {
+            position: fixed;
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            z-index: 3;
+            animation: float-element 10s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(255,215,0,0.4));
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        @keyframes float-element {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-40px) rotate(10deg) scale(1.1); }
+            50% { transform: translateY(-20px) rotate(-5deg) scale(0.9); }
+            75% { transform: translateY(-50px) rotate(15deg) scale(1.05); }
+        }
+        
+        .element-1 { bottom: 15%; right: 5%; animation-delay: 0s; }
+        .element-2 { bottom: 25%; left: 8%; animation-delay: 2s; font-size: clamp(1.2rem, 4vw, 2.5rem); }
+        .element-3 { top: 30%; right: 10%; animation-delay: 4s; font-size: clamp(1rem, 3vw, 2rem); }
+        .element-4 { bottom: 35%; right: 15%; animation-delay: 1s; }
+        .element-5 { top: 50%; left: 5%; animation-delay: 3s; font-size: clamp(1.2rem, 4vw, 2.2rem); }
+        .element-6 { top: 70%; right: 20%; animation-delay: 5s; font-size: clamp(1.3rem, 4vw, 2.8rem); }
+        
+        /* Gift Box - Responsive */
+        .gift-box {
+            position: fixed;
+            bottom: -200px;
             left: 50%;
             transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            font-size: 2rem;
-            opacity: 0.7;
+            font-size: clamp(3rem, 10vw, 5rem);
+            z-index: 100;
+            cursor: pointer;
+            animation: gift-rise 1s ease-out forwards, gift-shake 2s ease-in-out infinite 1s;
+            filter: drop-shadow(0 0 30px rgba(255,215,0,0.6));
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
+        .gift-box:hover, .gift-box:active {
+            transform: translateX(-50%) scale(1.2);
+            filter: drop-shadow(0 0 50px rgba(255,215,0,0.8));
         }
         
-        .narcissus-flower {
+        @keyframes gift-rise {
+            to { bottom: 20px; }
+        }
+        
+        @keyframes gift-shake {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(-5deg); }
+            75% { transform: translateX(-50%) rotate(5deg); }
+        }
+        
+        .gift-message {
             position: fixed;
-            bottom: -100px;
-            font-size: 4rem;
-            animation: growFlower 4s ease-out forwards, sway 3s ease-in-out infinite 4s;
-            opacity: 0.8;
-            z-index: 0;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            background: rgba(0,0,0,0.95);
+            border: 2px solid var(--gold-primary);
+            padding: var(--space-lg);
+            border-radius: 20px;
+            color: var(--gold-primary);
+            font-size: var(--text-base);
+            z-index: 101;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: min(90%, 400px);
+            text-align: center;
+            box-shadow: 0 0 50px rgba(255,215,0,0.3);
+            backdrop-filter: blur(10px);
         }
         
-        @keyframes growFlower {
-            0% { bottom: -100px; opacity: 0; }
-            100% { bottom: 20px; opacity: 0.8; }
+        .gift-message.show {
+            transform: translateX(-50%) scale(1);
         }
         
-        @keyframes sway {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
-        
-        .flower1 { right: 10%; animation-delay: 0s; }
-        .flower2 { right: 25%; animation-delay: 0.5s; font-size: 3rem; }
-        .flower3 { left: 10%; animation-delay: 1s; }
-        .flower4 { left: 25%; animation-delay: 1.5s; font-size: 3.5rem; }
-        
-        @media (max-width: 768px) {
-            .meaning-grid {
-                grid-template-columns: 1fr;
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .attribute-card-luxury:hover {
+                transform: none;
             }
-            .poem-lines {
-                font-size: 1.1rem;
+            
+            .attribute-card-luxury:active {
+                transform: scale(0.98);
+            }
+            
+            .myth-card-luxury:hover {
+                transform: none;
+            }
+        }
+        
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Custom Scrollbar - Mobile optimized */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--purple-deep);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--gold-primary), var(--rose-gold), var(--gold-dark));
+            border-radius: 4px;
+        }
+        
+        /* Landscape Mode Optimization */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding: var(--space-3xl) var(--space-md);
+            }
+            
+            .name-3d, .name-reflection {
+                font-size: clamp(2rem, 10vh, 4rem);
+            }
+            
+            .birthday-orb {
+                width: min(80vh, 400px);
+                height: min(80vh, 400px);
+            }
+        }
+        
+        /* High DPI Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .star, .shooting-star {
+                box-shadow: 0 0 20px var(--gold-primary);
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .cosmos, .aurora, .floating-element, .gift-box, #fireworks-canvas {
+                display: none;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .hero, .mythology-section, .attributes-luxury, .poetry-luxury, .birthday-celebration {
+                page-break-inside: avoid;
             }
         }
     </style>
 </head>
 <body>
-    <div class="floating-particles" id="particles"></div>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-flower">🌸</div>
+        <div class="preloader-text">جاري تحضير الهدية...</div>
+    </div>
     
+    <!-- Cosmic Background -->
+    <div class="cosmos" id="cosmos"></div>
+    <div class="aurora"></div>
+    
+    <!-- Floating Elements -->
+    <div class="floating-element element-1">🌼</div>
+    <div class="floating-element element-2">🌸</div>
+    <div class="floating-element element-3">🌺</div>
+    <div class="floating-element element-4">🌻</div>
+    <div class="floating-element element-5">🌷</div>
+    <div class="floating-element element-6">💐</div>
+    
+    <!-- Hero Section -->
     <section class="hero">
+        <div class="birthday-badge">
+            <span>🎂</span>
+            <span>هدية عيد ميلاد خالدة</span>
+            <span>🎂</span>
+        </div>
+        
         <div class="name-container">
-            <div class="flower-decoration">🌸</div>
-            <h1 class="name">نرجس</h1>
-            <div class="flower-decoration">🌸</div>
+            <div class="flower-crown">👑</div>
+            <h1 class="name-3d">نرجس</h1>
+            <div class="name-reflection">نرجس</div>
+            <div class="flower-crown">👑</div>
         </div>
         
-        <p class="subtitle">زهرةٌ باسمة في حديقةِ الحياة</p>
+        <p class="subtitle-divine">
+            في هذا اليوم المبارك، تتفتح زهرةٌ جديدةٌ في حديقة الوجود<br>
+            أنتِ النرجسةُ التي تفوق جمال الأساطير، والتي تمنح الحياةَ معناها الحقيقي
+        </p>
         
-        <div class="meaning-grid">
-            <div class="meaning-card">
-                <span class="card-icon">✨</span>
-                <h3 class="card-title">الجمال الأخّاذ</h3>
-                <p class="card-text">
-                    كزهرة النرجس التي تخطف الأنفاس ببياضها الناصع ورائحتها العطرة، 
-                    أنتِ جمالٌ يتجسد في أبهى صوره، نورٌ يضيء كل مكانٍ تخطوين فيه
-                </p>
-            </div>
-            
-            <div class="meaning-card">
-                <span class="card-icon">🌟</span>
-                <h3 class="card-title">الذكاء الحكيم</h3>
-                <p class="card-text">
-                    تحملين في عقلكِ نبضاً حكيماً، قادراً على حل الألغاز وإيجاد 
-                    الحلول ببراعة. ذكاؤكِ ليس مجرد معرفة، بل هو فنٌ في التفكير العميق
-                </p>
-            </div>
-            
-            <div class="meaning-card">
-                <span class="card-icon">💎</span>
-                <h3 class="card-title">الأناقة الفريدة</h3>
-                <p class="card-text">
-                    أناقتكِ ليست في الثياب بل في الروح، طريقةٌ في التعامل، 
-                    لمسةٌ من الرقي في كل حركة. أنتِ النبضة الجميلة في إيقاع الحياة
-                </p>
-            </div>
-            
-            <div class="meaning-card">
-                <span class="card-icon">🕊️</span>
-                <h3 class="card-title">النقاء الروحي</h3>
-                <p class="card-text">
-                    كالنرجس الأبيض النقي، قلبكِ صافٍ كبلورة الثلج، 
-                    تملكين القدرة على احتواء الآخرين بمحبةٍ صادقةٍ لا حدود لها
-                </p>
-            </div>
-            
-            <div class="meaning-card">
-                <span class="card-icon">🌺</span>
-                <h3 class="card-title">الإعجاب بالجمال</h3>
-                <p class="card-text">
-                    كأسطورة النرجس الجميلة، تعكسين الجمال الحقيقي 
-                    ليس الغرور بل التقدير العميق لروعة الوجود ودقة تفاصيل الكون
-                </p>
-            </div>
-            
-            <div class="meaning-card">
-                <span class="card-icon">🌅</span>
-                <h3 class="card-title">بشائر الربيع</h3>
-                <p class="card-text">
-                    مهما طال الشتاء، فإن مجيئكِ يحمل بشائر الخير والأمل. 
-                    أنتِ الفصل الجميل الذي يولد من جديد في كل صباح
-                </p>
-            </div>
+        <div class="scroll-indicator" onclick="document.getElementById('mythology').scrollIntoView({behavior: 'smooth'})">
+            ↓
         </div>
+    </section>
+    
+    <!-- Mythology Section -->
+    <section class="mythology-section" id="mythology">
+        <h2 class="section-title-luxury">📜 الأسطورة الخالدة 📜</h2>
         
-        <div class="poem-section">
-            <h2 class="poem-title">في مدح نرجس</h2>
-            <div class="poem-lines">
-                يا زهرةً في حقول الإعجاب تنمو<br>
-                يا نرجساً بجمال الروح يزهو<br>
-                <br>
-                في عينيكِ سرُّ الحكمةِ يَكمنُ<br>
-                وفي ابتسامتكِ للأملِ يَدُنو<br>
-                <br>
-                كالنرجسِ الأبيضِ في نقائِهِ<br>
-                قلبُكِ طهورٌ، طيبٌ، يُضيءُ ويَهُو<br>
-                <br>
-                كلُّ عامٍ وأنتِ بألفِ خيرٍ<br>
-                يا أجملَ ما في الكونِ قد يُزهو 🌸
-            </div>
-        </div>
-        
-        <div class="birthday-message">
-            <div class="birthday-text">🎉 كل عام وأنتِ بخير يا نرجس 🎂</div>
-            <p style="font-size: 1.3rem; color: #e0e0e0; margin-top: 1rem;">
-                عيد ميلاد سعيد مليء بالمحبة والنجاح والسعادة الأبدية
+        <div class="myth-card-luxury">
+            <p class="myth-quote-luxury">
+                في زمنِ الآلهةِ اليونانيةِ، كان هناكَ شابٌّ يُدعى نركيسوس<br>
+                ذو جمالٍ ساحرٍ أبهرَ الكونَ حتى أهلكَهُ الإعجابُ بانعكاسِهِ في الماء<br>
+                فتحولَ من جسمِهِ زهرةُ النرجسِ البيضاءَ، رمزاً للجمالِ الأبدي
             </p>
         </div>
         
-        <div class="signature">
-            مع كل التقدير والإعجاب 🌟
+        <div class="myth-card-luxury">
+            <p class="myth-quote-luxury">
+                أما أنتِ يا نرجسُ العصرِ، فأجملُ من الأسطورةِ بكثيرٍ<br>
+                فأنتِ لا تعشقينَ صورتَكِ، بل تُحبينَ الحياةَ وتُنيرينَ دروبَنا<br>
+                قلبُكِ ليسَ كالمرآةِ التي حبستْ نركيسوسَ، بل كالنبعِ الصافيِ الذي لا ينضبُ
+            </p>
         </div>
-        
-        <div class="scroll-indicator">↓</div>
     </section>
     
-    <div class="narcissus-flower flower1">🌼</div>
-    <div class="narcissus-flower flower2">🌸</div>
-    <div class="narcissus-flower flower3">🌼</div>
-    <div class="narcissus-flower flower4">🌺</div>
+    <!-- Attributes Section -->
+    <section class="attributes-luxury">
+        <h2 class="section-title-luxury">🌟 صفاتكِ الإلهية 🌟</h2>
+        
+        <div class="attributes-grid-luxury">
+            <div class="attribute-card-luxury">
+                <span class="card-icon-luxury">✨</span>
+                <h3 class="card-title-luxury">الجمال الأبدي</h3>
+                <p class="card-text-luxury">
+                    كزهرةِ النرجسِ التي خُلدَت في الأساطيرِ، جمالُكِ ليسَ عابراً بل هو سرٌّ إلهيٌّ يتجاوزُ حدودَ الزمنِ.
+                </p>
+            </div>
+            
+            <div class="attribute-card-luxury">
+                <span class="card-icon-luxury">💎</span>
+                <h3 class="card-title-luxury">النقاء الكريستالي</h3>
+                <p class="card-text-luxury">
+                    روحُكِ صافيةٌ كالماءِ الذي نظرَ إليهِ نركيسوسُ، لكنَّكِ أنتِ من يرى جمالَ الآخرينَ قبلَ جمالِ نفسِكِ.
+                </p>
+            </div>
+            
+            <div class="attribute-card-luxury">
+                <span class="card-icon-luxury">🦋</span>
+                <h3 class="card-title-luxury">الأناقة الساحرة</h3>
+                <p class="card-text-luxury">
+                    أناقتُكِ ليستْ في الثيابِ، بل في طريقةِ مشيتِكِ، في كلماتِكِ النقيةِ، في ابتسامتِكِ التي تُشبهُ شروقَ الشمسِ.
+                </p>
+            </div>
+            
+            <div class="attribute-card-luxury">
+                <span class="card-icon-luxury">🌙</span>
+                <h3 class="card-title-luxury">الحكمة العميقة</h3>
+                <p class="card-text-luxury">
+                    كما تنبأَ العرّافُ تيريسياسُ لنركيسوسَ، أنتِ تملكينَ حكمةً تفوقُ سنينَكِ. عقلُكِ يُحلِّلُ الألغازَ ببراعةٍ.
+                </p>
+            </div>
+            
+            <div class="attribute-card-luxury">
+                <span class="card-icon-luxury">🕊️</span>
+                <h3 class="card-title-luxury">الطيبة الإلهية</h3>
+                <p class="card-text-luxury">
+                    على عكسِ النرجوسِ الذي رفضَ حبَّ إيكو، أنتِ تملكينَ قلباً يتسعُ للعالمِ أجمعَ. محبتُكِ تُضمدُ الجراحَ التي لا نراها.
+                </p>
+            </div>
+            
+            <div class="attribute-card-luxury">
+                <span class="card-icon-luxury">🔥</span>
+                <h3 class="card-title-luxury">الشغف اللامحدود</h3>
+                <p class="card-text-luxury">
+                    كالنرجسِ الذي يعودُ كلَّ ربيعٍ مُتجدداً، أنتِ تملكينَ طاقةً لا تنضبُ وشغفاً يُشعلُ العالمَ من حولِكِ.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Poetry Section -->
+    <section class="poetry-luxury">
+        <h2 class="poetry-title-luxury">📖 قصيدة عيد الميلاد 📖</h2>
+        
+        <div class="poem-content-luxury">
+            <div class="poem-line-luxury">يا نرجساً في حقولِ الكونِ تتفتحُ</div>
+            <div class="poem-line-luxury">بجمالٍ يُبهرُ الأبصارَ ويَفتَحُ</div>
+            <div class="poem-line-luxury">في يومِ ميلادِكِ تُزهرُ الأماني</div>
+            <div class="poem-line-luxury">وتَعبقُ الأرضُ فرحاً بعطرِ أرواحِكِ الرَّقيقةِ</div>
+            <div class="poem-line-luxury">أنتِ الأملُ الذي يأتي معَ كلِّ فجرٍ</div>
+            <div class="poem-line-luxury">والنورُ الذي يُضيءُ دربَنا في الظلامِ</div>
+            <div class="poem-line-luxury">كلَّ عامٍ وأنتِ بألفِ خيرٍ</div>
+            <div class="poem-line-luxury">يا أجملَ ما خلقَ اللهُ في هذا العامِ 🌸</div>
+        </div>
+    </section>
+    
+    <!-- Birthday Celebration -->
+    <section class="birthday-celebration">
+        <canvas id="fireworks-canvas"></canvas>
+        
+        <div class="birthday-orb">
+            <div class="cake-emoji">🎂</div>
+            <div class="birthday-main-text">
+                عيد ميلاد<br>
+                سعيد<br>
+                يا نرجس
+            </div>
+            <div class="birthday-sub-luxury">
+                في هذا اليومِ المباركِ، نُهديكِ أجملَ الأماني<br>
+                سنةٌ جديدةٌ مليئةٌ بالنجاحاتِ والسعادةِ الأبديةِ
+            </div>
+        </div>
+    </section>
+    
+    <!-- Signature -->
+    <div class="signature-luxury">
+        <div style="font-size: clamp(1.5rem, 5vw, 2rem); margin-bottom: var(--space-sm);">🎁</div>
+        مع كلِّ الحبِّ والإعجابِ<br>
+        <span class="signature-heart-luxury">❤️</span><br>
+        هديةٌ أُعدَّتْ بكلِّ إتقانٍ وجمالٍ يُليقُ باسمِكِ الخالدِ
+    </div>
+    
+    <!-- Gift Box -->
+    <div class="gift-box" id="giftBox" onclick="showGift()">🎁</div>
+    <div class="gift-message" id="giftMessage">
+        🌟 رسالة سرية 🌟<br><br>
+        أنتِ أجملُ هديةٍ في حياتنا<br>
+        ونحنُ نحتفلُ بكِ كلَّ يومٍ<br>
+        وليسَ في عيدِ ميلادِكِ فقطْ 💝
+    </div>
     
     <script>
-        // Create floating particles
-        const particlesContainer = document.getElementById('particles');
-        const colors = ['#ffd700', '#ffec8b', '#ffffff', '#ffb6c1'];
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+                initFireworks();
+            }, 2000);
+        });
         
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            const size = Math.random() * 5 + 2;
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            particle.style.animationDelay = Math.random() * 10 + 's';
-            particle.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]} 0%, transparent 70%)`;
-            particlesContainer.appendChild(particle);
+        // Create Starfield - Optimized for mobile
+        const cosmos = document.getElementById('cosmos');
+        const isMobile = window.matchMedia('(pointer: coarse)').matches;
+        const starCount = isMobile ? 50 : 100;
+        
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.setProperty('--duration', (Math.random() * 4 + 2) + 's');
+            star.style.animationDelay = Math.random() * 5 + 's';
+            cosmos.appendChild(star);
         }
         
-        // Smooth scroll behavior
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        // Shooting Stars - Reduced on mobile
+        if (!isMobile) {
+            setInterval(() => {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                shootingStar.style.top = Math.random() * 50 + '%';
+                shootingStar.style.left = Math.random() * 50 + '%';
+                shootingStar.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                cosmos.appendChild(shootingStar);
+                setTimeout(() => shootingStar.remove(), 3000);
+            }, 3000);
+        }
         
-        // Add parallax effect on mouse move
-        document.addEventListener('mousemove', (e) => {
-            const cards = document.querySelectorAll('.meaning-card');
-            const x = (window.innerWidth - e.pageX) / 50;
-            const y = (window.innerHeight - e.pageY) / 50;
+        // Fireworks System - Touch optimized
+        let fireworksInitialized = false;
+        function initFireworks() {
+            if (fireworksInitialized) return;
+            fireworksInitialized = true;
             
-            cards.forEach((card, index) => {
-                const speed = (index + 1) * 0.5;
-                card.style.transform = `translateX(${x * speed}px) translateY(${y * speed}px)`;
+            const canvas = document.getElementById('fireworks-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas, { passive: true });
+            
+            const particles = [];
+            const colors = ['#FFD700', '#FF69B4', '#00CED1', '#FF6347', '#E8B4B8', '#FFF8DC'];
+            
+            function createFirework(x, y) {
+                const particleCount = isMobile ? 30 : 50;
+                for (let i = 0; i < particleCount; i++) {
+                    const angle = (Math.PI * 2 * i) / particleCount;
+                    const velocity = Math.random() * 6 + 2;
+                    particles.push({
+                        x: x,
+                        y: y,
+                        vx: Math.cos(angle) * velocity,
+                        vy: Math.sin(angle) * velocity,
+                        life: 100,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        size: Math.random() * 4 + 2
+                    });
+                }
+            }
+            
+            let animationId;
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.1;
+                    p.life--;
+                    p.size *= 0.98;
+                    
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = p.color;
+                    ctx.fill();
+                    
+                    if (p.life <= 0 || p.size < 0.5) {
+                        particles.splice(i, 1);
+                    }
+                }
+                
+                animationId = requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            // Auto fireworks - Less frequent on mobile
+            const fireworkInterval = isMobile ? 2500 : 1500;
+            setInterval(() => {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height * 0.5;
+                createFirework(x, y);
+            }, fireworkInterval);
+            
+            // Touch support for fireworks
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                createFirework(touch.clientX, touch.clientY);
+            }, { passive: false });
+            
+            canvas.addEventListener('click', (e) => {
+                createFirework(e.clientX, e.clientY);
             });
-        });
+        }
         
-        // Reveal animation on scroll
+        // Gift Box Function
+        function showGift() {
+            const message = document.getElementById('giftMessage');
+            message.classList.toggle('show');
+            
+            const canvas = document.getElementById('fireworks-canvas');
+            const rect = document.getElementById('giftBox').getBoundingClientRect();
+            
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const event = new MouseEvent('click', {
+                        clientX: rect.left + rect.width / 2,
+                        clientY: rect.top + rect.height / 2
+                    });
+                    canvas.dispatchEvent(event);
+                }, i * 200);
+            }
+        }
+        
+        // Intersection Observer - Optimized
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
+            rootMargin: '0px 0px -50px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
@@ -435,11 +1219,50 @@
             });
         }, observerOptions);
         
-        document.querySelectorAll('.meaning-card').forEach((card, index) => {
+        document.querySelectorAll('.attribute-card-luxury, .myth-card-luxury').forEach((card, index) => {
             card.style.opacity = '0';
-            card.style.transform = 'translateY(50px)';
-            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            card.style.transform = 'translateY(60px)';
+            card.style.transition = `all 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s`;
             observer.observe(card);
+        });
+        
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Scroll effects - Throttled for performance
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const currentScroll = window.pageYOffset;
+                    const name = document.querySelector('.name-3d');
+                    const reflection = document.querySelector('.name-reflection');
+                    
+                    if (name && reflection) {
+                        const rotateX = currentScroll * 0.02;
+                        const translateY = currentScroll * 0.1;
+                        name.style.transform = `translateY(${translateY}px) rotateX(${rotateX}deg)`;
+                        reflection.style.transform = `scaleY(-1) translateY(${-20 - translateY * 0.5}%) rotateX(${-rotateX}deg)`;
+                        reflection.style.opacity = Math.max(0, 0.3 - currentScroll * 0.0005);
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+        
+        // Handle visibility change to pause animations
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Pause expensive animations when tab is hidden
+            }
         });
     </script>
 </body>
